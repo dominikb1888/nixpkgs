@@ -16,7 +16,7 @@
     character.error_symbol = " [❯](bold #a9b1d6)[❯](bold #f7768e)[❯](bold #a9b1d6)";
     character.vicmd_symbol = " [V](bold #7dcfff) ";
 
-    cmd_duration.runtime = 500;
+    cmd_duration.min_time = 500;
     cmd_duration.format = "[$duration](bold #c0caf5)";
     memory_usage.disabled = true; # because it includes cached memory it's reported as full a lot
     username.style_user = "bold blue"; # don't like the default
