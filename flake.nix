@@ -149,7 +149,7 @@
         modules = attrValues self.homeManagerModules ++ singleton ({ config, ...}: {
           home.username = config.home.user-info.username;
           home.homeDirectory = "/home/${config.home.username}";
-          home.stateVersion = homeManage/StateVersion;
+          home.stateVersion = homeManagerStateVersion;
           home.user-info = primaryUserInfo // {
             nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
           };
