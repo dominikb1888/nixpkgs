@@ -70,10 +70,6 @@ in
     "vlc"
   ];
 
-  # Configuration related to casks
-  environment.variables.SSH_AUTH_SOCK = mkIfCaskPresent "1password-cli"
-    "/Users/${config.users.primaryUser.username}/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock";
-
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.
   homebrew.brews = [
