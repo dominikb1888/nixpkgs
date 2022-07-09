@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<workflow>
+  <name>DOI Tools</name>
+  <version>1.0.1</version>
+  <bundle>org.buschmeier.alfred.workflow.doitools</bundle>
+  <updated>1423817114</updated>
+  <file>doi-tools.alfredworkflow</file>
+</workflow>

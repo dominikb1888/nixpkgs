@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>customSites</key>
+	<dict>
+		<key>622BC43C-2014-4F58-BA1D-E3BFEB1547A9</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>airtable</string>
+			<key>text</key>
+			<string>Airtable</string>
+			<key>url</key>
+			<string>https://airtable.com/appvIU8J8nAyLe3YP/tbl8ylNGYzgvhK5BF/viwzrlODnI216w164?blocks=hide</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
+		<key>AC85E11F-B459-4E91-B7D3-0BC65990B359</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>github</string>
+			<key>text</key>
+			<string>Github</string>
+			<key>url</key>
+			<string>https://github.com</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
+		<key>D7FDE28F-C34C-438E-9350-B4E1230515E8</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>linkedin</string>
+			<key>text</key>
+			<string>LinkedIN</string>
+			<key>url</key>
+			<string>https://linkedin.com</string>
+			<key>utf8</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
