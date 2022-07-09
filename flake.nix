@@ -40,7 +40,7 @@
         };
         overlays = attrValues self.overlays ++ [
           # Sub in x86 version of packages that don't build on Apple Silicon yet
-          (final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+          (final: prev: (optionalAttrs (prev.stdenv.system == "x86-64-darwin") {
             inherit (final.pkgs-x86)
               idris2;
           }))
@@ -58,10 +58,10 @@
       homeManagerStateVersion = "22.11";
 
       primaryUserInfo = {
-        username = "malo";
-        fullName = "Malo Bourgon";
-        email = "mbourgon@gmail.com";
-        nixConfigDirectory = "/Users/malo/.config/nixpkgs";
+        username = "dominikb1888";
+        fullName = "Dominik Boehler";
+        email = "dominik.boehler@gmx.net";
+        nixConfigDirectory = "/Users/dominikb1888/.config/nixpkgs";
       };
 
       # Modules shared by most `nix-darwin` personal configurations.
@@ -92,7 +92,7 @@
           }
         )
       ];
-      # }}}
+     # }}}
     in
     {
 
@@ -105,16 +105,16 @@
           system = "x86_64-darwin";
           modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsConfig; } ];
         };
-        bootstrap-arm = bootstrap-x86.override { system = "aarch64-darwin"; };
+        bootstrap-arm = bootstrap-x86.override { system = "x86_64-darwin"; };
 
         # My Apple Silicon macOS laptop config
-        MaloBookPro = darwinSystem {
-          system = "aarch64-darwin";
+        Dominiks-MBP = darwinSystem {
+          system = "x86_64-darwin";
           modules = nixDarwinCommonModules ++ [
             {
               users.primaryUser = primaryUserInfo;
-              networking.computerName = "Malo’s 💻";
-              networking.hostName = "MaloBookPro";
+              networking.computerName = "Dom’s 💻";
+              networking.hostName = "Dominiks-MBP";
               networking.knownNetworkServices = [
                 "Wi-Fi"
                 "USB 10/100/1000 LAN"
@@ -149,7 +149,7 @@
         modules = attrValues self.homeManagerModules ++ singleton ({ config, ...}: {
           home.username = config.home.user-info.username;
           home.homeDirectory = "/home/${config.home.username}";
-          home.stateVersion = homeManagerStateVersion;
+          home.stateVersion = homeManage/StateVersion;
           home.user-info = primaryUserInfo // {
             nixConfigDirectory = "${config.home.homeDirectory}/.config/nixpkgs";
           };
@@ -168,7 +168,7 @@
           };
         };
         pkgs-stable = _: prev: {
-          pkgs-stable = import inputs.nixpkgs-stable {
+         pkgs-stable = import inputs.nixpkgs-stable {
             inherit (prev.stdenv) system;
             inherit (nixpkgsConfig) config;
           };
@@ -201,7 +201,7 @@
           };
 
         # Overlay useful on Macs with Apple Silicon
-        apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+        apple-silicon = _: prev: optionalAttrs (prev.stdenv.system == "x86_64-darwin") {
           # Add access to x86 packages system is running Apple Silicon
           pkgs-x86 = import inputs.nixpkgs-unstable {
             system = "x86_64-darwin";
@@ -232,7 +232,7 @@
         users-primaryUser = import ./modules/darwin/users.nix;
       };
 
-      homeManagerModules = {
+       homeManagerModules = {
         # My configurations
         malo-config-files = import ./home/config-files.nix;
         malo-fish = import ./home/fish.nix;
@@ -256,7 +256,7 @@
       # }}}
 
       # Add re-export `nixpkgs` packages with overlays.
-      # This is handy in combination with `nix registry add my /Users/malo/.config/nixpkgs`
+      # This is handy in combination with `nix registry add my /Users/dominikb1888/.config/nixpkgs`
     } // flake-utils.lib.eachDefaultSystem (system: {
       legacyPackages = import inputs.nixpkgs-unstable {
         inherit system;

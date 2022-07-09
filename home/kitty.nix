@@ -29,8 +29,8 @@ in
 
   programs.kitty.settings = {
     # https://fsd.it/shop/fonts/pragmatapro/
-    font_family = "PragmataPro Mono Liga";
-    font_size = "14.0";
+    font_family = "Recursive Mono";
+    font_size = "18.0";
     adjust_line_height = "140%";
     disable_ligatures = "cursor"; # disable ligatures when cursor is on them
 
@@ -46,12 +46,6 @@ in
     inactive_tab_font_style = "normal";
     tab_activity_symbol = "";
   };
-
-  # Change the style of italic font variants
-  programs.kitty.extraConfig = ''
-    font_features PragmataProMonoLiga-Italic +ss06
-    font_features PragmataProMonoLiga-BoldItalic +ss07
-  '';
 
   programs.kitty.extras.useSymbolsFromNerdFont = "JetBrainsMono Nerd Font";
   # }}}
