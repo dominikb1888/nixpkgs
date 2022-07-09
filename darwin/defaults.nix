@@ -27,7 +27,7 @@
     autohide = true;
     expose-group-by-app = false;
     mru-spaces = false;
-    tilesize = 128;
+    tilesize = 64;
     # Disable all hot corners
     wvous-bl-corner = 1;
     wvous-br-corner = 1;
