@@ -66,6 +66,7 @@ in
     "microsoft-teams"
     "slack"
     "steam"
+    "timemachineeditor"
     "visual-studio-code"
     "vlc"
   ];
