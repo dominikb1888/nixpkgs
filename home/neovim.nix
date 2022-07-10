@@ -44,14 +44,12 @@ in
     tabular
     vim-commentary
     vim-eunuch
-    vim-haskell-module-name
     vim-surround
   ] ++ map (p: { plugin = p; optional = true; }) [
     which-key-nvim
     zoomwintab-vim
   ] ++ map nonVSCodePlugin [
     agda-vim
-    copilot-vim
     direnv-vim
     goyo-vim
     vim-fugitive
