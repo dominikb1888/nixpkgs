@@ -34,15 +34,19 @@
     coreutils
     curl
     du-dust # fancy version of `du`
+    fzf # fuzzy commandline finder
     exa # fancy version of `ls`
     fd # fancy version of `find`
     htop # fancy version of `top`
+    # hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     hyperfine # benchmarking tool
+    # marp # cli presentation tool -- currently insecure
     mosh # wrapper for `ssh` that better and not dropping connections
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
     # python3Packages.shell-functools # a collection of functional programming tools for the shell
     ripgrep # better version of `grep`
+    slides
     tealdeer # rust implementation of `tldr`
     # thefuck
     unrar # extract RAR archives
