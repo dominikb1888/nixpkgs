@@ -92,6 +92,20 @@ in
       '';
       onVariable = "term_background";
     };
+
+    vup.body = ''
+      if [[ -z $VPN_HOST ]]
+        then
+        echo "Please set VPN_HOST env var"
+        return
+      end
+      echo "Starting the vpn ..."
+      sudo openconnect --background --non-inter --user=$THDUSER --authgroup=$AUTHGROUP --servercert=$THDVPNCERT $VPN_HOST < $VPNPASS
+    '';
+
+    vdn.body = ''
+      sudo kill -2 `pgrep openconnect`
+    '';
   };
   # }}}
 
