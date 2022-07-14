@@ -29,7 +29,8 @@ in
 
   programs.kitty.settings = {
     # https://fsd.it/shop/fonts/pragmatapro/
-    font_family = "Recursive Mono";
+    font_family = "Rec Mono Semicasual";
+    #font_family = "Essential PragmataPro";
     font_size = "18.0";
     adjust_line_height = "140%";
     disable_ligatures = "cursor"; # disable ligatures when cursor is on them
