@@ -106,6 +106,14 @@ in
     vdn.body = ''
       sudo kill -2 `pgrep openconnect`
     '';
+
+    __select_from_last.body = ''
+      set -l FZF_OUT (eval $history[1] | fzf --height 15%)
+      if test -n "$FZF_OUT"
+        commandline -r $FZF_OUT
+        commandline --cursor 0
+      end
+    '';
   };
   # }}}
 
@@ -127,12 +135,16 @@ in
     ".." = "cd ..";
     ":q" = "exit";
     cat = "${bat}/bin/bat";
+    cl = "clear";
     du = "${du-dust}/bin/dust";
     g = "${gitAndTools.git}/bin/git";
     la = "ll -a";
-    ll = "ls -l --time-style long-iso --icons";
-    ls = "${exa}/bin/exa";
+    ll = "ls -l --time-style=iso --icons --git --no-filesize --no-user --header";
+    ls = "${exa}/bin/exa -1 --group-directories-first";
     tb = "toggle-background";
+    v = "vim";
+    vi = "vim";
+    vim = "nvim";
   };
 
   # Configuration that should be above `loginShellInit` and `interactiveShellInit`.

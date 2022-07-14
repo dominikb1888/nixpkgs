@@ -53,6 +53,7 @@ in
   # limitiations, e.g., Transmit, install the Homebrew Cask.
   homebrew.casks = [
     "alfred"
+    "adobe-creative-cloud"
     "cloudflare-warp"
     "google-chrome"
     "google-drive"
