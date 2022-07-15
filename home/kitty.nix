@@ -29,15 +29,15 @@ in
 
   programs.kitty.settings = {
     # https://fsd.it/shop/fonts/pragmatapro/
-    font_family = "Rec Mono Semicasual";
-    #font_family = "Essential PragmataPro";
+    # font_family = "Rec Mono Semicasual";
+    font_family = "Pragmata Pro Mono";
     font_size = "18.0";
     adjust_line_height = "140%";
     disable_ligatures = "cursor"; # disable ligatures when cursor is on them
 
     # Window layout
     hide_window_decorations = "titlebar-only";
-    window_padding_width = "10";
+    window_padding_width = "30";
 
     # Tab bar
     tab_bar_edge = "top";

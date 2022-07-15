@@ -138,6 +138,7 @@ in
     cl = "clear";
     du = "${du-dust}/bin/dust";
     g = "${gitAndTools.git}/bin/git";
+    lg = "la --git-ignore"; # does not list files ignored by git
     la = "ll -a";
     ll = "ls -l --time-style=iso --icons --git --no-filesize --no-user --header";
     ls = "${exa}/bin/exa -1 --group-directories-first";
@@ -172,6 +173,8 @@ in
     set -g fish_color_operator     green     # color of parameter expansion operators like '*' and '~'
     set -g fish_color_escape       red       # color of character escapes like '\n' and and '\x70'
     set -g fish_color_cancel       red       # color of the '^C' indicator on a canceled command
+
+    export EXA_ICON_SPACING=2
   '';
   # }}}
 }
