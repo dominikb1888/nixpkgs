@@ -40,7 +40,7 @@
     htop # fancy version of `top`
     # hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     hyperfine # benchmarking tool
-    # marp # cli presentation tool -- currently insecure
+    # marp # cli presentation tool -- currently insecure installed via brew
     mosh # wrapper for `ssh` that better and not dropping connections
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
