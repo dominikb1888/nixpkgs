@@ -54,7 +54,6 @@ in
   homebrew.casks = [
     "alfred"
     "adobe-creative-cloud"
-    "cloudflare-warp"
     "google-chrome"
     "google-drive"
     "gpg-suite"
