@@ -30,7 +30,7 @@
     abduco # lightweight session management
     bandwhich # display current network utilization by process
     bottom # fancy version of `top` with ASCII graphs
-    browsh # in terminal browser
+    # browsh # in terminal browser
     coreutils
     curl
     du-dust # fancy version of `du`
