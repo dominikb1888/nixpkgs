@@ -37,6 +37,7 @@
     fzf # fuzzy commandline finder
     exa # fancy version of `ls`
     fd # fancy version of `find`
+    git-lfs
     htop # fancy version of `top`
     # hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     hyperfine # benchmarking tool
