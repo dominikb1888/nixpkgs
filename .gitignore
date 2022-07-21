@@ -6,3 +6,5 @@ private.nix
 private.nix
 
 result
+
+flake.lock
