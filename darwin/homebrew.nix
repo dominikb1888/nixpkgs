@@ -64,6 +64,7 @@ in
     "rectangle"
     "onedrive"
     "microsoft-teams"
+    "nextcloud"
     "slack"
     "steam"
     "timemachineeditor"
