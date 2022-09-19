@@ -20,7 +20,9 @@ let
   nonVSCodePlugin = plugin: {
     inherit plugin;
     optional = true;
-    config = ''if !exists('g:vscode') | packadd ${plugin.pname} | endif'';
+    config = ''
+      if !exists('g:vscode') | packadd ${plugin.pname} | endif
+    '';
   };
 in
 # }}}
@@ -101,7 +103,8 @@ in
     rnix-lsp
     shellcheck
     statix
-  ] ++ optional (pkgs.stdenv.system != "x86_64-darwin") sumneko-lua-language-server;
+    sumneko-lua-language-server
+ ];
   # }}}
 }
 # vim: foldmethod=marker

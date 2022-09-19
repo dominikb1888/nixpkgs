@@ -53,7 +53,7 @@
     unrar # extract RAR archives
     wget
     xz # extract XZ archives
-
+    yank
     # Dev stuff
     # (agda.withPackages (p: [ p.standard-library ]))
     cloc # source code line counter
