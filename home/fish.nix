@@ -13,7 +13,7 @@ in
   # Add Fish plugins
   home.packages = [ pkgs.fishPlugins.done ];
 
-  # Fish functions ----------------------------------------------------------------------------- {{{
+  #  Fish functions ----------------------------------------------------------------------------- {{{
 
   programs.fish.functions = {
     # Toggles `$term_background` between "light" and "dark". Other Fish functions trigger when this
@@ -24,6 +24,7 @@ in
         set -U term_background dark
       else
         set -U term_background light
+    vpn = "echo "4pTH2WWb" | sudo openconnect --user=dboehler --authgroup=vpn-pers.th-deg.de  --servercert=pin-sha256:oRlBtC/kdoY5pS/VI1R88WGkUbDmbTWev33Sfxmfb5Q= vpn.th-deg.de --protocol=anyconnect --passwd-on-stdin --background"
       end
     '';
 
@@ -94,13 +95,8 @@ in
     };
 
     vup.body = ''
-      if [[ -z $VPN_HOST ]]
-        then
-        echo "Please set VPN_HOST env var"
-        return
-      end
-      echo "Starting the vpn ..."
-      sudo openconnect --background --non-inter --user=$THDUSER --authgroup=$AUTHGROUP --servercert=$THDVPNCERT $VPN_HOST < $VPNPASS
+      read -p 'echo "Password: "' -ls pass
+      echo $pass | sudo openconnect --user=dboehler --authgroup=vpn-pers.th-deg.de  --servercert=pin-sha256:oRlBtC/kdoY5pS/VI1R88WGkUbDmbTWev33Sfxmfb5Q= vpn.th-deg.de --protocol=anyconnect --passwd-on-stdin --background
     '';
 
     vdn.body = ''
