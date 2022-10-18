@@ -43,6 +43,7 @@
     hyperfine # benchmarking tool
     # marp # cli presentation tool -- currently insecure installed via brew
     mosh # wrapper for `ssh` that better and not dropping connections
+    ngrok
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
     # python3Packages.shell-functools # a collection of functional programming tools for the shell
@@ -69,7 +70,8 @@
     nix-tree # interactively browse dependency graphs of Nix derivations
     nix-update # swiss-knife for updating nix packages
     nixpkgs-review # review pull-requests on nixpkgs
-    mach-nix
+
+
     nodePackages.node2nix
     statix # lints and suggestions for the Nix programming language
 
