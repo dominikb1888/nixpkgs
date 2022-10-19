@@ -15,9 +15,9 @@
     terminal-notifier
   ];
   # https://github.com/nix-community/home-manager/issues/423
-  environment.variables = {
-    TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
-  };
+  # environment.variables = {
+  #   TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
+  # };
   programs.nix-index.enable = true;
 
   # Fonts
@@ -34,4 +34,12 @@
 
   # Add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
-}
+
+  # Used for backwards compatibility, please read the changelog before changing.
+  # $ darwin-rebuild changelog
+  system.stateVersion = 4;
+
+  # Disable documentation until https://github.com/LnL7/nix-darwin/issues/217 is fixed.
+  documentation.enable = false;
+
+  }
