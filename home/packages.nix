@@ -9,6 +9,9 @@
     style = "plain";
   };
 
+  # Disable manpages until https://github.com/nix-community/home-manager/issues/3342 is fixed
+  manual.manpages.enable = false;
+
   # Direnv, load and unload environment variables depending on the current directory.
   # https://direnv.net
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.direnv.enable
