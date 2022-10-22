@@ -44,7 +44,6 @@ in
   programs.neovim.plugins = with pkgs.vimPlugins; [
     lush-nvim
     tabular
-    vim-commentary
     vim-eunuch
     vim-surround
   ] ++ map (p: { plugin = p; optional = true; }) [
@@ -56,6 +55,7 @@ in
     goyo-vim
     vim-fugitive
   ] ++ map nonVSCodePluginWithConfig [
+    comment-nvim
     (pluginWithDeps coq_nvim [ coq-artifacts coq-thirdparty ])
     editorconfig-vim
     (pluginWithDeps galaxyline-nvim [ nvim-web-devicons ])
