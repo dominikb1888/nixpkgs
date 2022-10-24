@@ -67,6 +67,7 @@ in
     nvim-lastplace
     nvim-lspconfig
     (nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars))
+    octo-nvim
     (pluginWithDeps telescope-nvim [
       nvim-web-devicons
       telescope-file-browser-nvim
