@@ -40,11 +40,13 @@
     fzf # fuzzy commandline finder
     exa # fancy version of `ls`
     fd # fancy version of `find`
+    ffmpeg
     git-lfs
     htop # fancy version of `top`
     # hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     hyperfine # benchmarking tool
     # marp # cli presentation tool -- currently insecure installed via brew
+    imagemagick
     mosh # wrapper for `ssh` that better and not dropping connections
     ngrok
     nodePackages.speed-test # nice speed-test tool
