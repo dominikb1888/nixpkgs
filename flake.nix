@@ -203,9 +203,6 @@
         nodePackages = _: prev: {
           nodePackages = prev.nodePackages // import ./pkgs/node-packages { pkgs = prev; };
         };
-
-        # Overlay that adds `lib.colors` to reference colors elsewhere in system configs
-        colors = import ./overlays/colors.nix;
       };
 
       darwinModules = {
@@ -223,6 +220,7 @@
 
        homeManagerModules = {
         # My configurations
+        malo-colors = import ./home/colors.nix;
         malo-config-files = import ./home/config-files.nix;
         malo-fish = import ./home/fish.nix;
         malo-git = import ./home/git.nix;
@@ -235,6 +233,7 @@
         malo-starship-symbols = import ./home/starship-symbols.nix;
 
         # Modules I've created
+        colors = import ./modules/home/colors;
         programs-neovim-extras = import ./modules/home/programs/neovim/extras.nix;
         programs-kitty-extras = import ./modules/home/programs/kitty/extras.nix;
         home-user-info = { lib, ... }: {
@@ -250,13 +249,28 @@
       legacyPackages = import inputs.nixpkgs-unstable {
         inherit system;
         inherit (nixpkgsConfig) config;
-        overlays = with self.overlays; [
+        overlays = attrValues {
+          inherit(self.overlays)
           pkgs-master
           pkgs-stable
           apple-silicon
-          nodePackages
-        ];
+          nodePackages;
       };
+    };
+      # Shell environments for development
+      devShells =
+        let
+          pkgs = self.legacyPackages.${system};
+        in
+        {
+          python = pkgs.mkShell {
+            name = "python310";
+            inputsFrom = attrValues {
+              inherit (pkgs.pkgs-master.python310Packages) black isort;
+              inherit (pkgs) poetry python310 pyright;
+            };
+          };
+        };
     });
 }
 # vim: foldmethod=marker
