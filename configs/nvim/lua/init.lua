@@ -13,7 +13,6 @@ local cmd = vim.cmd
 -- - Flesh out custom colorscheme
 --   - Revisit Pmenu highlights:
 --   - Experiment with `Diff` highlights to look more like `delta`'s output.
---   - Set `g:terminal_color` values.
 --   - Decide on whether I want to include a bunch of language specific highlights
 --   - Figure out what to do with `tree-sitter` highlights.
 --   - Stretch
@@ -30,8 +29,6 @@ local cmd = vim.cmd
 -- - Other
 --   - Figure out how to get Lua LSP to be aware Nvim plugins. Why aren't they on `package.path`?
 --   - Play around with `tree-sitter`.
---   - Look into replacing floaterm-vim with vim-toggleterm.lua.
-
 
 -- Basic Vim Config --------------------------------------------------------------------------------
 
@@ -82,20 +79,24 @@ end
 
 -- Set UI related options
 o.termguicolors   = true
-o.showmode        = false -- don't show -- INSERT -- etc.
-wo.colorcolumn    = '100' -- show column boarder
-wo.number         = true  -- display numberline
-wo.relativenumber = true  -- relative line numbers
-wo.signcolumn     = 'yes' -- always have signcolumn open to avoid thing shifting around all the time
+o.showmode        = false    -- don't show -- INSERT -- etc.
+wo.colorcolumn    = '100'    -- show column boarder
+wo.number         = true     -- display numberline
+wo.relativenumber = true     -- relative line numbers
+wo.cursorline     = true     -- highlight current line
+wo.cursorlineopt  = 'number' -- only highlight the number of the cursorline
+wo.signcolumn     = 'yes'    -- always have signcolumn open to avoid thing shifting around all the time
 o.fillchars       = 'stl: ,stlnc: ,vert:·,eob: ' -- No '~' on lines after end of file, other stuff
 
 -- Set colorscheme
-require'malo.theme'.extraLushSpecs = {
-  'lush_theme.malo.bufferline-nvim',
-  'lush_theme.malo.statusline',
-  'lush_theme.malo.telescope-nvim',
-}
-cmd 'colorscheme malo'
+if g.vscode == nil then
+  require'malo.theme'.extraLushSpecs = {
+    'lush_theme.malo.bufferline-nvim',
+    'lush_theme.malo.statusline',
+    'lush_theme.malo.telescope-nvim',
+  }
+  cmd 'colorscheme malo'
+end
 
 
 -- Terminal ----------------------------------------------------------------------------------------
@@ -205,7 +206,7 @@ wk.register ({
       s = { '<Cmd>Telescope git_status<CR>'  , 'Status'         },
       c = { '<Cmd>Telescope git_commits<CR>' , 'Commits'        },
       C = { '<Cmd>Telescope git_commits<CR>' , 'Buffer commits' },
-      b = { '<Cmd>Telescope git_branches<CR>' , 'Branches'       },
+      b = { '<Cmd>Telescope git_branches<CR>' , 'Branches'      },
     },
     -- Other
     v = { '<Cmd>!gh repo view --web<CR>' , 'View on GitHub' },
@@ -214,15 +215,15 @@ wk.register ({
   -- Language server
   l = {
     name = '+LSP',
-    h = { '<Cmd>Lspsaga hover_doc<CR>'            , 'Hover'                   },
-    d = { vim.lsp.buf.definition                  , 'Jump to definition'      },
-    D = { vim.lsp.buf.declaration                 , 'Jump to declaration'     },
-    a = { '<Cmd>Lspsaga code_action<CR>'          , 'Code action'             },
-    f = { vim.lsp.buf.formatting                  , 'Format'                  },
-    r = { '<Cmd>Lspsaga rename<CR>'               , 'Rename'                  },
-    t = { vim.lsp.buf.type_definition             , 'Jump to type definition' },
-    n = { '<Cmd>Lspsaga diagnostic_jump_next<CR>' , 'Jump to next diagnostic' },
-    N = { '<Cmd>Lspsaga diagnostic_jump_prev<CR>' , 'Jump to prev diagnostic' },
+    h = { '<Cmd>Lspsaga hover_doc<CR>'   , 'Hover'                   },
+    d = { vim.lsp.buf.definition         , 'Jump to definition'      },
+    D = { vim.lsp.buf.declaration        , 'Jump to declaration'     },
+    a = { '<Cmd>Lspsaga code_action<CR>' , 'Code action'             },
+    f = { vim.lsp.buf.formatting         , 'Format'                  },
+    r = { '<Cmd>Lspsaga rename<CR>'      , 'Rename'                  },
+    t = { vim.lsp.buf.type_definition    , 'Jump to type definition' },
+    n = { function() vim.diagnostic.goto_next({float = false}) end, 'Jump to next diagnostic' },
+    N = { function() vim.diagnostic.goto_prev({float = false}) end, 'Jump to next diagnostic' },
     l = {
       name = '+Lists',
       a = { '<Cmd>Telescope lsp_code_actions<CR>'       , 'Code actions'         },
@@ -267,154 +268,6 @@ wk.register ({
   }
 
 }, { prefix = ' ' })
-
--- Octo.nvim
--- https://github.com/pwntester/octo.nvim
-cmd 'packadd octo.nvim'
-
-require"octo".setup({
-  default_remote = {"upstream", "origin"}; -- order to try remotes
-  ssh_aliases = {},                        -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
-  reaction_viewer_hint_icon = "";         -- marker for user reactions
-  user_icon = " ";                        -- user icon
-  timeline_marker = "";                   -- timeline marker
-  timeline_indent = "2";                   -- timeline indentation
-  right_bubble_delimiter = "";            -- bubble delimiter
-  left_bubble_delimiter = "";             -- bubble delimiter
-  github_hostname = "";                    -- GitHub Enterprise host
-  snippet_context_lines = 4;               -- number or lines around commented lines
-  issues = {
-    order_by = {                           -- criteria to sort results of `Octo issue list`
-      field = "CREATED_AT",                -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
-      direction = "DESC"                   -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
-    }
-  },
-  pull_requests = {
-    order_by = {                           -- criteria to sort the results of `Octo pr list`
-      field = "CREATED_AT",                -- either COMMENTS, CREATED_AT or UPDATED_AT (https://docs.github.com/en/graphql/reference/enums#issueorderfield)
-      direction = "DESC"                   -- either DESC or ASC (https://docs.github.com/en/graphql/reference/enums#orderdirection)
-    },
-    always_select_remote_on_create = "false" -- always give prompt to select base remote repo when creating PRs
-  },
-  file_panel = {
-    size = 10,                             -- changed files panel rows
-    use_icons = true                       -- use web-devicons in file panel (if false, nvim-web-devicons does not need to be installed)
-  },
-  mappings = {
-    issue = {
-      close_issue = { lhs = "<space>ic", desc = "close issue" },
-      reopen_issue = { lhs = "<space>io", desc = "reopen issue" },
-      list_issues = { lhs = "<space>il", desc = "list open issues on same repo" },
-      reload = { lhs = "<C-r>", desc = "reload issue" },
-      open_in_browser = { lhs = "<C-b>", desc = "open issue in browser" },
-      copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
-      add_assignee = { lhs = "<space>aa", desc = "add assignee" },
-      remove_assignee = { lhs = "<space>ad", desc = "remove assignee" },
-      create_label = { lhs = "<space>lc", desc = "create label" },
-      add_label = { lhs = "<space>la", desc = "add label" },
-      remove_label = { lhs = "<space>ld", desc = "remove label" },
-      goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
-      add_comment = { lhs = "<space>ca", desc = "add comment" },
-      delete_comment = { lhs = "<space>cd", desc = "delete comment" },
-      next_comment = { lhs = "]c", desc = "go to next comment" },
-      prev_comment = { lhs = "[c", desc = "go to previous comment" },
-      react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
-      react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
-      react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
-      react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
-      react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
-      react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
-      react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
-      react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
-    },
-    pull_request = {
-      checkout_pr = { lhs = "<space>po", desc = "checkout PR" },
-      merge_pr = { lhs = "<space>pm", desc = "merge commit PR" },
-      squash_and_merge_pr = { lhs = "<space>psm", desc = "squash and merge PR" },
-      list_commits = { lhs = "<space>pc", desc = "list PR commits" },
-      list_changed_files = { lhs = "<space>pf", desc = "list PR changed files" },
-      show_pr_diff = { lhs = "<space>pd", desc = "show PR diff" },
-      add_reviewer = { lhs = "<space>va", desc = "add reviewer" },
-      remove_reviewer = { lhs = "<space>vd", desc = "remove reviewer request" },
-      close_issue = { lhs = "<space>ic", desc = "close PR" },
-      reopen_issue = { lhs = "<space>io", desc = "reopen PR" },
-      list_issues = { lhs = "<space>il", desc = "list open issues on same repo" },
-      reload = { lhs = "<C-r>", desc = "reload PR" },
-      open_in_browser = { lhs = "<C-b>", desc = "open PR in browser" },
-      copy_url = { lhs = "<C-y>", desc = "copy url to system clipboard" },
-      goto_file = { lhs = "gf", desc = "go to file" },
-      add_assignee = { lhs = "<space>aa", desc = "add assignee" },
-      remove_assignee = { lhs = "<space>ad", desc = "remove assignee" },
-      create_label = { lhs = "<space>lc", desc = "create label" },
-      add_label = { lhs = "<space>la", desc = "add label" },
-      remove_label = { lhs = "<space>ld", desc = "remove label" },
-      goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
-      add_comment = { lhs = "<space>ca", desc = "add comment" },
-      delete_comment = { lhs = "<space>cd", desc = "delete comment" },
-      next_comment = { lhs = "]c", desc = "go to next comment" },
-      prev_comment = { lhs = "[c", desc = "go to previous comment" },
-      react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
-      react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
-      react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
-      react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
-      react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
-      react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
-      react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
-      react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
-    },
-    review_thread = {
-      goto_issue = { lhs = "<space>gi", desc = "navigate to a local repo issue" },
-      add_comment = { lhs = "<space>ca", desc = "add comment" },
-      add_suggestion = { lhs = "<space>sa", desc = "add suggestion" },
-      delete_comment = { lhs = "<space>cd", desc = "delete comment" },
-      next_comment = { lhs = "]c", desc = "go to next comment" },
-      prev_comment = { lhs = "[c", desc = "go to previous comment" },
-      select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
-      select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
-      close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-      react_hooray = { lhs = "<space>rp", desc = "add/remove 🎉 reaction" },
-      react_heart = { lhs = "<space>rh", desc = "add/remove ❤️ reaction" },
-      react_eyes = { lhs = "<space>re", desc = "add/remove 👀 reaction" },
-      react_thumbs_up = { lhs = "<space>r+", desc = "add/remove 👍 reaction" },
-      react_thumbs_down = { lhs = "<space>r-", desc = "add/remove 👎 reaction" },
-      react_rocket = { lhs = "<space>rr", desc = "add/remove 🚀 reaction" },
-      react_laugh = { lhs = "<space>rl", desc = "add/remove 😄 reaction" },
-      react_confused = { lhs = "<space>rc", desc = "add/remove 😕 reaction" },
-    },
-    submit_win = {
-      approve_review = { lhs = "<C-a>", desc = "approve review" },
-      comment_review = { lhs = "<C-m>", desc = "comment review" },
-      request_changes = { lhs = "<C-r>", desc = "request changes review" },
-      close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-    },
-    review_diff = {
-      add_review_comment = { lhs = "<space>ca", desc = "add a new review comment" },
-      add_review_suggestion = { lhs = "<space>sa", desc = "add a new review suggestion" },
-      focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
-      toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
-      next_thread = { lhs = "]t", desc = "move to next thread" },
-      prev_thread = { lhs = "[t", desc = "move to previous thread" },
-      select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
-      select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
-      close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-      toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
-    },
-    file_panel = {
-      next_entry = { lhs = "j", desc = "move to next changed file" },
-      prev_entry = { lhs = "k", desc = "move to previous changed file" },
-      select_entry = { lhs = "<cr>", desc = "show selected changed file diffs" },
-      refresh_files = { lhs = "R", desc = "refresh changed files panel" },
-      focus_files = { lhs = "<leader>e", desc = "move focus to changed file panel" },
-      toggle_files = { lhs = "<leader>b", desc = "hide/show changed files panel" },
-      select_next_entry = { lhs = "]q", desc = "move to previous changed file" },
-      select_prev_entry = { lhs = "[q", desc = "move to next changed file" },
-      close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
-      toggle_viewed = { lhs = "<leader><space>", desc = "toggle viewer viewed state" },
-    }
-  }
-})
-
-
 
 -- Spaced prefiexd in mode Visual mode
 wk.register ({
