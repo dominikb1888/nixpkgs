@@ -204,6 +204,12 @@ in
     statix
     rnix-lsp
 
+    # Python
+    black
+    # isort
+    # pylint
+    pyright
+
     # Vim
     nodePackages.vim-language-server
 
