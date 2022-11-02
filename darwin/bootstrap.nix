@@ -28,9 +28,9 @@ nix.settings = {
 };
 nix.configureBuildUsers = true;
 
-# Auto upgrade nix package and the daemon service.
+# Auto upgrade nix package and daemon service.
 services.nix-daemon.enable = true;
-
+services.lorri.enable = true;
 
   # Shells -----------------------------------------------------------------------------------------
 
