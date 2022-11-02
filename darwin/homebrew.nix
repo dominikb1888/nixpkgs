@@ -61,6 +61,7 @@ in
     "postman"
     "rectangle"
     "onedrive"
+    "kitty"
     "microsoft-teams"
     "nextcloud"
     "slack"
