@@ -110,6 +110,68 @@ in
         commandline --cursor 0
       end
     '';
+
+    displayRgPipedFzf.body = ''
+      echo $(rg . -n --glob '!.git/' --glob '!vendor/' --glob '!node_modules/' | fzf -d ':' -n 2.. --ansi --no-sort --preview 'bat --style=numbers --color=always --highlight-line {2} {1};' --preview-window +{2}-5)
+    '';
+
+    nvimGoToLine.body = ''
+      set nvimExists (which nvim)
+      if [ -z "$nvimExists" ];
+        return;
+      end
+
+      set selection (displayRgPipedFzf)
+      if [ -z "$selection" ];
+        return;
+      else
+        set filename (echo $selection | cut -d: -f1)
+        set line (echo $selection | cut -d: -f2)
+        nvim $filename "+$line" "+normal zz^";
+      end
+    '';
+
+    fdFzf.body = ''
+	    set fdExists (which fd)
+      if [ -z "$fdExists" ];
+        return;
+      else
+        if [ "(pwd)" = "$HOME" ];
+          set goTo (fd -t d -d 1 . | fzf --preview "bat --style=numbers --color=always --line-range :500 {}")
+          if [ -z "$goTo" ];
+            return;
+          else
+            cd $goTo
+            return;
+          end
+        end
+
+        set goTo (fd -t d . | grep -vE '(node_modules)' | fzf --preview "bat --style=numbers --color=always --line-range :500 {}")
+        if [ -z "$goTo" ];
+          return;
+        else
+          cd $goTo
+        end
+      end
+    '';
+
+    displayFZFFiles.body = ''
+      fzf --preview 'bat --color=always --style=numbers --line-range :500 {}'
+    '';
+
+    nvimGoToFiles.body = ''
+      set nvimExists (which nvim)
+      if [ -z "$nvimExists" ];
+        return;
+      end
+
+      set selection (displayFZFFiles);
+      if [ -z "$selection" ];
+        return;
+      else
+          nvim $selection;
+      end
+    '';
   };
   # }}}
 
@@ -142,6 +204,11 @@ in
     v = "vim";
     vi = "vim";
     vim = "nvim";
+
+    ngl = "nvimGoToLine";
+    ngf = "nvimGoToFiles";
+    fzd = "fdFzf";
+    h = "__select_from_last";
   };
 
   # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
