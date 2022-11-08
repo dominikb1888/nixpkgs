@@ -67,6 +67,8 @@
     nodePackages.typescript
     nodejs
     heroku
+    visidata
+
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
@@ -75,7 +77,6 @@
     nix-tree # interactively browse dependency graphs of Nix derivations
     nix-update # swiss-knife for updating nix packages
     nixpkgs-review # review pull-requests on nixpkgs
-
 
     nodePackages.node2nix
     statix # lints and suggestions for the Nix programming language
