@@ -237,6 +237,10 @@ in
     set -g fish_color_escape       red       # color of character escapes like '\n' and and '\x70'
     set -g fish_color_cancel       red       # color of the '^C' indicator on a canceled command
 
+    set -x FZF_DEFAULT_OPTS '--prompt="🔭 " --height 80% --layout=reverse --border'
+    set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/" --glob "!node_modules/" --glob "!vendor/" --glob "!undo/" --glob "!plugged/"'
+    # set -x BAT_THEME 'gruvbox-dark'
+
     export EXA_ICON_SPACING=2
   '';
   # }}}
