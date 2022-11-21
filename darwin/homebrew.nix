@@ -77,7 +77,9 @@ in
   homebrew.brews = [
     "marp-cli"
     "openconnect"
+    "slides"
     "swift-format"
     "swiftlint"
+    "viu"
   ];
 }
