@@ -66,7 +66,6 @@
     jq
     nodePackages.typescript
     nodejs
-    heroku
     visidata
 
     # Useful nix related tools
