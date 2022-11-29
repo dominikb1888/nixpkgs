@@ -36,6 +36,8 @@
     # browsh # in terminal browser
     coreutils
     curl
+    docker
+    docker-compose
     du-dust # fancy version of `du`
     fzf # fuzzy commandline finder
     exa # fancy version of `ls`
@@ -50,11 +52,13 @@
     mosh # wrapper for `ssh` that better and not dropping connections
     ngrok
     nodePackages.speed-test # nice speed-test tool
+    pandoc
     parallel # runs commands in parallel
     # python3Packages.shell-functools # a collection of functional programming tools for the shell
     ripgrep # better version of `grep`
     slides
     tealdeer # rust implementation of `tldr`
+    texlive.combined.scheme-full
     # thefuck
     unrar # extract RAR archives
     wget

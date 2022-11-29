@@ -126,6 +126,14 @@ in
         telescope-zoxide
       ];
     }
+    { use = octo-nvim;
+      deps = [
+        plenary-nvim
+        telescope-nvim
+        nvim-web-devicons
+      ];
+      config = requireConf octo-nvim;
+    }
     { use = toggleterm-nvim; config = requireConf toggleterm-nvim; }
     { use = zoomwintab-vim; opt = true; }
 

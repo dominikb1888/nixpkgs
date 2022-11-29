@@ -36,6 +36,7 @@ in
     "homebrew/core"
     "homebrew/services"
     "nrlquaker/createzap"
+    "terrastruct/d2"
   ];
 
   # Prefer installing application from the Mac App Store
@@ -57,6 +58,7 @@ in
     "gpg-suite"
     "hammerspoon"
     "keybase"
+    "obsidian"
     "parallels"
     "postman"
     "rectangle"
@@ -75,6 +77,7 @@ in
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.
   homebrew.brews = [
+    "d2"
     "marp-cli"
     "openconnect"
     "slides"
