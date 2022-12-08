@@ -53,6 +53,9 @@ o.shiftwidth = o.tabstop -- Width of auto-indents
 o.splitbelow = true -- open horizontal splits below instead of above which is the default
 o.splitright = true -- open vertical splits to the right instead of the left with is the default
 
+-- Yank and clipboard
+o.clipboard = 'unnamed'
+
 -- Some basic autocommands
 if g.vscode == nil then
   augroup { name = 'MaloVimBasics', cmds = {

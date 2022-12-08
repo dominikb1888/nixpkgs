@@ -1,8 +1,6 @@
-vim.cmd 'packadd pwntester/octo.nvim'
+vim.cmd 'packadd! octo.nvim'
 
-local octo-nvim = require'octo'
-
-octo-nvim.setup {
+require'octo'.setup {
   default_remote = {"upstream", "origin"}; -- order to try remotes
     ssh_aliases = {},                        -- SSH aliases. e.g. `ssh_aliases = {["github.com-work"] = "github.com"}`
     reaction_viewer_hint_icon = "";         -- marker for user reactions
