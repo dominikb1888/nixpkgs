@@ -80,10 +80,11 @@
     nix-tree # interactively browse dependency graphs of Nix derivations
     nix-update # swiss-knife for updating nix packages
     nixpkgs-review # review pull-requests on nixpkgs
-
     nodePackages.node2nix
     statix # lints and suggestions for the Nix programming language
 
+    # research tools
+    zotero
   ] ++ lib.optionals stdenv.isDarwin [
     cocoapods
     m-cli # useful macOS CLI commands
