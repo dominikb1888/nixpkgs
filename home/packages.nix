@@ -84,7 +84,7 @@
     statix # lints and suggestions for the Nix programming language
 
     # research tools
-    zotero
+    # zotero
   ] ++ lib.optionals stdenv.isDarwin [
     cocoapods
     m-cli # useful macOS CLI commands
