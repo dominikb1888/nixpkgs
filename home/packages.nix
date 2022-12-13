@@ -45,21 +45,16 @@
     ffmpeg
     git-lfs
     htop # fancy version of `top`
-    hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     hyperfine # benchmarking tool
     # marp # cli presentation tool -- currently insecure installed via brew
     imagemagick
     mosh # wrapper for `ssh` that better and not dropping connections
     ngrok
     nodePackages.speed-test # nice speed-test tool
-    pandoc
     parallel # runs commands in parallel
     # python3Packages.shell-functools # a collection of functional programming tools for the shell
     ripgrep # better version of `grep`
-    slides
-    tealdeer # rust implementation of `tldr`
-    texlive.combined.scheme-full
-    # thefuck
+    thefuck
     unrar # extract RAR archives
     wget
     xz # extract XZ archives
@@ -88,6 +83,11 @@
   ] ++ lib.optionals stdenv.isDarwin [
     cocoapods
     m-cli # useful macOS CLI commands
+    pandoc
+    hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     prefmanager # tool for working with macOS defaults
+    slides
+    tealdeer # rust implementation of `tldr`
+    texlive.combined.scheme-full
   ];
 }
