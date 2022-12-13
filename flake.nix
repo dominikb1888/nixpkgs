@@ -75,15 +75,7 @@
               imports = attrValues self.homeManagerModules;
               home.stateVersion = homeManagerStateVersion;
               home.user-info = config.users.primaryUser;
-              home.activation.copyHomeFiles = { home, config, lib, ... }:
-              let
-                src = config.home-files;
-                dest = home.homeDirectory + "/home-files";
-              in lib.hm.dag.entryAfter [ "installPackages" ] ''
-                rm -rf ${dest}
-                rsync -ah --copy-links --chmod=D755,F664 --quiet ${src}/ ${dest}
-              '';
-            };
+           };
             # Add a registry entry for this flake
             nix.registry.my.flake = self;
           }
