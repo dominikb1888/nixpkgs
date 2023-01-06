@@ -100,7 +100,7 @@ in
   # Add NodeJs since it's required by some plugins I use.
   programs.neovim.withNodeJs = true;
   # Add `penlight` Lua module package since I used in the above configs
-  programs.neovim.extraLuaPackages = [ pkgs.lua51Packages.penlight ];
+  programs.neovim.extraLuaPackages = ps: [ ps.penlight ];
 
   # Add plugins using my `packer` function.
   programs.neovim.plugins = with pkgs.vimPlugins; map packer [

@@ -19,7 +19,7 @@ require'lspsaga'.init_lsp_saga {
     enable = true,
     sign = false,
     sign_priority = 20,
-    virtual_text = true,
+    virtual_text = false,
   },
   -- finder_definition_icon = '  ',
   -- finder_reference_icon = '  ',

@@ -37,6 +37,8 @@ in
     "homebrew/services"
     "nrlquaker/createzap"
     "terrastruct/d2"
+    "muesli/homebrew-tap"
+    "linuxkit/linuxkit"
   ];
 
   # Prefer installing application from the Mac App Store
@@ -51,21 +53,23 @@ in
   # If an app isn't available in the Mac App Store, or the version in the App Store has
   # limitiations, e.g., Transmit, install the Homebrew Cask.
   homebrew.casks = [
-    "alfred"
     "adobe-creative-cloud"
+    "alfred"
     "google-chrome"
     "google-drive"
     "gpg-suite"
     "hammerspoon"
     "keybase"
+    "keycastr"
+    "microsoft-teams"
+    "nextcloud"
+    "obs"
+    "obs-websocket"
     "obsidian"
+    "onedrive"
     "parallels"
     "postman"
     "rectangle"
-    "onedrive"
-    "kitty"
-    "microsoft-teams"
-    "nextcloud"
     "slack"
     "steam"
     "timemachineeditor"
@@ -79,6 +83,8 @@ in
   homebrew.brews = [
     "d2"
     "marp-cli"
+    "linuxkit"
+    "obs-cli"
     "openconnect"
     "slides"
     "swift-format"

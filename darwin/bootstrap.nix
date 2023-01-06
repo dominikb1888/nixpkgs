@@ -14,10 +14,17 @@ nix.settings = {
   trusted-users = [
     "@admin"
   ];
+  extra-trusted-users = [
+    "dominikb1888"
+  ];
+  builders = lib.mkOverride 50 "ssh-ng://builder@localhost x86_64-linux /etc/nix/builder_ed25519 4 - - - c3 NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUpCV2N4Yi9CbGFxdDFhdU90RStGOFFVV3JVb3RpQzVxQkorVXVFV2RWQ2Igcm9vdEBuaXhvcwo=";
+
+  builders-use-substitutes = true;
+
+
   # Enable experimental nix command and flakes
   # nix.package = pkgs.nixUnstable;
-
-  auto-optimise-store = true;
+    auto-optimise-store = true;
   experimental-features = [
     "nix-command"
     "flakes"
@@ -58,6 +65,7 @@ services.lorri.enable = true;
 
   # Install and setup ZSH to work with nix(-darwin) as well
   programs.zsh.enable = true;
+
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

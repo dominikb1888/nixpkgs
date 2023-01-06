@@ -7,13 +7,16 @@
     # See docs here: https://starship.rs/config/
     # Symbols config configured ./starship-symbols.nix.
     add_newline = false;
+    format = "$all $fill $time\
+$character";
+    fill.symbol = " ";
     directory.fish_style_pwd_dir_length = 1; # turn on fish directory truncation
     directory.truncation_length = 2; # number of directories not to truncate
     gcloud.disabled = true; # annoying to always have on
     hostname.style = "bold green"; # don't like the default
     line_break.disabled = true;
-    character.success_symbol = " [❱](#a9b1d6)[❱](#9ece6a)[❱](#a9b1d6)";     # The "success_symbol" segment is being set to "➜" with the color "bold green"
-    character.error_symbol = " [❱](#a9b1d6)[❱](#f7768e)[❱](#a9b1d6)";
+    character.success_symbol = "[❱](#a9b1d6)[❱](#9ece6a)[❱](#a9b1d6)";     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+    character.error_symbol = "[❱](#a9b1d6)[❱](#f7768e)[❱](#a9b1d6)";
     character.vicmd_symbol = " [V](bold #7dcfff) ";
 
     cmd_duration.min_time = 500;

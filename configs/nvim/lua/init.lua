@@ -56,6 +56,10 @@ o.splitright = true -- open vertical splits to the right instead of the left wit
 -- Yank and clipboard
 o.clipboard = 'unnamed'
 
+-- Keep Undofile in dot directory of current folder
+o.undodir = '.nvim/undo-dir'
+o.undofile = true
+
 -- Some basic autocommands
 if g.vscode == nil then
   augroup { name = 'MaloVimBasics', cmds = {
