@@ -36,19 +36,20 @@
     # browsh # in terminal browser
     coreutils
     curl
-    docker
-    docker-compose
     du-dust # fancy version of `du`
     fzf # fuzzy commandline finder
     exa # fancy version of `ls`
     fd # fancy version of `find`
     ffmpeg
+    ffmpeg-normalize # Audio normalization for ffmpeg
     git-lfs
     htop # fancy version of `top`
     hyperfine # benchmarking tool
     # marp # cli presentation tool -- currently insecure installed via brew
     imagemagick
+    kind # kubernetes in local docker image
     mosh # wrapper for `ssh` that better and not dropping connections
+    miller # command-line data analysis
     ngrok
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
@@ -59,6 +60,7 @@
     wget
     xz # extract XZ archives
     yank
+    xsel # get contents of clipboard to STDOUT
     # Dev stuff
     # (agda.withPackages (p: [ p.standard-library ]))
     cloc # source code line counter
@@ -72,6 +74,7 @@
     comma # run software from without installing it
     lorri
     niv # easy dependency management for nix projects
+    # linuxkit # build linux binaries on macos
     nix-tree # interactively browse dependency graphs of Nix derivations
     nix-update # swiss-knife for updating nix packages
     nixpkgs-review # review pull-requests on nixpkgs
@@ -82,12 +85,13 @@
     # zotero
   ] ++ lib.optionals stdenv.isDarwin [
     cocoapods
+    hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     m-cli # useful macOS CLI commands
     pandoc
-    hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     prefmanager # tool for working with macOS defaults
     slides
     tealdeer # rust implementation of `tldr`
+    termdown
     texlive.combined.scheme-full
   ];
 }
