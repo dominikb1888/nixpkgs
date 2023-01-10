@@ -2,7 +2,7 @@
 
 {pkgs ? import <nixpkgs> {
     inherit system;
-  }, system ? builtins.currentSystem, nodejs ? pkgs."nodejs-14_x"}:
+  }, system ? builtins.currentSystem, nodejs ? pkgs."nodejs-18_x"}:
 
 let
   nodeEnv = import ./node-env.nix {
@@ -14,4 +14,22 @@ in
 import ./node-packages.nix {
   inherit (pkgs) fetchurl nix-gitignore stdenv lib fetchgit;
   inherit nodeEnv;
+  globalBuildInputs = with pkgs; [
+      darwin.apple_sdk.frameworks.Security
+      darwin.apple_sdk.frameworks.CoreFoundation
+      darwin.apple_sdk.frameworks.CoreServices
+      darwin.apple_sdk.frameworks.Cocoa
+      darwin.apple_sdk.frameworks.Quartz
+      pkgs.nodePackages.typescript
+      pkgs.nodePackages.node-gyp
+      pkgs.nodePackages.node-pre-gyp
+      pkgs.nodePackages.node-gyp-build
+      pkgconfig
+      cairo
+      pango
+      libpng
+      libjpeg
+      giflib
+      librsvg
+    ];
 }

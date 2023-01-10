@@ -355,6 +355,15 @@ let
         sha512 = "EHcyIPBQ4BSGlvjB16k5KgAJ27CIsHY/2JBmCRReo48y9rQ3MaUzWX3KVlBa4U7MyX02HdVj0K7C3WaB3ju7FQ==";
       };
     };
+    "bufferutil-4.0.7" = {
+      name = "bufferutil";
+      packageName = "bufferutil";
+      version = "4.0.7";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/bufferutil/-/bufferutil-4.0.7.tgz";
+        sha512 = "kukuqc39WOHtdxtw4UScxF/WVnMFVSQVKhtx3AjZJzhd0RGZZldcrfSEbVsWWe6KNH253574cq5F+wpv0G9pJw==";
+      };
+    };
     "cacache-16.1.3" = {
       name = "cacache";
       packageName = "cacache";
@@ -1804,6 +1813,15 @@ let
         sha512 = "4Q16ZCqq3g8awk6UplT7AuxQ35XN4R/yf/+wSAwcBUAjg7l58RTactWaP8fIDTi0FzI7YcVLujwExakZlfWkXg==";
       };
     };
+    "node-gyp-build-4.6.0" = {
+      name = "node-gyp-build";
+      packageName = "node-gyp-build";
+      version = "4.6.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/node-gyp-build/-/node-gyp-build-4.6.0.tgz";
+        sha512 = "NTZVKn9IylLwUzaKjkas1e4u2DLNcV4rdYagA4PWdPwW87Bi7z+BznyKSRwS/761tV/lzCGXplWsiaMjLqP2zQ==";
+      };
+    };
     "nopt-5.0.0" = {
       name = "nopt";
       packageName = "nopt";
@@ -2650,6 +2668,15 @@ let
         sha512 = "WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==";
       };
     };
+    "utf-8-validate-6.0.0" = {
+      name = "utf-8-validate";
+      packageName = "utf-8-validate";
+      version = "6.0.0";
+      src = fetchurl {
+        url = "https://registry.npmjs.org/utf-8-validate/-/utf-8-validate-6.0.0.tgz";
+        sha512 = "OCJuwxQsnG51swYmNloViggxNOFO/leOZpnb/vVeoastJbrzrZZU7lGsYlUcdkCl9nsBu2nkKLjpljb3Ckvb/Q==";
+      };
+    };
     "util-deprecate-1.0.2" = {
       name = "util-deprecate";
       packageName = "util-deprecate";
@@ -2794,13 +2821,13 @@ let
         sha512 = "l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==";
       };
     };
-    "ws-8.11.0" = {
+    "ws-8.12.0" = {
       name = "ws";
       packageName = "ws";
-      version = "8.11.0";
+      version = "8.12.0";
       src = fetchurl {
-        url = "https://registry.npmjs.org/ws/-/ws-8.11.0.tgz";
-        sha512 = "HPG3wQd9sNQoT9xHyNCXoDUa+Xw/VevmY9FoHyQ+g+rrMn4j6FB4np7Z0OhdTgjx6MgQLK7jwSy1YecU1+4Asg==";
+        url = "https://registry.npmjs.org/ws/-/ws-8.12.0.tgz";
+        sha512 = "kU62emKIdKVeEIOIKVegvqpXMSTAMLJozpHZaJNDYqBjzlSYXQGviYwN1osDLJ9av68qHd4a2oSjd7yD4pacig==";
       };
     };
     "xml-name-validator-4.0.0" = {
@@ -2858,11 +2885,16 @@ let
       };
     };
   };
-  args = {
+in
+{
+  editly = nodeEnv.buildNodePackage {
     name = "editly";
     packageName = "editly";
     version = "0.14.2";
-    src = ./.;
+    src = fetchurl {
+      url = "https://registry.npmjs.org/editly/-/editly-0.14.2.tgz";
+      sha512 = "XSeoZIM+wopCTEnOEFMSjvJ5fuQHhjeoOCkzDl1ZkpPlP4TqaTBArrHtRM+YlK6flhNxM3CCAt9O8XNn65cBBw==";
+    };
     dependencies = [
       sources."@babel/code-frame-7.18.6"
       sources."@babel/helper-validator-identifier-7.19.1"
@@ -2903,6 +2935,7 @@ let
       sources."brace-expansion-1.1.11"
       sources."browser-process-hrtime-1.0.0"
       sources."buffer-5.7.1"
+      sources."bufferutil-4.0.7"
       (sources."cacache-16.1.3" // {
         dependencies = [
           sources."brace-expansion-2.0.1"
@@ -3136,6 +3169,7 @@ let
           sources."npmlog-6.0.2"
         ];
       })
+      sources."node-gyp-build-4.6.0"
       sources."nopt-5.0.0"
       sources."normalize-package-data-3.0.3"
       (sources."npm-run-path-5.1.0" // {
@@ -3254,6 +3288,7 @@ let
       sources."unique-slug-3.0.0"
       sources."universalify-0.2.0"
       sources."url-parse-1.5.10"
+      sources."utf-8-validate-6.0.0"
       sources."util-deprecate-1.0.2"
       sources."validate-npm-package-license-3.0.4"
       sources."w3c-hr-time-1.0.2"
@@ -3267,7 +3302,7 @@ let
       sources."wide-align-1.1.5"
       sources."word-wrap-1.2.3"
       sources."wrappy-1.0.2"
-      sources."ws-8.11.0"
+      sources."ws-8.12.0"
       sources."xml-name-validator-4.0.0"
       sources."xmlchars-2.2.0"
       sources."xtend-4.0.2"
@@ -3284,23 +3319,4 @@ let
     bypassCache = true;
     reconstructLock = true;
   };
-in
-{
-  args = args;
-  sources = sources;
-  tarball = nodeEnv.buildNodeSourceDist args;
-  package = nodeEnv.buildNodePackage args;
-  shell = nodeEnv.buildNodeShell args;
-  nodeDependencies = nodeEnv.buildNodeDependencies (lib.overrideExisting args {
-    src = stdenv.mkDerivation {
-      name = args.name + "-package-json";
-      src = nix-gitignore.gitignoreSourcePure [
-        "*"
-        "!package.json"
-        "!package-lock.json"
-      ] args.src;
-      dontBuild = true;
-      installPhase = "mkdir -p $out; cp -r ./* $out;";
-    };
-  });
 }
