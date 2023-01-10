@@ -6,7 +6,7 @@
   programs.starship.settings = {
     # See docs here: https://starship.rs/config/
     # Symbols config configured ./starship-symbols.nix.
-    add_newline = false;
+    add_newline = true;
     format = "$all $fill $time\
 $character";
     fill.symbol = " ";

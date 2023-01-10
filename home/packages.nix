@@ -65,9 +65,20 @@
     # (agda.withPackages (p: [ p.standard-library ]))
     cloc # source code line counter
     jq
+    nodePackages.node-pre-gyp
     nodePackages.typescript
     nodejs
     visidata
+
+    # node-canvas deps
+    # libuuid
+    pkg-config
+    cairo
+    pango
+    libpng
+    libjpeg
+    giflib
+    librsvg
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix

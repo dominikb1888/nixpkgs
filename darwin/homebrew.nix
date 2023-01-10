@@ -25,6 +25,7 @@ in
   '';
 
   homebrew.enable = true;
+  homebrew.onActivation.autoUpdate = true;
   homebrew.onActivation.cleanup = "zap";
   homebrew.global.brewfile = true;
 
@@ -47,7 +48,7 @@ in
   # https://github.com/malob/nixpkgs/issues/9
   homebrew.masApps = {
     #Slack = 803453959; # Error on downloading via app store
-    #Xcode = 497799835; # Very slow download via app store - deactivated
+    Xcode = 497799835; # Very slow download via app store - deactivated
   };
 
   # If an app isn't available in the Mac App Store, or the version in the App Store has
