@@ -55,6 +55,7 @@
     parallel # runs commands in parallel
     # python3Packages.shell-functools # a collection of functional programming tools for the shell
     ripgrep # better version of `grep`
+    swiProlog
     thefuck
     unrar # extract RAR archives
     wget
@@ -65,6 +66,7 @@
     # (agda.withPackages (p: [ p.standard-library ]))
     cloc # source code line counter
     jq
+    nodejs-slim-14_x
     nodePackages.node-pre-gyp
     nodePackages.typescript
     nodejs
