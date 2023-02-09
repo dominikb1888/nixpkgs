@@ -45,7 +45,7 @@
           inputs.cornelis.overlays.cornelis
           inputs.prefmanager.overlays.prefmanager
         ] ++ singleton (
-          final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+          final: prev: (optionalAttrs (prev.stdenv.system == "x86_64-darwin") {
             # Sub in x86 version of packages that don't build on Apple Silicon.
             inherit (final.pkgs-x86)
               agda
@@ -169,9 +169,9 @@
           system = "x86_64-darwin";
           modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsDefaults; } ];
         };
-        bootstrap-arm = self.darwinConfigurations.bootstrap-x86.override {
-          system = "aarch64-darwin";
-        };
+        # bootstrap-arm = self.darwinConfigurations.bootstrap-x86.override {
+        #   system = "aarch64-darwin";
+        # };
 
         # My Apple Silicon macOS laptop config
         Dominiks-MBP = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {

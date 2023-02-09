@@ -23,6 +23,12 @@
   programs.htop.enable = true;
   programs.htop.settings.show_program_path = true;
 
+  # SSH
+  # https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable
+  # Some options also set in `../darwin/homebrew.nix`.
+  programs.ssh.enable = true;
+  programs.ssh.controlPath = "~/.ssh/%C"; # ensures the path is unique but also fixed length
+
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.zoxide.enable
@@ -30,6 +36,7 @@
 
   home.packages = with pkgs; [
     # Some basics
+    azure-cli
     abduco # lightweight session management
     bandwhich # display current network utilization by process
     bottom # fancy version of `top` with ASCII graphs
@@ -72,6 +79,11 @@
     nodejs
     visidata
 
+
+    haskellPackages.cabal-install
+    haskellPackages.hoogle
+    haskellPackages.hpack
+    haskellPackages.implicit-hie
     # node-canvas deps
     # libuuid
     pkg-config
@@ -101,7 +113,7 @@
     hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     m-cli # useful macOS CLI commands
     pandoc
-    prefmanager # tool for working with macOS defaults
+    # prefmanager # tool for working with macOS defaults
     slides
     tealdeer # rust implementation of `tldr`
     termdown

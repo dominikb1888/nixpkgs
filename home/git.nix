@@ -13,6 +13,9 @@
 
   programs.git.ignores = [
     ".DS_Store"
+    ".env"
+    ".nvim"
+    ".nvim/*"
   ];
 
   programs.git.userEmail = config.home.user-info.email;
