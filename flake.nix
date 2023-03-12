@@ -169,9 +169,9 @@
           system = "x86_64-darwin";
           modules = [ ./darwin/bootstrap.nix { nixpkgs = nixpkgsDefaults; } ];
         };
-        # bootstrap-arm = self.darwinConfigurations.bootstrap-x86.override {
-        #   system = "aarch64-darwin";
-        # };
+        bootstrap-arm = self.darwinConfigurations.bootstrap-x86.override {
+          system = "aarch64-darwin";
+        };
 
         # My Apple Silicon macOS laptop config
         Dominiks-MBP = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
