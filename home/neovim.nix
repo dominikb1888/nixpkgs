@@ -174,6 +174,10 @@ in
       ft = [ "markdown" "text" ];
     }
 
+    # Markdown
+    { use = neoterm; }
+    { use = vim-markdown; }
+
     # Misc
     { use = direnv-vim; }
     { use = vim-eunuch; vscode = true; }
