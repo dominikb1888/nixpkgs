@@ -66,7 +66,6 @@ in
     "nextcloud"
     "obs"
     "obs-websocket"
-    "obsidian"
     "onedrive"
     "parallels"
     "postman"
