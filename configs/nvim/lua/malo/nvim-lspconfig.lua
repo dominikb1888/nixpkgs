@@ -47,15 +47,7 @@ local servers_config = {
   rnix = {},
   sourcekit = {},
 
-  sumneko_lua = {
-    settings = {
-      Lua = {
-        telemetry = {
-          enable = false,
-        },
-      },
-    },
-  },
+  lua_ls = {},
 
   tsserver = {},
 
