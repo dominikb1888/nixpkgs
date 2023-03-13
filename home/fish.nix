@@ -242,6 +242,7 @@ in
     # set -x BAT_THEME 'gruvbox-dark'
 
     export EXA_ICON_SPACING=2
+    direnv hook fish | source
   '';
   # }}}
 }
