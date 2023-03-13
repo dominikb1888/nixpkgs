@@ -13,7 +13,7 @@
       "malo.cachix.org-1:fJL4+lpyMs/1cdZ23nPQXArGj8AS7x9U67O8rMkkMIo="
     ];
 
-    trusted-users = [ "@admin" "@dominikb1888 ];
+    trusted-users = [ "@admin" "@dominikb1888" ];
 
     # https://github.com/NixOS/nix/issues/7273
     auto-optimise-store = false;

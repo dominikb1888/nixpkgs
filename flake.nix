@@ -35,7 +35,7 @@
     let
       inherit (self.lib) attrValues makeOverridable optionalAttrs singleton;
 
-      homeStateVersion = "22.11";
+      homeStateVersion = "23.05";
 
       nixpkgsDefaults = {
         config = {
