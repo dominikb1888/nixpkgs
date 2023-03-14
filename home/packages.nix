@@ -55,6 +55,7 @@
     # marp # cli presentation tool -- currently insecure installed via brew
     imagemagick
     kind # kubernetes in local docker image
+    lazygit
     mosh # wrapper for `ssh` that better and not dropping connections
     miller # command-line data analysis
     ngrok
