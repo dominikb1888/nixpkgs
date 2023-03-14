@@ -130,7 +130,7 @@ wk.setup { plugins = { spelling = { enabled = true } } }
 
 -- Spaced prefiexd in Normal mode
 wk.register ({
-  [' '] = { '<Cmd>exe v:count1 . "ToggleTerm"<CR>', 'Toggle floating terminal' },
+  [' '] = { '<Cmd>exe v:count1 . "ToggleTerm direction=vertical size=80"<CR>', 'Toggle floating terminal' },
 
   -- Tabs
   t = {
