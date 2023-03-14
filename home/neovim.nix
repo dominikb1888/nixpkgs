@@ -155,7 +155,7 @@ in
     # Language support/utilities
     { use = agda-vim; ft = [ "agda" ]; }
     {
-      use = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+      use = nvim-treesitter.withAllGrammars; #(_: pkgs.tree-sitter.allGrammars);
       config = requireConf nvim-treesitter;
     }
     { use = vim-haskell-module-name; vscode = true; ft = [ "haskell" ]; }
@@ -175,7 +175,6 @@ in
     }
 
     # Markdown
-    { use = neoterm; }
     { use = vim-markdown; }
 
     # Misc
