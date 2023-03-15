@@ -138,7 +138,7 @@ in
     { use = zoomwintab-vim; opt = true; }
 
     # Completions
-    { use = copilot-vim; }
+    # { use = copilot-vim; }
     { use = coq_nvim; opt = true; deps = [ coq-artifacts coq-thirdparty ]; config = requireConf coq_nvim; }
 
     # Language servers, linters, etc.
@@ -153,12 +153,12 @@ in
     { use = nvim-lspconfig; deps = [ neodev-nvim ]; config = requireConf nvim-lspconfig; }
 
     # Language support/utilities
-    { use = agda-vim; ft = [ "agda" ]; }
+    # { use = agda-vim; ft = [ "agda" ]; }
     {
       use = nvim-treesitter.withAllGrammars; #(_: pkgs.tree-sitter.allGrammars);
       config = requireConf nvim-treesitter;
     }
-    { use = vim-haskell-module-name; vscode = true; ft = [ "haskell" ]; }
+    # { use = vim-haskell-module-name; vscode = true; ft = [ "haskell" ]; }
     { use = vim-polyglot; config = requireConf vim-polyglot; }
 
     # Editor behavior
