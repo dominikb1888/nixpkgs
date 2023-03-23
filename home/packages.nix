@@ -41,6 +41,7 @@
     bandwhich # display current network utilization by process
     bottom # fancy version of `top` with ASCII graphs
     # browsh # in terminal browser
+    cloudflared
     coreutils
     curl
     du-dust # fancy version of `du`
@@ -58,7 +59,6 @@
     lazygit
     mosh # wrapper for `ssh` that better and not dropping connections
     miller # command-line data analysis
-    ngrok
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
     # python3Packages.shell-functools # a collection of functional programming tools for the shell
