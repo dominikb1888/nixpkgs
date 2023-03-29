@@ -76,7 +76,6 @@
     nodejs
     visidata
     ruff # Python Linter
-
     haskellPackages.cabal-install
     haskellPackages.hoogle
     haskellPackages.hpack
