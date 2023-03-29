@@ -44,6 +44,7 @@ local servers_config = {
   hls = {},
   jsonls = {},
   pyright = {},
+  ruff = {},
   rnix = {},
   sourcekit = {},
 

@@ -22,6 +22,8 @@ null_ls.setup {
     -- Python
     diagnostics.pylint,
     diagnostics.vulture,
+    diagnostics.ruff,
+    formatting.ruff,
     formatting.black,
     formatting.isort,
   }
