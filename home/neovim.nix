@@ -220,7 +220,18 @@ in
     isort
     pylint
     pyright
+    ruff
     python3Packages.vulture
+    # ( python3Packages.buildPythonPackage rec {
+    #   pname = "ruff_lsp";
+    #   version = "0.0.24";
+    #   src = fetchPypi {
+    #     inherit pname version;
+    #     sha256 = "d617bf19893c3bd2ea3d71f79aeede196b91ca08831b53a727e24d4f63f29f3a";
+    #   };
+    #   doCheck = false;
+    #   propagatedBuildInputs = [
+    #   ]; })
 
     # Vim
     nodePackages.vim-language-server

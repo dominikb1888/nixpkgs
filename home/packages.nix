@@ -73,9 +73,10 @@
     # (agda.withPackages (p: [ p.standard-library ]))
     cloc # source code line counter
     jq
+    just
     nodejs
     visidata
-    ruff # Python Linter
+
     haskellPackages.cabal-install
     haskellPackages.hoogle
     haskellPackages.hpack
