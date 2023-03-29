@@ -61,7 +61,6 @@
     ngrok
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
-    # python3Packages.shell-functools # a collection of functional programming tools for the shell
     ripgrep # better version of `grep`
     thefuck
     unrar # extract RAR archives
@@ -69,30 +68,19 @@
     xz # extract XZ archives
     yank
     xsel # get contents of clipboard to STDOUT
+
     # Dev stuff
     # (agda.withPackages (p: [ p.standard-library ]))
     cloc # source code line counter
     jq
-    nodejs-slim-14_x
-    nodePackages.node-pre-gyp
-    nodePackages.typescript
     nodejs
     visidata
-
+    ruff # Python Linter
 
     haskellPackages.cabal-install
     haskellPackages.hoogle
     haskellPackages.hpack
     haskellPackages.implicit-hie
-    # node-canvas deps
-    # libuuid
-    pkg-config
-    cairo
-    pango
-    libpng
-    libjpeg
-    giflib
-    librsvg
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
