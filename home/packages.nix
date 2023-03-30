@@ -62,6 +62,7 @@
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
     ripgrep # better version of `grep`
+    teams
     thefuck
     unrar # extract RAR archives
     wget

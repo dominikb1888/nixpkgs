@@ -61,7 +61,6 @@ in
     "hammerspoon"
     "keybase"
     "keycastr"
-    "microsoft-teams"
     "nextcloud"
     "obs"
     "obs-websocket"
