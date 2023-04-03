@@ -76,7 +76,7 @@
     jq
     just
     nodejs
-    visidata
+    # visidata
 
     haskellPackages.cabal-install
     haskellPackages.hoogle
