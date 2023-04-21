@@ -76,6 +76,7 @@
     jq
     just
     nodejs
+    ruff
     # visidata
 
     haskellPackages.cabal-install
