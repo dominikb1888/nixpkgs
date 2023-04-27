@@ -77,6 +77,7 @@
     just
     nodejs
     ruff
+    dive #analyze docker images
     # visidata
 
     haskellPackages.cabal-install
