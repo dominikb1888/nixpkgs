@@ -78,6 +78,7 @@
     nodejs
     ruff
     dive #analyze docker images
+    docker-slim
     # visidata
 
     haskellPackages.cabal-install
