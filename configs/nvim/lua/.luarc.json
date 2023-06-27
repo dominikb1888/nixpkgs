@@ -1,3 +1,9 @@
 {
-    "workspace.checkThirdParty": false
+    "workspace.checkThirdParty": false,
+    "workspace.library": [
+        "/nix/store/5ilbp732xkpgryj2cbxaw9dy3b2lgr1h-vimplugin-neodev.nvim-2023-06-23/types/stable",
+        "/nix/store/n61himf1hfd32d4vgnlr9hxp1mjpfppc-neovim-unwrapped-0.9.1/share/nvim/runtime/lua",
+        "/Users/dominikb1888/.config/nixpkgs/configs/nvim/lua",
+        "${3rd}/luv/library"
+    ]
 }
