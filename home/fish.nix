@@ -204,6 +204,7 @@ in
     v = "vim";
     vi = "vim";
     vim = "nvim";
+    lvim = "$HOME/.local/bin/lvim";
 
     ngl = "nvimGoToLine";
     ngf = "nvimGoToFiles";
