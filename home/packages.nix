@@ -40,7 +40,7 @@
 
   home.packages = with pkgs; [
     # Some basics
-    azure-cli
+    #azure-cli
     abduco # lightweight session management
     bandwhich # display current network utilization by process
     bottom # fancy version of `top` with ASCII graphs
