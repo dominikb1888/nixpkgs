@@ -49,7 +49,7 @@
     curl
     du-dust # fancy version of `du`
     fzf # fuzzy commandline finder
-    exa # fancy version of `ls`
+    eza # fancy version of `ls`
     fd # fancy version of `find`
     ffmpeg
     ffmpeg-normalize # Audio normalization for ffmpeg
