@@ -199,7 +199,7 @@ in
     lg = "la --git-ignore"; # does not list files ignored by git
     la = "ll -a";
     ll = "ls -l --time-style=iso --icons --git --no-filesize --no-user --header";
-    ls = "${exa}/bin/exa -1 --group-directories-first";
+    ls = "${eza}/bin/eza -1 --group-directories-first";
     tb = "toggle-background";
     v = "vim";
     vi = "vim";
