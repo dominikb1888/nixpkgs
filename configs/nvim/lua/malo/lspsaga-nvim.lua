@@ -6,7 +6,7 @@ local s = utils.symbols
 -- https://github.com/tami5/lspsaga.nvim
 vim.cmd 'packadd lspsaga.nvim'
 
-require'lspsaga'.init_lsp_saga {
+require'lspsaga'.setup {
   use_saga_diagnostic_sign = true,
   error_sign = s.error,
   warn_sign = s.warning,
