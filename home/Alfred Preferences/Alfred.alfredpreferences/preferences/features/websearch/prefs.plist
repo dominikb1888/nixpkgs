@@ -4,6 +4,17 @@
 <dict>
 	<key>customSites</key>
 	<dict>
+		<key>4F644479-443D-4888-A6AB-BAA3FB5BC364</key>
+		<dict>
+			<key>enabled</key>
+			<true/>
+			<key>keyword</key>
+			<string>nixs</string>
+			<key>text</key>
+			<string>Nix Search</string>
+			<key>url</key>
+			<string>https://search.nixos.org/packages?query={query}</string>
+		</dict>
 		<key>622BC43C-2014-4F58-BA1D-E3BFEB1547A9</key>
 		<dict>
 			<key>enabled</key>
@@ -22,26 +33,22 @@
 			<key>enabled</key>
 			<true/>
 			<key>keyword</key>
-			<string>github</string>
+			<string>gi</string>
 			<key>text</key>
 			<string>Github</string>
 			<key>url</key>
 			<string>https://github.com</string>
-			<key>utf8</key>
-			<true/>
 		</dict>
 		<key>D7FDE28F-C34C-438E-9350-B4E1230515E8</key>
 		<dict>
 			<key>enabled</key>
 			<true/>
 			<key>keyword</key>
-			<string>linkedin</string>
+			<string>li</string>
 			<key>text</key>
 			<string>LinkedIN</string>
 			<key>url</key>
 			<string>https://linkedin.com</string>
-			<key>utf8</key>
-			<true/>
 		</dict>
 	</dict>
 </dict>

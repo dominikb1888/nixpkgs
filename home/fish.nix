@@ -112,7 +112,7 @@ in
     '';
 
     displayRgPipedFzf.body = ''
-      echo $(rg . -n --glob '!.git/' --glob '!vendor/' --glob '!node_modules/' $argv | fzf -d ':' -n 2.. --ansi --no-sort --preview 'bat --style=numbers --color=always --highlight-line {2} {1};' --preview-window +{2}-5)
+      echo $(rg $argv . -n --glob '!.git/' --glob '!vendor/' --glob '!node_modules/' | fzf -d ':' -n 2.. --ansi --no-sort --preview 'bat --style=numbers --color=always --highlight-line {2} {1};' --preview-window +{2}-5)
     '';
 
     nvimGoToLine.body = ''
@@ -137,7 +137,7 @@ in
         return;
       else
         if [ "(pwd)" = "$HOME" ];
-          set goTo (fd -t d -d 1 . $argv | fzf --preview "bat --style=numbers --color=always --line-range :500 {}")
+          set goTo (fd -t d -d 1 . | fzf --preview "bat --style=numbers --color=always --line-range :500 {}")
           if [ -z "$goTo" ];
             return;
           else
@@ -146,7 +146,7 @@ in
           end
         end
 
-        set goTo (fd -t d .  $argv | grep -vE '(node_modules)' | fzf --preview "bat --style=numbers --color=always --line-range :500 {}")
+        set goTo (fd -t d . | grep -vE '(node_modules)' | fzf --preview "bat --style=numbers --color=always --line-range :500 {}")
         if [ -z "$goTo" ];
           return;
         else
