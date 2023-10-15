@@ -66,6 +66,7 @@
     nodePackages.speed-test # nice speed-test tool
     parallel # runs commands in parallel
     ripgrep # better version of `grep`
+    sd # alternative to sed
     teams
     thefuck
     unrar # extract RAR archives
