@@ -112,7 +112,7 @@ in
     '';
 
     displayRgPipedFzf.body = ''
-      echo $(rg $argv . -n --glob '!.git/' --glob '!vendor/' --glob '!node_modules/' | fzf -d ':' -n 2.. --ansi --no-sort --preview 'bat --style=numbers --color=always --highlight-line {2} {1};' --preview-window +{2}-5)
+      echo $(rg $argv . -n --glob '!.git/' --glob '!vendor/' --glob '!node_modules/' | fzf --exact -e -d ':' -n 2.. --ansi --no-sort --preview 'bat --style=numbers --color=always --highlight-line {2} {1};' --preview-window +{2}-5)
     '';
 
     nvimGoToLine.body = ''
