@@ -80,6 +80,7 @@
     jq
     just
     nodejs
+    oath-toolkit
     ruff
     dive #analyze docker images
     docker-slim
