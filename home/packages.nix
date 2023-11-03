@@ -67,7 +67,6 @@
     parallel # runs commands in parallel
     ripgrep # better version of `grep`
     sd # alternative to sed
-    teams
     thefuck
     unrar # extract RAR archives
     wget
@@ -115,6 +114,6 @@
     tealdeer # rust implementation of `tldr`
     termdown
 
-    texlive.combined.scheme-full
+    # texlive.combined.scheme-full
   ];
 }
