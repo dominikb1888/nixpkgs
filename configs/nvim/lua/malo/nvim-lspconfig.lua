@@ -43,8 +43,8 @@ local servers_config = {
   ccls = {},
   hls = {},
   jsonls = {},
-  -- pyright = {},
-  ruff_lsp = {},
+  pyright = {},
+  -- ruff_lsp = {},
   rnix = {},
   sourcekit = {},
 
