@@ -82,9 +82,12 @@
     nodejs
     oath-toolkit
     ruff
-    dive #analyze docker images
-    docker-slim
     # visidata
+
+    podman
+    podman-tui
+    podman-compose
+    # podman-desktop
 
     haskellPackages.cabal-install
     haskellPackages.hoogle
