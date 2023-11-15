@@ -51,6 +51,7 @@
     fzf # fuzzy commandline finder
     eza # fancy version of `ls`
     fd # fancy version of `find`
+    ripgrep-all
     ffmpeg
     ffmpeg-normalize # Audio normalization for ffmpeg
     git-lfs
@@ -84,11 +85,6 @@
     ruff
     # visidata
 
-    podman
-    podman-tui
-    podman-compose
-    # podman-desktop
-
     haskellPackages.cabal-install
     haskellPackages.hoogle
     haskellPackages.hpack
@@ -117,6 +113,11 @@
     slides
     tealdeer # rust implementation of `tldr`
     termdown
+    podman
+    podman-tui
+    podman-compose
+    # podman-desktop
+
 
     # texlive.combined.scheme-full
   ];
