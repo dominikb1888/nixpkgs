@@ -66,6 +66,7 @@ in
     "parallels"
     "postman"
     "rectangle"
+    "rstudio"
     "slack"
     "microsoft-teams"
     "timemachineeditor"
