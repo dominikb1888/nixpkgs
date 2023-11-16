@@ -79,6 +79,7 @@ in
   homebrew.brews = [
     "d2"
     "marp-cli"
+    "libmagic"
     "linuxkit"
     "obs-cli"
     "openconnect"
