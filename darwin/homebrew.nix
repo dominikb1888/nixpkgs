@@ -66,6 +66,7 @@ in
     "parallels"
     "postman"
     "rectangle"
+    "r"
     "rstudio"
     "slack"
     "microsoft-teams"
