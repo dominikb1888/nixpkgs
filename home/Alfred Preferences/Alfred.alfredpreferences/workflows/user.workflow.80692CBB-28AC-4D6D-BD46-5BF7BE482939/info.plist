@@ -383,7 +383,7 @@
 	<key>description</key>
 	<string>Create and search gists on GitHub</string>
 	<key>disabled</key>
-	<false/>
+	<true/>
 	<key>name</key>
 	<string>gist</string>
 	<key>objects</key>
