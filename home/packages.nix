@@ -53,7 +53,7 @@
     fd # fancy version of `find`
     ripgrep-all
     ffmpeg
-    ffmpeg-normalize # Audio normalization for ffmpeg
+    # ffmpeg-normalize # Audio normalization for ffmpeg
     git-lfs
     htop # fancy version of `top`
     hyperfine # benchmarking tool
@@ -80,6 +80,7 @@
     cloc # source code line counter
     jq
     just
+    jless
     nodejs
     oath-toolkit
     ruff
