@@ -40,14 +40,8 @@
 
   home.packages = with pkgs; [
     # Some basics
-    #azure-cli
-    abduco # lightweight session management
-    bandwhich # display current network utilization by process
-    bottom # fancy version of `top` with ASCII graphs
-    # browsh # in terminal browser
     coreutils
     curl
-    du-dust # fancy version of `du`
     fzf # fuzzy commandline finder
     eza # fancy version of `ls`
     fd # fancy version of `find`
@@ -57,39 +51,26 @@
     git-lfs
     htop # fancy version of `top`
     hyperfine # benchmarking tool
-    # marp # cli presentation tool -- currently insecure installed via brew
+    #marp # cli presentation tool -- currently insecure installed via brew
     imagemagick
     kind # kubernetes in local docker image
     lazygit
     mosh # wrapper for `ssh` that better and not dropping connections
     miller # command-line data analysis
     ngrok
-    nodePackages.speed-test # nice speed-test tool
-    parallel # runs commands in parallel
     ripgrep # better version of `grep`
     sd # alternative to sed
-    thefuck
     unrar # extract RAR archives
     wget
     xz # extract XZ archives
-    yank
-    xsel # get contents of clipboard to STDOUT
 
     # Dev stuff
-    # (agda.withPackages (p: [ p.standard-library ]))
-    cloc # source code line counter
     jq
     just
     jless
     nodejs
-    oath-toolkit
     ruff
     # visidata
-
-    haskellPackages.cabal-install
-    haskellPackages.hoogle
-    haskellPackages.hpack
-    haskellPackages.implicit-hie
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
@@ -112,14 +93,10 @@
     pandoc
     # prefmanager # tool for working with macOS defaults
     slides
-    tealdeer # rust implementation of `tldr`
-    termdown
     podman
     podman-tui
     podman-compose
     # podman-desktop
-
-
     # texlive.combined.scheme-full
   ];
 }

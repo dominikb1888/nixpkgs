@@ -53,26 +53,15 @@ in
   # If an app isn't available in the Mac App Store, or the version in the App Store has
   # limitiations, e.g., Transmit, install the Homebrew Cask.
   homebrew.casks = [
-    "adobe-creative-cloud"
     "alfred"
     "google-chrome"
-    "google-drive"
     "hammerspoon"
     "keycastr"
-    "nextcloud"
-    "onedrive"
     "parallels"
-    "postman"
     "rectangle"
     "r"
     "rstudio"
-    "slack"
-    "streamlabs"
-    "microsoft-teams"
-    "timemachineeditor"
     "visual-studio-code"
-    "vlc"
-    "zoom"
   ];
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
@@ -82,8 +71,6 @@ in
     "marp-cli"
     "libmagic"
     "linuxkit"
-    "obs-cli"
-    "openconnect"
     "slides"
     "viu"
   ];
