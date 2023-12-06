@@ -1,12 +1,6 @@
 { pkgs, ... }:
 
 {
-  # Networking
-  networking.dns = [
-    "1.1.1.1"
-    "8.8.8.8"
-  ];
-
   # Apps
   # `home-manager` currently has issues adding them to `~/Applications`
   # Issue: https://github.com/nix-community/home-manager/issues/1341
