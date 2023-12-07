@@ -56,6 +56,7 @@ in
     "google-chrome"
     "hammerspoon"
     "keycastr"
+    "onedrive"
     "parallels"
     "rectangle"
     "r"
