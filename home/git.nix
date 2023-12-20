@@ -28,6 +28,13 @@
   # GitHub CLI
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.gh.enable
   # Aliases config in ./gh-aliases.nix
-  programs.gh.enable = true;
+  programs.gh = {
+    enable = true;
+    settings = {
+      # Workaround for https://github.com/nix-community/home-manager/issues/4744
+      version = 1;
+    };
+  };
+
   programs.gh.settings.git_protocol = "ssh";
 }
