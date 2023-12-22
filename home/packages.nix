@@ -83,7 +83,7 @@
     nixpkgs-review # review pull-requests on nixpkgs
     nodePackages.node2nix
     statix # lints and suggestions for the Nix programming language
-
+    xquartz
     # research tools
     # zotero
   ] ++ lib.optionals stdenv.isDarwin [
