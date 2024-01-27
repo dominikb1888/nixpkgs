@@ -92,10 +92,6 @@
     pandoc
     # prefmanager # tool for working with macOS defaults
     slides
-    podman
-    podman-tui
-    podman-compose
-    # podman-desktop
     texliveSmall
     xquartz
   ];

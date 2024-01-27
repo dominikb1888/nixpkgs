@@ -30,7 +30,6 @@ in
   homebrew.global.brewfile = true;
 
   homebrew.taps = [
-    "homebrew/cask"
     "homebrew/cask-fonts"
     "homebrew/cask-versions"
     "homebrew/services"
@@ -62,6 +61,7 @@ in
     "r"
     "rstudio"
     "visual-studio-code"
+    "raycast"
   ];
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
