@@ -70,7 +70,7 @@
     jless
     nodejs
     ruff
-    # visidata
+    visidata
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
