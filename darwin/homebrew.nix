@@ -62,6 +62,7 @@ in
     "rstudio"
     "visual-studio-code"
     "raycast"
+    "vlc"
   ];
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
