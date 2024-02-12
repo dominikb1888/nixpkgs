@@ -49,6 +49,7 @@
     ffmpeg
     # ffmpeg-normalize # Audio normalization for ffmpeg
     git-lfs
+    helix
     htop # fancy version of `top`
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
