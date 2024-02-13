@@ -51,7 +51,7 @@ local servers_config = {
   lua_ls = {},
 
   tsserver = {},
-
+  marksman = {},
   vimls = {
     init_options = {
       iskeyword = '@,48-57,_,192-255,-#',
