@@ -12,7 +12,6 @@ require'gitsigns'.setup {
     changedelete = { hl = 'ChangeDeleteText' , text = '≃' , numhl='' },
   },
   numhl = false,
-  keymaps = {},
   watch_gitdir = {
     interval = 1000
   },
@@ -25,7 +24,6 @@ require'gitsigns'.setup {
     clients = { "marksman" },
     -- Filetypes to ignore.
     -- Example: {"neo-tree", "lua"}
-    ft = {},
     -- Ignore code actions without a `kind` like refactor.rewrite, quickfix.
     actions_without_kind = false,
   },
