@@ -268,8 +268,9 @@ wk.register ({
     s = { function() require'telescope.builtin'.symbols(require'telescope.themes'.get_dropdown({sources = {'emoji', 'math'}})) end, 'Symbols' },
     z = { '<Cmd>Telescope zoxide list<CR>', 'Z' },
     ['?'] = { '<Cmd>Telescope help_tags<CR>', 'Vim help' },
-  }
-
+  },
+  f =  { '<Plug>SnipRunOperator', {silent = true} },
+  ff = { '<Plug>SnipRun', {silent = true} },
 }, { prefix = ' ' })
 
 -- Spaced prefiexd in mode Visual mode
@@ -278,4 +279,6 @@ wk.register ({
     name = '+LSP',
     a = { ':<C-U>Lspsaga range_code_action<CR>' , 'Code action (range)' , mode = 'v' },
   },
+ f = { '<Plug>SnipRun', { silent = true } },
 }, { prefix = ' ' })
+
