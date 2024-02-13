@@ -269,8 +269,11 @@ wk.register ({
     z = { '<Cmd>Telescope zoxide list<CR>', 'Z' },
     ['?'] = { '<Cmd>Telescope help_tags<CR>', 'Vim help' },
   },
-  f =  { '<Plug>SnipRunOperator', {silent = true} },
-  ff = { '<Plug>SnipRun', {silent = true} },
+  f = {
+    name = '+SnipRun',
+    o = { '<Plug>SnipRunOperator', { silent = true } },
+    f = { '<Plug>SnipRun', { silent = true  } },
+  },
 }, { prefix = ' ' })
 
 -- Spaced prefiexd in mode Visual mode
