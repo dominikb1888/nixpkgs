@@ -173,7 +173,7 @@ in
       config = "vim.fn['pencil#init'](); vim.wo.spell = true";
       ft = [ "markdown" "text" ];
     }
-
+    { use = sniprun; }
     # Markdown
     { use = vim-markdown; }
 
