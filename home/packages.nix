@@ -60,6 +60,7 @@
     miller # command-line data analysis
     ngrok
     ripgrep # better version of `grep`
+    nasm # x86 assembly
     sd # alternative to sed
     unrar # extract RAR archives
     wget
