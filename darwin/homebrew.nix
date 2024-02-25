@@ -56,6 +56,7 @@ in
     "hammerspoon"
     "keycastr"
     "onedrive"
+    "notunes"
     "parallels"
     "rectangle"
     "r"
