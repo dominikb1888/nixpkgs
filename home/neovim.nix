@@ -213,7 +213,7 @@ in
     # Nix
     deadnix
     statix
-    rnix-lsp
+    # rnix-lsp
 
     # Python
     black
