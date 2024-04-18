@@ -78,6 +78,7 @@
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
+    devenv # Integrated solution for managing dev environments with nix
     lorri
     niv # easy dependency management for nix projects
     # linuxkit # build linux binaries on macos
