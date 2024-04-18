@@ -34,7 +34,7 @@
   system.stateVersion = 4;
 
   # Disable documentation until https://github.com/LnL7/nix-darwin/issues/217 is fixed.
-  # documentation.enable = false;
+  documentation.enable = false;
 
   # Store management
   nix.gc.automatic = true;
