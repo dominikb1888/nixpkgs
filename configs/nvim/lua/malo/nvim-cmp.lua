@@ -8,7 +8,7 @@ local luasnip = require 'luasnip'
 require 'luasnip.loaders.from_vscode'.lazy_load()
 require 'luasnip.loaders.from_snipmate'.lazy_load()
 
-require 'copilot_cmp'.setup {}
+-- require 'copilot_cmp'.setup {}
 
 -- https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
 local has_words_before = function()
@@ -30,7 +30,7 @@ cmp.setup {
     format = require 'lspkind'.cmp_format {
       mode = 'symbol',
       show_labelDetails = true,
-      symbol_map = { Copilot = "" },
+      -- symbol_map = { Copilot = "" },
     },
   },
 

@@ -146,6 +146,10 @@ in
         cmp-buffer
         cmp-nvim-lsp
         cmp-nvim-lsp-signature-help
+        lspkind-nvim
+
+        luasnip
+        cmp_luasnip
       ];
       config = requireConf nvim-cmp;
     }
