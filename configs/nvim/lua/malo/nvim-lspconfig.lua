@@ -29,7 +29,7 @@ require 'neodev'.setup {
 }
 
 local lspconf = require 'lspconfig'
-require('telescope').load_extension('ht')
+-- require('telescope').load_extension('ht')
 
 local function on_attach(client, bufnr)
   if client.server_capabilities.documentHighlightProvider then

@@ -8,9 +8,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
 
     # Environment/system management
-    # Temp change fo source for darwin until https://github.com/LnL7/nix-darwin/pull/932 is merged
-    #darwin.url = "https://github.com/LnL7/nix-darwin/";
-    darwin.url = "github:wegank/nix-darwin/mddoc-remove";
+    darwin.url = "github:LnL7/nix-darwin";
     darwin.inputs.nixpkgs.follows = "nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs-unstable";
