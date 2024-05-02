@@ -51,7 +51,7 @@ let
       (
         concatStringsSep "\n"
           (
-            [ "\n-- ${use.pname}" ]
+            [ "\n-- ${use.pname or use.name}" ]
             ++ optional (setup != "") setup
 
             # If the plugin isn't always loaded at startup
