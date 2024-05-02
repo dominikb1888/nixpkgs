@@ -70,6 +70,7 @@
     jq
     just
     jless
+    qemu
     nodejs
     ruff
     visidata
