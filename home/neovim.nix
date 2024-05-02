@@ -14,74 +14,74 @@ let
   requireConf = p: "require 'malo.${builtins.replaceStrings [ "." ] [ "-" ] p.pname}'";
 
   # Function to create `programs.neovim.plugins` entries inspired by `packer.nvim`.
-  packer =
-    { use
-      # Plugins that this plugin depends on.
-    , deps ? [ ]
-      # Used to manually specify that the plugin shouldn't be loaded at start up.
-    , opt ? false
-      # Whether to load the plugin when using VS Code with `vscode-neovim`.
-    , vscode ? false
-      # Code to run before the plugin is loaded.
-    , setup ? ""
-      # Code to run after the plugin is loaded.
-    , config ? ""
-      # The following all imply lazy-loading and imply `opt = true`.
-      # `FileType`s which load the plugin.
-    , ft ? [ ]
-      # Autocommand events which load the plugin.
-    , event ? [ ]
-    }:
-    let
-      loadFunctionName = "load_${builtins.replaceStrings [ "." "-" ] [ "_" "_" ] use.pname}";
-      autoload = !opt && vscode && ft == [ ] && event == [ ];
-      configFinal =
-        concatStringsSep "\n" (
-          optional (!autoload && !opt) "vim.cmd 'packadd ${use.pname}'"
-          ++ optional (config != "") config
-        );
-    in
-    {
-      plugin = use.overrideAttrs (old: {
-        dependencies = lib.unique (old.dependencies or [ ] ++ deps);
-      });
-      optional = !autoload;
-      type = "lua";
-      config = if (setup == "" && configFinal == "") then null else
-      (
-        concatStringsSep "\n"
-          (
-            [ "\n-- ${use.pname or use.name}" ]
-            ++ optional (setup != "") setup
-
-            # If the plugin isn't always loaded at startup
-            ++ optional (!autoload) (concatStringsSep "\n" (
-              [ "local ${loadFunctionName} = function()" ]
-              ++ optional (!vscode) "if vim.g.vscode == nil then"
-              ++ [ configFinal ]
-              ++ optional (!vscode) "end"
-              ++ [ "end" ]
-              ++ optional (ft == [ ] && event == [ ]) "${loadFunctionName}()"
-              ++ optional (ft != [ ]) (mkNeovimAutocmd {
-                event = [ "FileType" ];
-                pattern = ft;
-                callback = loadFunctionName;
-              })
-              ++ optional (event != [ ]) (mkNeovimAutocmd {
-                inherit event;
-                pattern = [ "*" ];
-                callback = loadFunctionName;
-              })
-            ))
-
-            # If the plugin is always loaded at startup
-            ++ optional (autoload && configFinal != "") configFinal
-          )
-      );
-    };
+#   packer =
+#     { use
+#       # Plugins that this plugin depends on.
+#     , deps ? [ ]
+#       # Used to manually specify that the plugin shouldn't be loaded at start up.
+#     , opt ? false
+#       # Whether to load the plugin when using VS Code with `vscode-neovim`.
+#     , vscode ? false
+#       # Code to run before the plugin is loaded.
+#     , setup ? ""
+#       # Code to run after the plugin is loaded.
+#     , config ? ""
+#       # The following all imply lazy-loading and imply `opt = true`.
+#       # `FileType`s which load the plugin.
+#     , ft ? [ ]
+#       # Autocommand events which load the plugin.
+#     , event ? [ ]
+#     }:
+#     let
+#       loadFunctionName = "load_${builtins.replaceStrings [ "." "-" ] [ "_" "_" ] use.pname}";
+#       autoload = !opt && vscode && ft == [ ] && event == [ ];
+#       configFinal =
+#         concatStringsSep "\n" (
+#           optional (!autoload && !opt) "vim.cmd 'packadd ${use.pname}'"
+#           ++ optional (config != "") config
+#         );
+#     in
+#     {
+#       plugin = use.overrideAttrs (old: {
+#         dependencies = lib.unique (old.dependencies or [ ] ++ deps);
+#       });
+#       optional = !autoload;
+#       type = "lua";
+#       config = if (setup == "" && configFinal == "") then null else
+#       (
+#         concatStringsSep "\n"
+#           (
+#             [ "\n-- ${use.pname or use.name}" ]
+#             ++ optional (setup != "") setup
+#
+#             # If the plugin isn't always loaded at startup
+#             ++ optional (!autoload) (concatStringsSep "\n" (
+#               [ "local ${loadFunctionName} = function()" ]
+#               ++ optional (!vscode) "if vim.g.vscode == nil then"
+#               ++ [ configFinal ]
+#               ++ optional (!vscode) "end"
+#               ++ [ "end" ]
+#               ++ optional (ft == [ ] && event == [ ]) "${loadFunctionName}()"
+#               ++ optional (ft != [ ]) (mkNeovimAutocmd {
+#                 event = [ "FileType" ];
+#                 pattern = ft;
+#                 callback = loadFunctionName;
+#               })
+#               ++ optional (event != [ ]) (mkNeovimAutocmd {
+#                 inherit event;
+#                 pattern = [ "*" ];
+#                 callback = loadFunctionName;
+#               })
+#             ))
+#
+#             # If the plugin is always loaded at startup
+#             ++ optional (autoload && configFinal != "") configFinal
+#           )
+#       );
+#     };
 in
-# }}}
-{
+# # }}}
+ {
   # Neovim
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.neovim.enable
   programs.neovim.enable = true;
@@ -103,45 +103,30 @@ in
   programs.neovim.extraLuaPackages = ps: [ ps.penlight ];
 
   # Add plugins using my `packer` function.
-  programs.neovim.plugins = with pkgs.vimPlugins; map packer [
+  programs.neovim.plugins = with pkgs.vimPlugins; [
+    lazy-nvim
     # Apperance, interface, UI, etc.
-    {
-      use = bufferline-nvim;
-      deps = [ nvim-web-devicons scope-nvim ];
-      config = requireConf bufferline-nvim;
-    }
-    { use = galaxyline-nvim; deps = [ nvim-web-devicons ]; config = requireConf galaxyline-nvim; }
-    { use = gitsigns-nvim; config = requireConf gitsigns-nvim; }
-    { use = goyo-vim; }
-#   { use = indent-blankline-nvim; config = requireConf indent-blankline-nvim; }
-    { use = lush-nvim; vscode = true; }
-    {
-      use = telescope-nvim;
-      config = requireConf telescope-nvim;
-      deps = [
+    bufferline-nvim
+    galaxyline-nvim
+    gitsigns-nvim
+    goyo-vim
+#   indent-blankline-nvim
+    lush-nvim
+    telescope-nvim
         nvim-web-devicons
         telescope-file-browser-nvim
         telescope-fzf-native-nvim
         telescope-symbols-nvim
         telescope-zoxide
-      ];
-    }
-    { use = octo-nvim;
-      deps = [
+     octo-nvim
         plenary-nvim
         telescope-nvim
         nvim-web-devicons
-      ];
-      config = requireConf octo-nvim;
-    }
-    { use = toggleterm-nvim; config = requireConf toggleterm-nvim; }
-    { use = zoomwintab-vim; opt = true; }
+
+    toggleterm-nvim
 
     # Completions
-    # { use = copilot-vim; }
-    {
-      use = nvim-cmp;
-      deps = [
+     nvim-cmp
         cmp-async-path
         cmp-buffer
         cmp-nvim-lsp
@@ -150,50 +135,34 @@ in
 
         luasnip
         cmp_luasnip
-      ];
-      config = requireConf nvim-cmp;
-    }
     # Language servers, linters, etc.
-    {
-      use = lsp_lines-nvim;
-      config = ''
-        require'lsp_lines'.setup()
-        vim.diagnostic.config({ virtual_lines = { only_current_line = true } })'';
-    }
-    { use = lspsaga-nvim; config = requireConf lspsaga-nvim; }
-    { use = null-ls-nvim; config = requireConf null-ls-nvim; }
-    { use = nvim-lspconfig; deps = [ neodev-nvim ]; config = requireConf nvim-lspconfig; }
+      lsp_lines-nvim
+    lspsaga-nvim
+    null-ls-nvim
+    nvim-lspconfig
 
     # Language support/utilities
-    # { use = agda-vim; ft = [ "agda" ]; }
-    {
-      use = nvim-treesitter.withAllGrammars; #(_: pkgs.tree-sitter.allGrammars);
-      config = requireConf nvim-treesitter;
-    }
-    # { use = vim-haskell-module-name; vscode = true; ft = [ "haskell" ]; }
-    { use = vim-polyglot; config = requireConf vim-polyglot; }
+
+    nvim-treesitter.withAllGrammars #(_: pkgs.tree-sitter.allGrammars);
+    vim-polyglot
 
     # Editor behavior
-    { use = comment-nvim; config = "require'comment'.setup()"; }
-    { use = editorconfig-vim; setup = "vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }"; }
-    { use = tabular; vscode = true; }
-    { use = vim-surround; vscode = true; }
-    { use = nvim-lastplace; config = "require'nvim-lastplace'.setup()"; }
-    {
-      use = vim-pencil;
-      setup = "vim.g['pencil#wrapModeDefault'] = 'soft'";
-      config = "vim.fn['pencil#init'](); vim.wo.spell = true";
-      ft = [ "markdown" "text" ];
-    }
-    { use = sniprun; }
+    comment-nvim
+    editorconfig-vim
+    tabular
+    vim-surround
+    nvim-lastplace
+    vim-pencil
+    sniprun
+
     # Markdown
-    { use = vim-markdown; }
+    vim-markdown
 
     # Misc
-    { use = direnv-vim; }
-    { use = vim-eunuch; vscode = true; }
-    { use = vim-fugitive; }
-    { use = which-key-nvim; opt = true; }
+    direnv-vim
+    vim-eunuch
+    vim-fugitive
+    which-key-nvim
   ];
 
   # From personal addon module `../modules/home/programs/neovim/extras.nix`
@@ -234,16 +203,6 @@ in
     pyright
     ruff
     python3Packages.vulture
-    # ( python3Packages.buildPythonPackage rec {
-    #   pname = "ruff_lsp";
-    #   version = "0.0.24";
-    #   src = fetchPypi {
-    #     inherit pname version;
-    #     sha256 = "d617bf19893c3bd2ea3d71f79aeede196b91ca08831b53a727e24d4f63f29f3a";
-    #   };
-    #   doCheck = false;
-    #   propagatedBuildInputs = [
-    #   ]; })
 
     # Vim
     nodePackages.vim-language-server
