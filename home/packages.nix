@@ -40,6 +40,7 @@
 
   home.packages = with pkgs; [
     # Some basics
+    bind # DNS Tools
     coreutils
     curl
     fzf # fuzzy commandline finder
