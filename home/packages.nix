@@ -37,7 +37,7 @@
   home.sessionPath = [
     "$HOME/.local/bin"
   ];
-
+  home.enableNixpkgsReleaseCheck = false;
   home.packages = with pkgs; [
     # Some basics
     bind # DNS Tools
@@ -74,7 +74,6 @@
     qemu
     nodejs
     ruff
-    visidata
     marksman
 
     # Useful nix related tools
