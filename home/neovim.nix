@@ -147,6 +147,7 @@ in
     vim-polyglot
 
     # Editor behavior
+<<<<<<< HEAD
     comment-nvim
     editorconfig-vim
     tabular
@@ -155,6 +156,19 @@ in
     vim-pencil
     sniprun
 
+=======
+    { use = editorconfig-vim; setup = "vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }"; }
+    { use = tabular; vscode = true; }
+    { use = vim-surround; vscode = true; }
+    { use = nvim-lastplace; config = "require'nvim-lastplace'.setup()"; }
+    {
+      use = vim-pencil;
+      setup = "vim.g['pencil#wrapModeDefault'] = 'soft'";
+      config = "vim.fn['pencil#init'](); vim.wo.spell = true";
+      ft = [ "markdown" "text" ];
+    }
+    { use = sniprun; }
+>>>>>>> 595b146 (update homemanager version)
     # Markdown
     vim-markdown
 
