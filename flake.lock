@@ -1,31 +1,5 @@
 {
   "nodes": {
-    "cornelis": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs-unstable"
-        ]
-      },
-      "locked": {
-        "lastModified": 1715930772,
-        "narHash": "sha256-gP32IWxjIApK0jxQn3Xorul5SXtMS2tq+K8Wj8afHgg=",
-        "owner": "isovector",
-        "repo": "cornelis",
-        "rev": "06d6020eed1a3520bb2887337dd5b27b1755968b",
-        "type": "github"
-      },
-      "original": {
-        "owner": "isovector",
-        "repo": "cornelis",
-        "type": "github"
-      }
-    },
     "darwin": {
       "inputs": {
         "nixpkgs": [
@@ -127,11 +101,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1717316182,
-        "narHash": "sha256-Xi0EpZcu39N0eW7apLjFfUOR9y80toyjYizez7J1wMI=",
+        "lastModified": 1717482773,
+        "narHash": "sha256-YR+9c4MpYZir1KdKTdB7w2ZMxZoEWw+z5Q2S7scmkbI=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9b53a10f4c91892f5af87cf55d08fba59ca086af",
+        "rev": "1a577c135cad84eb0cd5a922efe2de9cc467772a",
         "type": "github"
       },
       "original": {
@@ -142,11 +116,11 @@
     },
     "nixpkgs-master": {
       "locked": {
-        "lastModified": 1717414489,
-        "narHash": "sha256-fhvJv8hkJwotkqxhoSQfvh6UfKG+sTYIQ3hchariEDk=",
+        "lastModified": 1717482278,
+        "narHash": "sha256-kyAQ5UE8RwiWcH06xai+HG7oS4d1MtZSbwTRz1YTuIE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "c429fa2ffa21229eeadbe37c11a47aff35f53ce0",
+        "rev": "391f667df3eabc516a803113a10d2ee991751f91",
         "type": "github"
       },
       "original": {
@@ -174,11 +148,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1717112898,
-        "narHash": "sha256-7R2ZvOnvd9h8fDd65p0JnB7wXfUvreox3xFdYWd1BnY=",
+        "lastModified": 1717399147,
+        "narHash": "sha256-eCWaE/q1VItpFAxxLVt171MdtDcjEnwi6QB/yuF73JU=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "6132b0f6e344ce2fe34fc051b72fb46e34f668e0",
+        "rev": "4a4ecb0ab415c9fccfb005567a215e6a9564cdf5",
         "type": "github"
       },
       "original": {
@@ -235,7 +209,6 @@
     },
     "root": {
       "inputs": {
-        "cornelis": "cornelis",
         "darwin": "darwin",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
