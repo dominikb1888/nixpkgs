@@ -17,12 +17,6 @@
     flake-compat = { url = "github:edolstra/flake-compat"; flake = false; };
     flake-utils.url = "github:numtide/flake-utils";
 
-    # Agda mode for Neovim
-    cornelis.url = "github:isovector/cornelis";
-    cornelis.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    cornelis.inputs.flake-compat.follows = "flake-compat";
-    cornelis.inputs.flake-utils.follows = "flake-utils";
-
     # Utility for watching macOS `defaults`.
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -33,29 +27,12 @@
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
     let
       inherit (self.lib) attrValues makeOverridable optionalAttrs singleton;
-
       homeStateVersion = "24.05";
-
       nixpkgsDefaults = {
         config = {
           allowUnfree = true;
         };
-        overlays = attrValues self.overlays ++ [
-          inputs.cornelis.overlays.cornelis
-          inputs.prefmanager.overlays.prefmanager
-        ] ++ singleton (
-          final: prev: (optionalAttrs (prev.stdenv.system == "x86_64-darwin") {
-            # Sub in x86 version of packages that don't build on Apple Silicon.
-            inherit (final.pkgs-x86)
-              agda
-              idris2
-              ;
-          }) // {
-            # Add other overlays here if needed.
-          }
-        );
       };
-
       primaryUserDefaults = {
         username = "dominikb1888";
         fullName = "Dominik Boehler";
@@ -226,7 +203,7 @@
       devShells = let pkgs = self.legacyPackages.${system}; in
         {
           python = pkgs.mkShell {
-            name = "python310";
+            name = "python312";
             inputsFrom = attrValues {
               inherit (pkgs.pkgs-master.python310Packages) black isort;
               inherit (pkgs) poetry python310 pyright;
