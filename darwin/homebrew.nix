@@ -34,7 +34,6 @@ in
     "homebrew/cask-versions"
     "homebrew/services"
     "nrlquaker/createzap"
-    "terrastruct/d2"
     "muesli/homebrew-tap"
     "linuxkit/linuxkit"
   ];
@@ -54,8 +53,6 @@ in
     "alfred"
     "burp-suite"
     "google-chrome"
-    "hammerspoon"
-    "keycastr"
     "onedrive"
     "notunes"
     "parallels"
@@ -63,20 +60,14 @@ in
     "r"
     "rstudio"
     "visual-studio-code"
-    "raycast"
     "vlc"
     "yubico-yubikey-manager"
-    "zed"
   ];
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.
   homebrew.brews = [
-    "d2"
     "marp-cli"
-    "libmagic"
-    "linuxkit"
     "slides"
-    "viu"
   ];
 }
