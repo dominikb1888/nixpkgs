@@ -48,33 +48,19 @@
     fd # fancy version of `find`
     ripgrep-all
     ffmpeg
-    # ffmpeg-normalize # Audio normalization for ffmpeg
+    ffmpeg-normalize # Audio normalization for ffmpeg
     git-lfs
-    helix
     htop # fancy version of `top`
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
-    imagemagick
-    kind # kubernetes in local docker image
-    lazygit
-    mosh # wrapper for `ssh` that better and not dropping connections
-    miller # command-line data analysis
     ngrok
     ripgrep # better version of `grep`
-    nasm # x86 assembly
-    sd # alternative to sed
     unrar # extract RAR archives
     wget
-    xz # extract XZ archives
 
     # Dev stuff
     jq
-    just
-    jless
-    qemu
     nodejs
-    ruff
-    marksman
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
@@ -82,7 +68,7 @@
     devenv # Integrated solution for managing dev environments with nix
     lorri
     niv # easy dependency management for nix projects
-    # linuxkit # build linux binaries on macos
+    linuxkit # build linux binaries on macos
     nix-tree # interactively browse dependency graphs of Nix derivations
     nix-update # swiss-knife for updating nix packages
     nixpkgs-review # review pull-requests on nixpkgs
@@ -91,7 +77,6 @@
     # research tools
     # zotero
   ] ++ lib.optionals stdenv.isDarwin [
-    cocoapods
     hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     m-cli # useful macOS CLI commands
     pandoc
