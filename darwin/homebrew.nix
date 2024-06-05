@@ -56,6 +56,7 @@ in
     "onedrive"
     "notunes"
     "parallels"
+    "protege"
     "rectangle"
     "r"
     "rstudio"
