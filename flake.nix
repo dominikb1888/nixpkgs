@@ -27,11 +27,24 @@
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
     let
       inherit (self.lib) attrValues makeOverridable optionalAttrs singleton;
+
       homeStateVersion = "24.05";
+
       nixpkgsDefaults = {
         config = {
           allowUnfree = true;
         };
+      overlays = attrValues self.overlays ++ [
+          inputs.prefmanager.overlays.prefmanager
+        ] ++ singleton (
+          final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
+            # Sub in x86 version of packages that don't build on Apple Silicon.
+            inherit (final.pkgs-x86)
+              ;
+          }) // {
+            # Add other overlays here if needed.
+          }
+        );
       };
       primaryUserDefaults = {
         username = "dominikb1888";
