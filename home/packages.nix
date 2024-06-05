@@ -61,6 +61,8 @@
     # Dev stuff
     jq
     nodejs
+    podman
+    podman-compose
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
