@@ -59,6 +59,7 @@ in
     "rectangle"
     "r"
     "rstudio"
+    "microsoft-teams"
     "visual-studio-code"
     "vlc"
     "yubico-yubikey-manager"
