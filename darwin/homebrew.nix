@@ -52,6 +52,7 @@ in
   homebrew.casks = [
     "alfred"
     "burp-suite"
+    "gpg-suite"
     "google-chrome"
     "onedrive"
     "notunes"
