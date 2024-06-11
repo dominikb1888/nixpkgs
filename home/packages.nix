@@ -66,6 +66,7 @@
 
     #VPN
     openconnect
+    gnupg
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
