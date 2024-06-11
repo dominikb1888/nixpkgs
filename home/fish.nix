@@ -212,6 +212,12 @@ in
     h = "__select_from_last";
   };
 
+ programs.fish.shellAbbrs = {
+    nix-rm-results = ''
+      ${pkgs.fd}/bin/fd --hidden --no-ignore --type l '^result-?' --exclude 'Library/**' \
+        --exec rm '{}'
+    '';
+  };
   # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
   programs.fish.shellInit = ''
     set -U fish_term24bit 1
@@ -220,7 +226,7 @@ in
 
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting ""
-    ${pkgs.thefuck}/bin/thefuck --alias | source
+    # ${pkgs.thefuck}/bin/thefuck --alias | source
 
     # Run function to set colors that are dependant on `$term_background` and to register them so
     # they are triggerd when the relevent event happens or variable changes.

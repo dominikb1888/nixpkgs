@@ -111,7 +111,7 @@ in
       config = requireConf bufferline-nvim;
     }
     { use = galaxyline-nvim; deps = [ nvim-web-devicons ]; config = requireConf galaxyline-nvim; }
-    { use = gitsigns-nvim; config = requireConf gitsigns-nvim; }
+    { use = gitsigns-nvim; config = requireConf gitsigns-nvim; opt = true; }
     { use = goyo-vim; }
 #   { use = indent-blankline-nvim; config = requireConf indent-blankline-nvim; }
     { use = lush-nvim; vscode = true; }
@@ -125,6 +125,7 @@ in
         telescope-symbols-nvim
         telescope-zoxide
       ];
+      opt = true;
     }
     { use = octo-nvim;
       deps = [
@@ -133,12 +134,11 @@ in
         nvim-web-devicons
       ];
       config = requireConf octo-nvim;
+      opt = true;
     }
     { use = toggleterm-nvim; config = requireConf toggleterm-nvim; }
-    { use = zoomwintab-vim; opt = true; }
 
     # Completions
-    # { use = copilot-vim; }
     {
       use = nvim-cmp;
       deps = [
@@ -185,9 +185,9 @@ in
       config = "vim.fn['pencil#init'](); vim.wo.spell = true";
       ft = [ "markdown" "text" ];
     }
-    { use = sniprun; }
+
     # Markdown
-    { use = vim-markdown; }
+    { use = vim-markdown; opt = true; }
 
     # Misc
     { use = direnv-vim; }
@@ -228,22 +228,7 @@ in
     # rnix-lsp
 
     # Python
-    black
-    isort
-    pylint
-    pyright
     ruff
-    python3Packages.vulture
-    # ( python3Packages.buildPythonPackage rec {
-    #   pname = "ruff_lsp";
-    #   version = "0.0.24";
-    #   src = fetchPypi {
-    #     inherit pname version;
-    #     sha256 = "d617bf19893c3bd2ea3d71f79aeede196b91ca08831b53a727e24d4f63f29f3a";
-    #   };
-    #   doCheck = false;
-    #   propagatedBuildInputs = [
-    #   ]; })
 
     # Vim
     nodePackages.vim-language-server
