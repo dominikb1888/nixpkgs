@@ -226,8 +226,9 @@ in
     marksman
 
     # Nix
-    deadnix
-    statix
+    nil
+    nixpkgs-fmt
+
     # rnix-lsp
 
     # Python
