@@ -18,13 +18,13 @@ require'gitsigns'.setup {
   sign_priority = 6,
   status_formatter = nil, -- Use default
   -- Scenarios to not show a lightbulb.
-  ignore = {
-    -- LSP client names to ignore.
-    -- Example: {"null-ls", "lua_ls"}
-    clients = { "marksman" },
-    -- Filetypes to ignore.
-    -- Example: {"neo-tree", "lua"}
-    -- Ignore code actions without a `kind` like refactor.rewrite, quickfix.
-    actions_without_kind = false,
-  },
+  -- ignore = {
+  --   -- LSP client names to ignore.
+  --   -- Example: {"null-ls", "lua_ls"}
+  --   clients = { "marksman" },
+  --   -- Filetypes to ignore.
+  --   -- Example: {"neo-tree", "lua"}
+  --   -- Ignore code actions without a `kind` like refactor.rewrite, quickfix.
+  --   actions_without_kind = false,
+  -- },
 }
