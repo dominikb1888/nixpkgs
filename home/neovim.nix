@@ -222,6 +222,9 @@ in
     # Javascript/Typescript
     nodePackages.typescript-language-server
 
+    # Markdown
+    marksman
+
     # Nix
     deadnix
     statix
