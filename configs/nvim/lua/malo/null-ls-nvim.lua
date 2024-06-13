@@ -16,15 +16,10 @@ null_ls.setup {
     code_actions.proselint,
     diagnostics.proselint,
     -- Nix
-    diagnostics.deadnix,
     diagnostics.statix,
     code_actions.statix,
     -- Python
-    diagnostics.pylint,
-    diagnostics.vulture,
     diagnostics.ruff,
     formatting.ruff,
-    formatting.black,
-    formatting.isort,
   }
 }
