@@ -216,6 +216,9 @@ in
     nodePackages.bash-language-server
     shellcheck
 
+    # Lus Snip Dependency for Lua Regex
+    luajitPackages.jsregexp
+
     # Javascript/Typescript
     nodePackages.typescript-language-server
 
