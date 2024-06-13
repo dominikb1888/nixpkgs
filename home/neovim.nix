@@ -111,9 +111,9 @@ in
       config = requireConf bufferline-nvim;
     }
     { use = galaxyline-nvim; deps = [ nvim-web-devicons ]; config = requireConf galaxyline-nvim; }
-    { use = gitsigns-nvim; config = requireConf gitsigns-nvim; opt = true; }
+    { use = gitsigns-nvim; config = requireConf gitsigns-nvim; }
     { use = goyo-vim; }
-#   { use = indent-blankline-nvim; config = requireConf indent-blankline-nvim; }
+    { use = indent-blankline-nvim; config = requireConf indent-blankline-nvim; }
     { use = lush-nvim; vscode = true; }
     {
       use = telescope-nvim;
@@ -125,7 +125,6 @@ in
         telescope-symbols-nvim
         telescope-zoxide
       ];
-      opt = true;
     }
     { use = octo-nvim;
       deps = [
@@ -134,7 +133,6 @@ in
         nvim-web-devicons
       ];
       config = requireConf octo-nvim;
-      opt = true;
     }
     { use = toggleterm-nvim; config = requireConf toggleterm-nvim; }
 
@@ -185,15 +183,14 @@ in
       config = "vim.fn['pencil#init'](); vim.wo.spell = true";
       ft = [ "markdown" "text" ];
     }
-
     # Markdown
-    { use = vim-markdown; opt = true; }
+    { use = vim-markdown; ft = [ "markdown" "text" ]; }
 
     # Misc
     { use = direnv-vim; }
     { use = vim-eunuch; vscode = true; }
     { use = vim-fugitive; }
-    { use = which-key-nvim; opt = true; }
+    { use = which-key-nvim; }
   ];
 
   # From personal addon module `../modules/home/programs/neovim/extras.nix`
