@@ -234,6 +234,9 @@ in
     # Python
     ruff
 
+    # Generic
+    tree-sitter
+
     # Vim
     nodePackages.vim-language-server
 

@@ -96,7 +96,7 @@ in
 
     vup.body = ''
       read -p 'echo "Password: "' -ls pass
-      echo $pass | sudo openconnect --user=dboehler --authgroup=vpn-pers.th-deg.de  --servercert=pin-sha256:LNGrG5QDtA2WZ8TRTaZOTy7ZfE7H8HHSPprwHvvTOVc= vpn.th-deg.de --protocol=anyconnect --passwd-on-stdin --background
+      echo $pass | sudo openconnect --user=dboehler --authgroup=vpn-pers.th-deg.de  --servercert=pin-sha256:TzWa1imMUGJ66wR1JCrNsJMOAOR48jl1lSwZ+8BsUsk= vpn.th-deg.de --protocol=anyconnect --passwd-on-stdin --background
     '';
 
     vdn.body = ''
