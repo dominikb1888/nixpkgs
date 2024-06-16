@@ -213,7 +213,8 @@ in
     ccls
 
     # Bash
-    nodePackages.bash-language-server
+    # commented until https://github.com/NixOS/nixpkgs/pull/319882 is merged
+    # nodePackages.bash-language-server
     shellcheck
 
     # Lus Snip Dependency for Lua Regex
