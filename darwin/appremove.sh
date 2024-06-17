@@ -9,6 +9,7 @@
 mkdir -p -m777 ~/mount
 sudo mount -o nobrowse -t apfs /dev/disk1s2 ~/mount
 
+sudo rm -rf ~/mount/System/Applications/Calendar.app
 sudo rm -rf ~/mount/System/Applications/Chess.app
 sudo rm -rf ~/mount/System/Applications/Contacts.app
 sudo rm -rf ~/mount/System/Applications/Dictionary.app
@@ -25,11 +26,13 @@ sudo rm -rf ~/mount/System/Applications/Photo\ Booth.app
 sudo rm -rf ~/mount/System/Applications/Photos.app
 sudo rm -rf ~/mount/System/Applications/Podcasts.app
 sudo rm -rf ~/mount/System/Applications/Reminders.app
+sudo rm -rf ~/mount/System/Applications/Safari.app
 sudo rm -rf ~/mount/System/Applications/Siri.app
 sudo rm -rf ~/mount/System/Applications/Stickies.app
 sudo rm -rf ~/mount/System/Applications/Stocks.app
 sudo rm -rf ~/mount/System/Applications/TV.app
 sudo rm -rf ~/mount/System/Applications/VoiceMemos.app
+sudo rm -rf ~/mount/System/Applications/Weather.app
 sudo rm -rf ~/mount/System/Applications/Utilities/VoiceOver\ Utility.app
 
 # Mission Control
