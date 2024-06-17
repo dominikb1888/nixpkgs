@@ -16,4 +16,8 @@
 
   # Stop `parallel` from displaying citation warning
   home.file.".parallel/will-cite".text = "";
+
+  # Creates empty dotfile to remove terminal Last Login message
+  home.file.".hushlogin".text = "";
+
 }
