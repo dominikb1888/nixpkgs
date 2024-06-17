@@ -24,8 +24,7 @@ in
   # https://sw.kovidgoyal.net/kitty/conf.html
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.kitty.enable
   programs.kitty.enable = true;
-
-  # General config ----------------------------------------------------------------------------- {{{
+    # General config ----------------------------------------------------------------------------- {{{
 
   programs.kitty.settings = {
     # https://fsd.it/shop/fonts/pragmatapro/
