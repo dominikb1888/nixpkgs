@@ -30,8 +30,8 @@ in
   homebrew.global.brewfile = true;
 
   homebrew.taps = [
-    "homebrew/cask-fonts"
-    "homebrew/cask-versions"
+  #  "homebrew/cask-fonts"
+  #  "homebrew/cask-versions"
     "homebrew/services"
     "nrlquaker/createzap"
     "muesli/homebrew-tap"
