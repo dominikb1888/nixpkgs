@@ -53,6 +53,7 @@
     htop # fancy version of `top`
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
+    neofetch
     ngrok
     ripgrep # better version of `grep`
     unrar # extract RAR archives
