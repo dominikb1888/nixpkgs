@@ -1,4 +1,6 @@
+
 { config, lib, pkgs, ... }:
+
 
 let
   inherit (lib) generators concatStringsSep mkIf mkOption optionalAttrs types;
@@ -6,7 +8,7 @@ let
   cfg = config.programs.kitty.extras;
 
   # Create a Kitty config string from a Nix set
-  setToKittyConfig = with generators; toKeyValue { mkKeyValue = mkKeyValueDefault {} " "; };
+  setToKittyConfig = with generators; toKeyValue { mkKeyValue = mkKeyValueDefault { } " "; };
 
   # Write a Nix set representing a kitty config into the Nix store
   writeKittyConfig = fileName: config: pkgs.writeTextDir "${fileName}" (setToKittyConfig config);
@@ -38,7 +40,7 @@ let
   socket = "unix:/tmp/mykitty";
 
 in
-  {
+{
 
   options.programs.kitty.extras = {
     colors = {
@@ -59,7 +61,7 @@ in
 
       dark = mkOption {
         type = with types; attrsOf str;
-        default = {};
+        default = { };
         description = ''
           Kitty color settings for dark background colorscheme.
         '';
@@ -67,7 +69,7 @@ in
 
       light = mkOption {
         type = with types; attrsOf str;
-        default = {};
+        default = { };
         description = ''
           Kitty color settings for light background colorscheme.
         '';
@@ -75,7 +77,7 @@ in
 
       common = mkOption {
         type = with types; attrsOf str;
-        default = {};
+        default = { };
         description = ''
           Kitty color settings that the light and dark background colorschemes share.
         '';
@@ -114,14 +116,13 @@ in
       term-background
     ];
 
-    programs.kitty.settings = optionalAttrs cfg.colors.enable (
-
-      cfg.colors.common // cfg.colors.${cfg.colors.default} // {
-        allow_remote_control = "yes";
-        listen_on = socket;
-      }
-
-    ) // optionalAttrs (cfg.useSymbolsFromNerdFont != "") {
+    programs.kitty.settings = optionalAttrs cfg.colors.enable
+      (
+        cfg.colors.common // cfg.colors.${cfg.colors.default} // {
+          allow_remote_control = "yes";
+          listen_on = socket;
+        }
+      ) // optionalAttrs (cfg.useSymbolsFromNerdFont != "") {
 
       # https://github.com/ryanoasis/nerd-fonts/wiki/Glyph-Sets-and-Code-Points
       symbol_map = concatStringsSep "," [
@@ -160,11 +161,12 @@ in
         # Codicons
         "U+EA60-U+EBEB"
         # Heavy Angle Brackets
-        "U+E276C-U+2771"
+        "U+276C-U+2771"
         # Box Drawing
         "U+2500-U+259F"
       ] + " ${cfg.useSymbolsFromNerdFont}";
     };
+
     programs.kitty.darwinLaunchOptions = mkIf pkgs.stdenv.isDarwin [
       "--listen-on ${socket}"
     ];
@@ -172,3 +174,4 @@ in
   };
 
 }
+
