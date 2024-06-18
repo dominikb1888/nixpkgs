@@ -234,6 +234,7 @@ in
 
     # Python
     ruff
+    pyright
 
     # Generic
     tree-sitter
