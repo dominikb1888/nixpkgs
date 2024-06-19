@@ -90,6 +90,7 @@
     prefmanager # tool for working with macOS defaults
     slides
     texliveSmall
+    texlivePackages.tcolorbox
     xquartz
   ];
 }
