@@ -91,6 +91,7 @@
     slides
     texliveSmall
     texlivePackages.tcolorbox
+    pandoc-fignos
     xquartz
   ];
 }
