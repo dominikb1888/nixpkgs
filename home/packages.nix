@@ -60,6 +60,7 @@
     wget
 
     # Dev stuff
+    exercism
     jq
     nodejs
     podman
