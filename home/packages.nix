@@ -47,8 +47,8 @@
     eza # fancy version of `ls`
     fd # fancy version of `find`
     ripgrep-all
-    #ffmpeg7_full
-    #ffmpeg-normalize # Audio normalization for ffmpeg
+    ffmpeg
+    ffmpeg-normalize # Audio normalization for ffmpeg
     git-lfs
     htop # fancy version of `top`
     hyperfine # benchmarking tool
