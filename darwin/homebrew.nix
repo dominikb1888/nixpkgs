@@ -58,6 +58,7 @@ in
     "notunes"
     "parallels"
     "protege"
+    "obs"
     "rectangle"
     "r"
     "rstudio"
