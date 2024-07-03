@@ -58,6 +58,7 @@
     ripgrep # better version of `grep`
     unrar # extract RAR archives
     wget
+    tmate
 
     # Dev stuff
     exercism
