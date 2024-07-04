@@ -111,7 +111,7 @@ in
       config = requireConf bufferline-nvim;
     }
     { use = galaxyline-nvim; deps = [ nvim-web-devicons ]; config = requireConf galaxyline-nvim; }
-    { use = gitsigns-nvim; config = requireConf gitsigns-nvim; }
+    # { use = gitsigns-nvim; config = requireConf gitsigns-nvim; }
     { use = goyo-vim; }
     { use = indent-blankline-nvim; config = requireConf indent-blankline-nvim; }
     { use = lush-nvim; vscode = true; }
