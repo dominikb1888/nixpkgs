@@ -50,7 +50,7 @@
     ffmpeg
     ffmpeg-normalize # Audio normalization for ffmpeg
     git-lfs
-    htop # fancy version of `top`
+    btop # fancy version of `top`
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
     neofetch
