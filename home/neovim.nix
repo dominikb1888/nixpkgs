@@ -174,7 +174,7 @@ in
     # Editor behavior
     { use = comment-nvim; config = "require'comment'.setup()"; }
     { use = editorconfig-vim; setup = "vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }"; }
-    { use = tabular; vscode = true; }
+    #{ use = tabular; vscode = true; }
     { use = vim-surround; vscode = true; }
     { use = nvim-lastplace; config = "require'nvim-lastplace'.setup()"; }
     {
