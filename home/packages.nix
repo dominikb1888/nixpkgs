@@ -63,6 +63,7 @@
     # Dev stuff
     exercism
     jq
+    jdk
     nodejs
     podman
     podman-compose
