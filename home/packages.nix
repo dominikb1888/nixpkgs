@@ -69,7 +69,6 @@
     podman-compose
 
     #VPN
-    openconnect
     gnupg
 
     # Useful nix related tools
