@@ -243,8 +243,8 @@ in
     nodePackages.vim-language-server
 
     #Other
-    nodePackages.vscode-langservers-extracted
-    nodePackages.yaml-language-server
+    # nodePackages.vscode-langservers-extracted
+    # nodePackages.yaml-language-server
     proselint
     sumneko-lua-language-server
   ];
