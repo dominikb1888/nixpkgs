@@ -30,7 +30,7 @@
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 4;
+  #system.stateVersion = 4;
 
   # Disable documentation until https://github.com/LnL7/nix-darwin/issues/217 is fixed.
   documentation.enable = false;

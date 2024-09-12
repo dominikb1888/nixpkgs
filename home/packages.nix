@@ -89,7 +89,7 @@
     hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     m-cli # useful macOS CLI commands
     pandoc
-    prefmanager # tool for working with macOS defaults
+    # prefmanager # tool for working with macOS defaults
     slides
     texliveSmall
     texlivePackages.tcolorbox

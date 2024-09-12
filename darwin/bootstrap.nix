@@ -33,7 +33,7 @@
   };
 
   nix.configureBuildUsers = true;
-
+  ids.gids.nixbld = 350;
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   services.lorri.enable = true;
