@@ -24,10 +24,10 @@ in
     end
   '';
 
-  #homebrew.enable = true;
+  homebrew.enable = true;
   homebrew.onActivation.autoUpdate = true;
   homebrew.onActivation.cleanup = "zap";
-  #homebrew.global.brewfile = true;
+  homebrew.global.brewfile = true;
 
   homebrew.taps = [
   #  "homebrew/cask-fonts"
@@ -56,16 +56,12 @@ in
     "google-chrome"
     "onedrive"
     "notunes"
-    "parallels"
     "protege"
-    "obs"
-    "rectangle"
     "r"
     "rstudio"
     "microsoft-teams"
     "visual-studio-code"
     "vlc"
-    "yubico-yubikey-manager"
   ];
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
