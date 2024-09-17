@@ -164,6 +164,7 @@
 
         # My Apple Silicon macOS laptop config
         Dominiks-MBP = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
+	  system = "aarch64-darwin";
           modules = attrValues self.darwinModules ++ singleton {
             nixpkgs = nixpkgsDefaults;
             networking.computerName = "Dom’s 💻";
