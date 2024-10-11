@@ -126,14 +126,15 @@ in
         telescope-zoxide
       ];
     }
-    { use = octo-nvim;
-      deps = [
-        plenary-nvim
-        telescope-nvim
-        nvim-web-devicons
-      ];
-      config = requireConf octo-nvim;
-    }
+    # Error when updating to new version
+    # { use = octo-nvim;
+    #   deps = [
+    #     plenary-nvim
+    #     telescope-nvim
+    #     nvim-web-devicons
+    #   ];
+    #   config = requireConf octo-nvim;
+    # }
     { use = toggleterm-nvim; config = requireConf toggleterm-nvim; }
 
     # Completions
