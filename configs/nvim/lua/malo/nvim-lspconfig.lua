@@ -100,7 +100,7 @@ local servers_config = {
 
   pyright = {},
   sourcekit = {},
-  ts_server = {},
+  -- ts_server = {},
 
   -- vimls = {
   --   init_options = {
