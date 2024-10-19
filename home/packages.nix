@@ -46,7 +46,7 @@
     fzf # fuzzy commandline finder
     eza # fancy version of `ls`
     fd # fancy version of `find`
-    ripgrep-all
+    ripgrep
     ffmpeg
     ffmpeg-normalize # Audio normalization for ffmpeg
     git-lfs
