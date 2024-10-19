@@ -100,28 +100,28 @@ local servers_config = {
 
   pyright = {},
   sourcekit = {},
-  tsserver = {},
+  ts_server = {},
 
-  vimls = {
-    init_options = {
-      iskeyword = '@,48-57,_,192-255,-#',
-      vimruntime = vim.env.VIMRUNTIME,
-      runtimepath = vim.o.runtimepath,
-      diagnostic = {
-        enable = true,
-      },
-      indexes = {
-        runtimepath = true,
-        gap = 100,
-        count = 8,
-        projectRootPatterns = { "runtime", "nvim", ".git", "autoload", "plugin" },
-      },
-      suggest = {
-        fromRuntimepath = true,
-        fromVimruntime = true
-      },
-    }
-  },
+  -- vimls = {
+  --   init_options = {
+  --     iskeyword = '@,48-57,_,192-255,-#',
+  --     vimruntime = vim.env.VIMRUNTIME,
+  --     runtimepath = vim.o.runtimepath,
+  --     diagnostic = {
+  --       enable = true,
+  --     },
+  --     indexes = {
+  --       runtimepath = true,
+  --       gap = 100,
+  --       count = 8,
+  --       projectRootPatterns = { "runtime", "nvim", ".git", "autoload", "plugin" },
+  --     },
+  --     suggest = {
+  --       fromRuntimepath = true,
+  --       fromVimruntime = true
+  --     },
+  --   }
+  -- },
 
   yamlls = {
     settings = {
