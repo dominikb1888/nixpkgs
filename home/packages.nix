@@ -70,6 +70,7 @@
 
     #VPN
     gnupg
+    pass
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
