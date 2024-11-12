@@ -95,6 +95,6 @@
     texliveSmall
     texlivePackages.tcolorbox
     pandoc-fignos
-    xquartz
+    # xquartz # BUG: 2024, Nov 11
   ];
 }
