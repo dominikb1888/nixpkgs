@@ -17,6 +17,8 @@
 
     trusted-users = [ "@admin" ];
 
+    extra-trusted-users = [ "dominikb1888" ];
+
     # https://github.com/NixOS/nix/issues/7273
     auto-optimise-store = false;
 
@@ -31,7 +33,7 @@
     # keep-derivations = true;
     keep-outputs = true;
   };
-
+  nix.linux-builder.enable = true;
   nix.configureBuildUsers = true;
   ids.gids.nixbld = 350;
   # Auto upgrade nix package and the daemon service.
