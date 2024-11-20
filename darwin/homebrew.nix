@@ -43,6 +43,7 @@ in
   # Commented apps suffer continual update issue:
   # https://github.com/malob/nixpkgs/issues/9
   homebrew.masApps = {
+    #eduVPN = 1317704208;
     #Slack = 803453959; # Error on downloading via app store
     #Xcode = 497799835; # Very slow download via app store - deactivated
   };
