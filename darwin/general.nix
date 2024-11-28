@@ -18,7 +18,7 @@
   # TODO: Re-enable once https://github.com/LnL7/nix-darwin/issues/485 is resolved
   fonts.packages = with pkgs; [
      recursive
-     jetbrains-mono
+     nerd-fonts.jetbrains-mono
    ];
 
   # Keyboard
