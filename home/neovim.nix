@@ -1,7 +1,13 @@
 { config, pkgs, lib, ... }:
 # Let-In ----------------------------------------------------------------------------------------{{{
 let
-  inherit (lib) concatStringsSep optional;
+  inherit (lib)
+    attrValues
+    concatStringsSep
+    mapAttrsToList
+    optional
+    removePrefix
+    ;
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
 
@@ -79,6 +85,8 @@ let
           )
       );
     };
+    mkVimColorVariable = k: v: ''let g:theme_${k} = "${v}"'';
+    colorSetToVimscript = colors: concatStringsSep "\n" (mapAttrsToList mkVimColorVariable colors);
   in
 # }}}
 {
@@ -95,7 +103,11 @@ let
     mkOutOfStoreSymlink "${nixConfigDirectory}/configs/nvim/colors";
 
   # Load the `init` module from the above configs
-  programs.neovim.extraConfig = "lua require('init')";
+  programs.neovim.extraConfig = ''
+    ${colorSetToVimscript config.colors.malo-ok-solar-light.colors}
+    ${colorSetToVimscript config.colors.malo-ok-solar-light.namedColors}
+    lua require('init')
+  '';
 
   # Add NodeJs since it's required by some plugins I use.
   programs.neovim.withNodeJs = true;
