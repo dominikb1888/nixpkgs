@@ -79,6 +79,16 @@ let
           )
       );
     };
+  nvimCompanion = pkgs.vimUtils.buildVimPlugin {
+        pname = "nvim-companion";
+        version = "v10.8.1"; # Replace with the desired version
+        src = pkgs.fetchFromGitHub {
+          owner = "olimorris"; # Replace with the actual GitHub owner
+          repo = "codecompanion.nvim"; # Replace with the actual repo name
+          rev = "v10.8.1"; # Replace with the commit hash
+          sha256 = "sha256-idsvW85ucgd/s1IecQbY9GVBMT9qx3Fdlggy2SSHoNw="; # Replace with the actual hash
+        };
+      };
 in
 # }}}
 {
@@ -105,6 +115,8 @@ in
   # Add plugins using my `packer` function.
   programs.neovim.plugins = with pkgs.vimPlugins; map packer [
     # Apperance, interface, UI, etc.
+    {  use = nvimCompanion; deps = [ plenary-nvim nvim-treesitter ]; config = "require'codecompanion'.setup({ strategies = { chat = { adapter = 'ollama', }, inline = { adapter = 'ollama', }, }, })";
+    }
     {
       use = bufferline-nvim;
       deps = [ nvim-web-devicons scope-nvim ];

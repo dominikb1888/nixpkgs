@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   # Nix configuration ------------------------------------------------------------------------------
@@ -36,6 +36,9 @@
   nix.linux-builder.enable = true;
   nix.configureBuildUsers = true;
   ids.gids.nixbld = 350;
+
+  nix.channel.enable = true;
+
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   services.lorri.enable = true;
@@ -52,16 +55,6 @@
   # Make Fish the default shell
   programs.fish.enable = true;
   programs.fish.useBabelfish = true;
-  programs.fish.babelfishPackage = pkgs.babelfish;
-  # Needed to address bug where $PATH is not properly set for fish:
-  # https://github.com/LnL7/nix-darwin/issues/122
-  programs.fish.shellInit = ''
-    for p in (string split : ${config.environment.systemPath})
-      if not contains $p $fish_user_paths
-        set -g fish_user_paths $fish_user_paths $p
-      end
-    end
-  '';
   environment.variables.SHELL = "${pkgs.fish}/bin/fish";
 
   # Install and setup ZSH to work with nix(-darwin) as well

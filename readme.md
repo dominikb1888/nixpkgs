@@ -23,10 +23,6 @@ In no particular order:
     * [`security-pam`](./modules/darwin/security/pam.nix) that provides an option, `enableSudoTouchIdAuth`, which enables using Touch ID for `sudo` authentication. (Pending upstream PR [#228](https://github.com/LnL7/nix-darwin/pull/228).)
     * [`programs-nix-index`](./modules/darwin/programs/nix-index.nix) that augments `nix-darwins`'s `programs.nix-index` module with a command not found handler for Fish. (Pending upstream PR [#272](https://github.com/LnL7/nix-darwin/pull/272).)
   * `homeManagerModules` output for `home-manager` modules with additional functionality and prepackaged configuration:
-    * [`programs-neovim-extras`](./modules/home/programs/neovim/extras.nix) that provides `termBufferAutoChangeDir`, and `nvrAliases` options.
-    * [`programs-kitty-extras`](./modules/home/programs/kitty/extras.nix) that provides a,
-      * `colors` option to configure a light and dark colorscheme, which when used also adds `term-light`, `term-dark`, and `term-background` scripts to `home.packages` to easily switch between them; and
-      * `useSymbolsFromNerdFont` option to use symbols from a NerdFont while using any font with Kitty.
     * [`malo-git-aliases`](./home/git-aliases.nix)
     * [`malo-gh-aliases`](./home/gh-aliases.nix)
     * [`malo-startship-symbols`](./home/starship-symbols.nix) that provides predefined configuration of symbols for [Starship](https://starship.rs) prompt using NerdFont symbols.
