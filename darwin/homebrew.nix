@@ -4,17 +4,17 @@ let
   inherit (lib) mkIf;
   mkIfCaskPresent = cask: mkIf (lib.any (x: x.name == cask) config.homebrew.casks);
   brewEnabled = config.homebrew.enable;
-in
-
-{
-  environment.shellInit = mkIf brewEnabled ''
+  caskPresent = cask: lib.any (x: x.name == cask) config.homebrew.casks;
+  brewShellInit = mkIf brewEnabled ''
     eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
   '';
+in
+{
+  environment.shellInit = brewShellInit;
+  programs.zsh.shellInit = brewShellInit; # `zsh` doesn't inherit `environment.shellInit`
 
   # https://docs.brew.sh/Shell-Completion#configuring-completions-in-fish
-  # For some reason if the Fish completions are added at the end of `fish_complete_path` they don't
-  # seem to work, but they do work if added at the start.
-  programs.fish.interactiveShellInit = mkIf brewEnabled ''
+   programs.fish.interactiveShellInit = mkIf brewEnabled ''
     if test -d (brew --prefix)"/share/fish/completions"
       set -p fish_complete_path (brew --prefix)/share/fish/completions
     end
@@ -58,12 +58,17 @@ in
     "onedrive"
     "notunes"
     "protege"
+    "ghostty"
     "r"
     "rstudio"
     "microsoft-teams"
     "visual-studio-code"
     "vlc"
   ];
+
+  # Hack: https://github.com/ghostty-org/ghostty/discussions/2832
+  environment.variables.XDG_DATA_DIRS =
+    mkIf (caskPresent "ghostty") ["$GHOSTTY_SHELL_INTEGRATION_XDG_DIR"];
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.

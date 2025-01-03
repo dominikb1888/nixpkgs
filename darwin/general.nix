@@ -5,14 +5,8 @@
   # `home-manager` currently has issues adding them to `~/Applications`
   # Issue: https://github.com/nix-community/home-manager/issues/1341
   environment.systemPackages = with pkgs; [
-    kitty
     terminal-notifier
   ];
-  # https://github.com/nix-community/home-manager/issues/423
-  # environment.variables = {
-  #   TERMINFO_DIRS = "${pkgs.kitty.terminfo.outPath}/share/terminfo";
-  # };
-  programs.nix-index.enable = true;
 
   # Fonts
   # TODO: Re-enable once https://github.com/LnL7/nix-darwin/issues/485 is resolved

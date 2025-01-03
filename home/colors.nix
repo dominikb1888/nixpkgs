@@ -67,8 +67,8 @@
       fg = "base00";
       cursorBg = "blue";
       cursorFg = "base3";
-      selectionBg = "base1";
-      selectionFg = "base3";
+      selectionBg = "#A9D2EF";
+      selectionFg = "base00";
     };
 
     pkgThemes.kitty = {
@@ -89,8 +89,8 @@
       fg = "base0";
       cursorBg = "blue";
       cursorFg = "base03";
-      selectionBg = "base01";
-      selectionFg = "base03";
+      selectionBg = "#103956";
+      selectionFg = "base0";
     };
 
     pkgThemes.kitty = {
@@ -98,7 +98,8 @@
         url_color
         active_tab_background
         active_tab_foreground
-        inactive_tab_background;
+        inactive_tab_background
+        ;
 
       tab_bar_background = "base02";
       inactive_tab_foreground = "base1";
