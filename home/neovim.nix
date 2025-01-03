@@ -115,8 +115,8 @@ in
   # Add plugins using my `packer` function.
   programs.neovim.plugins = with pkgs.vimPlugins; map packer [
     # Apperance, interface, UI, etc.
-    {  use = nvimCompanion; deps = [ plenary-nvim nvim-treesitter ]; config = "require'codecompanion'.setup({ strategies = { chat = { adapter = 'ollama', }, inline = { adapter = 'ollama', }, }, })";
-    }
+    # {  use = nvimCompanion; deps = [ plenary-nvim nvim-treesitter ]; config = "require'codecompanion'.setup({ strategies = { chat = { adapter = 'ollama', }, inline = { adapter = 'ollama', }, }, })";
+    # }
     {
       use = bufferline-nvim;
       deps = [ nvim-web-devicons scope-nvim ];
