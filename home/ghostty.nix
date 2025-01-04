@@ -23,16 +23,18 @@ xdg.configFile."ghostty/themes/dark".text =
     font-size = 16;
     font-thicken = true;
 
-    adjust-cell-height = "40%";
-    adjust-cursor-height = "40%";
+    adjust-cell-height = "20%";
+    adjust-cursor-height = "20%";
     adjust-cursor-thickness = "100%";
     adjust-box-thickness = "100%";
-    adjust-underline-thickness = "400%";
+    adjust-underline-thickness = "100%";
+
+    macos-titlebar-style = "hidden";
 
     theme = "light:light,dark:dark";
     window-theme = "system";
     window-colorspace = "display-p3";
-    window-padding-x = 10;
+    window-padding-x = 16;
     window-padding-y = 10;
 
     auto-update = "download";
