@@ -56,6 +56,7 @@ in
     curl
     fzf # fuzzy commandline finder
     eza # fancy version of `ls`
+    fabric-ai
     fd # fancy version of `find`
     ffmpeg
     ffmpeg-normalize # Audio normalization for ffmpeg
