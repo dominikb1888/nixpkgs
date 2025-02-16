@@ -34,13 +34,13 @@
     keep-outputs = true;
   };
   nix.linux-builder.enable = true;
-  nix.configureBuildUsers = true;
+  #nix.configureBuildUsers = true;
   ids.gids.nixbld = 350;
 
   nix.channel.enable = true;
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  # services.nix-daemon.enable = true;
   services.lorri.enable = true;
 
   # Shells -----------------------------------------------------------------------------------------
