@@ -71,7 +71,7 @@ in
     unrar # extract RAR archives
     wget
     tmate
-
+    graphviz
     # Dev stuff
     exercism
     jq
