@@ -73,8 +73,6 @@ in
     tmate
     graphviz
     # Dev stuff
-    exercism
-    jq
     jdk
     nodejs
     podman
