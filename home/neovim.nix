@@ -172,7 +172,6 @@ let
         vim.diagnostic.config({ virtual_lines = { only_current_line = true } })'';
     }
     { use = lspsaga-nvim; config = requireConf lspsaga-nvim; }
-    { use = null-ls-nvim; config = requireConf null-ls-nvim; }
     { use = nvim-lspconfig; deps = [ neodev-nvim ]; config = requireConf nvim-lspconfig; }
 
     # Language support/utilities
