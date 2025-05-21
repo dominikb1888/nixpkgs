@@ -226,7 +226,6 @@ let
     # Bash
     # commented until https://github.com/NixOS/nixpkgs/pull/319882 is merged
     # nodePackages.bash-language-server
-    shellcheck
 
     # Lus Snip Dependency for Lua Regex
     luajitPackages.jsregexp
@@ -256,7 +255,6 @@ let
     #Other
     # nodePackages.vscode-langservers-extracted
     # nodePackages.yaml-language-server
-    proselint
     sumneko-lua-language-server
   ];
   # }}}
