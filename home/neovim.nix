@@ -219,7 +219,6 @@ let
 
     # Language servers, linters, etc.
     # See `../configs/nvim/lua/malo/nvim-lspconfig.lua` and
-    # `../configs/nvim/lua/malo/null-ls-nvim.lua` for configuration.
 
     # C/C++/Objective-C
     ccls
