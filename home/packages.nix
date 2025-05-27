@@ -72,6 +72,7 @@ in
     wget
     tmate
     graphviz
+    goose-cli
     # Dev stuff
     jdk
     nodejs
