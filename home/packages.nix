@@ -79,6 +79,7 @@ in
     nodejs
     podman
     podman-compose
+    uv
 
     #VPN
     gnupg
