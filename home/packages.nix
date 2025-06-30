@@ -74,6 +74,7 @@ in
     graphviz
     goose-cli
     # Dev stuff
+    copier
     jdk
     nodejs
     podman
@@ -102,9 +103,9 @@ in
     pandoc
     # prefmanager # tool for working with macOS defaults
     slides
-    texliveSmall
-    texlivePackages.tcolorbox
-    pandoc-fignos
+    # texliveSmall
+    # texlivePackages.tcolorbox
+    # pandoc-fignos
     # xquartz # BUG: 2024, Nov 11
   ];
 }
