@@ -181,7 +181,7 @@ in
   home.shellAliases = with pkgs; {
     # Nix related
     drb = "darwin-rebuild build --flake ${nixConfigDirectory}";
-    drs = "darwin-rebuild switch --flake ${nixConfigDirectory}";
+    drs = "sudo darwin-rebuild switch --flake ${nixConfigDirectory}";
     flakeup = "nix flake update --flake ${nixConfigDirectory}";
     nb = "nix build";
     nd = "nix develop";
