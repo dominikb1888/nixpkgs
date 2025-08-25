@@ -60,14 +60,10 @@ in
     aichat
     fd # fancy version of `find`
     ffmpeg
-    ffmpeg-normalize # Audio normalization for ffmpeg
     git-lfs
     btop # fancy version of `top`
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
-    neofetch
-    ngrok
-    ripgrep # better version of `grep`
     unrar # extract RAR archives
     wget
     tmate
