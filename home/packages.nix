@@ -86,7 +86,7 @@ in
     devenv # Integrated solution for managing dev environments with nix
     lorri
     niv # easy dependency management for nix projects
-    linuxkit # build linux binaries on macos
+    # linuxkit # build linux binaries on macos
     nix-tree # interactively browse dependency graphs of Nix derivations
     nix-update # swiss-knife for updating nix packages
     nixpkgs-review # review pull-requests on nixpkgs
