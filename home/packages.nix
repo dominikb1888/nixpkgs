@@ -77,6 +77,8 @@ in
     podman-compose
     uv
 
+    glow
+
     #VPN
     gnupg
     pass
