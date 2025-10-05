@@ -54,6 +54,7 @@ in
     bind # DNS Tools
     coreutils
     curl
+    ripgrep
     fzf # fuzzy commandline finder
     eza # fancy version of `ls`
     fabric-ai
