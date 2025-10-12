@@ -65,6 +65,7 @@ in
     btop # fancy version of `top`
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
+    nmap
     unrar # extract RAR archives
     wget
     tmate
