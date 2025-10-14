@@ -59,7 +59,7 @@ in
     "notunes"
     "protege"
     "ghostty"
-    "r"
+    "r-app"
     "rstudio"
     "microsoft-teams"
     "visual-studio-code"
