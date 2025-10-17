@@ -37,16 +37,7 @@ in
   # SSH
   # https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable
   # Some options also set in `../darwin/homebrew.nix`.
-  programs.ssh = {
-  enable = true;
-  matchBlocks = {
-    "*" = {
-      controlMaster = "auto";
-      controlPersist = "10m";
-      controlPath = "~/.ssh/%C";
-    };
-  };
-  };
+  programs.ssh.enable = true;
 
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
