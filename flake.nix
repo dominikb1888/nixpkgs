@@ -218,8 +218,8 @@
           python = pkgs.mkShell {
             name = "python312";
             inputsFrom = attrValues {
-              inherit (pkgs.pkgs-master.python310Packages) black isort;
-              inherit (pkgs) poetry python310 pyright;
+              inherit (pkgs.pkgs-master.python312Packages) black isort;
+              inherit (pkgs) poetry python312 pyright;
             };
           };
         };
