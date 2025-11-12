@@ -255,7 +255,7 @@ let
     #Other
     # nodePackages.vscode-langservers-extracted
     # nodePackages.yaml-language-server
-    sumneko-lua-language-server
+    lua-language-server
   ];
   # }}}
 }

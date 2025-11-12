@@ -49,7 +49,7 @@
       primaryUserDefaults = {
         username = "dominikb1888";
         fullName = "Dominik Boehler";
-        email = "dominik.boehler@gmx.net";
+        email =  "dominik.boehler@gmx.net";
         nixConfigDirectory = "/Users/dominikb1888/.config/nixpkgs";
       };
     in
