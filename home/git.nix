@@ -6,10 +6,11 @@
   # Aliases config in ./configs/git-aliases.nix
   programs.git.enable = true;
 
-  programs.git.extraConfig = {
+  programs.git.settings = {
     diff.colorMoved = "default";
     pull.rebase = true;
     push.autoSetupRemote = true;
+    init.defaultBranch = "main";
   };
 
   programs.git.ignores = [
@@ -22,13 +23,9 @@
   programs.git.userEmail = config.home.user-info.email;
   programs.git.userName = config.home.user-info.fullName;
 
-  programs.git.extraConfig = {
-      init.defaultBranch = "main";
-  };
-
   # Enhanced diffs
-  programs.git.delta.enable = true;
-
+  programs.delta.enable = true;
+  programs.delta.enableGitIntegration = true;
 
   # GitHub CLI
   # https://rycee.gitlab.io/home-manager/options.html#opt-programs.gh.enable

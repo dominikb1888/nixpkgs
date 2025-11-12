@@ -194,8 +194,8 @@ in
     ":q" = "exit";
     cat = "${bat}/bin/bat";
     cl = "clear";
-    du = "${du-dust}/bin/dust";
-    g = "${gitAndTools.git}/bin/git";
+    du = "${dust}/bin/dust";
+    g = "${git}/bin/git";
     lg = "la --git-ignore"; # does not list files ignored by git
     la = "ll -a";
     ll = "ls -l --time-style=iso --icons --git --no-filesize --no-user --header";
