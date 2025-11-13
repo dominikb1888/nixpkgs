@@ -27,7 +27,7 @@
       "flakes"
     ];
 
-    extra-platforms = lib.mkIf (pkgs.system == "aarch64-darwin") [ "x86_64-darwin"];
+    extra-platforms = lib.mkIf (pkgs.stdenv.hostPlatform.system == "aarch64-darwin") [ "x86_64-darwin"];
 
     # Recommended when using `direnv` etc.
     # keep-derivations = true;
