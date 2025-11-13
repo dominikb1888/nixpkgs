@@ -37,7 +37,32 @@ in
   # SSH
   # https://nix-community.github.io/home-manager/options.html#opt-programs.ssh.enable
   # Some options also set in `../darwin/homebrew.nix`.
-  programs.ssh.enable = true;
+
+programs.ssh = {
+  enable = true;
+  enableDefaultConfig = false;
+
+  matchBlocks."*" = {
+    forwardAgent = false;
+    forwardX11 = false;
+    serverAliveInterval = 30;
+    serverAliveCountMax = 3;
+    controlMaster = "auto";
+    controlPersist = "10m";
+    controlPath = "~/.ssh/control-%r@%h:%p";
+    compression = true;
+    extraOptions = {
+        Compression = "yes";
+        HashKnownHosts = "yes";
+        TCPKeepAlive = "yes";
+        ConnectTimeout = "10";
+    };
+
+      identityFile = [
+        "~/.ssh/id_rsa"
+      ];
+  };
+};
 
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
