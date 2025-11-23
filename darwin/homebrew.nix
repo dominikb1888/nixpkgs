@@ -64,6 +64,7 @@ in
     "microsoft-teams"
     "visual-studio-code"
     "vlc"
+    "zap"
   ];
 
   # Hack: https://github.com/ghostty-org/ghostty/discussions/2832
