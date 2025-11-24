@@ -11,7 +11,10 @@ in
   programs.fish.enable = true;
 
   # Add Fish plugins
-  home.packages = [ pkgs.fishPlugins.done ];
+  home.packages = [
+    pkgs.fishPlugins.done
+    pkgs.fishPlugins.bass
+  ];
 
   #  Fish functions ----------------------------------------------------------------------------- {{{
 
