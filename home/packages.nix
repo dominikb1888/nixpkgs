@@ -97,6 +97,7 @@ programs.ssh = {
     goose-cli
     # Dev stuff
     copier
+    git-filter-repo
     jdk
     nodejs
     podman
