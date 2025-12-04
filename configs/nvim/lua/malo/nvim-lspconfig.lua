@@ -28,7 +28,7 @@ require 'neodev'.setup {
   end
 }
 
-local lspconf = require 'lspconfig'
+local lspconf = require("lspconfig")
 -- require('telescope').load_extension('ht')
 
 local function on_attach(client, bufnr)
@@ -47,25 +47,6 @@ local function on_attach(client, bufnr)
     }}
   end
 end
-
-vim.g.haskell_tools = {
-  hls = require'cmp_nvim_lsp'.default_capabilities {
-    on_attach = on_attach,
-    settings = {
-      haskell = {
-        checkProject = true,
-        formattingProvider = 'ormolu',
-        plugin = {
-          rename = {
-            config = {
-              crossModule = true,
-            },
-          },
-        },
-      },
-    },
-  },
-}
 
 local servers_config = {
   bashls = {},
@@ -135,9 +116,17 @@ local servers_config = {
   },
 }
 
-foreach(servers_config, function(v, k)
-  lspconf[k].setup(require'cmp_nvim_lsp'.default_capabilities(
-   vim.tbl_extend('error', v, { on_attach = on_attach })
-  ))
-end)
+-- Define capabilities once using the recommended pattern
+local capabilities = require('cmp_nvim_lsp').default_capabilities(
+  vim.lsp.protocol.make_client_capabilities()
+)
 
+foreach(servers_config, function(v, k)
+  local server_opts = vim.tbl_extend('error', v, {
+    on_attach = on_attach,
+    capabilities = capabilities, -- Pass capabilities explicitly
+  })
+
+  -- Use the setup function from the lspconfig module
+  lspconf[k].setup(server_opts)
+end)
