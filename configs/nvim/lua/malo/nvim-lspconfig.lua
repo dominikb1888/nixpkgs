@@ -116,7 +116,7 @@ local servers_config = {
   },
 }
 
--- Define capabilities once using the recommended pattern
+-- Define capabilities once
 local capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
@@ -124,9 +124,12 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(
 foreach(servers_config, function(v, k)
   local server_opts = vim.tbl_extend('error', v, {
     on_attach = on_attach,
-    capabilities = capabilities, -- Pass capabilities explicitly
+    capabilities = capabilities,
   })
 
-  -- Use the setup function from the lspconfig module
-  lspconf[k].setup(server_opts)
+  -- 1. Register the config using the new API
+  vim.lsp.config(k, server_opts)
+
+  -- 2. Enable the server (This replaces the .setup() call)
+  vim.lsp.enable({k})
 end)
