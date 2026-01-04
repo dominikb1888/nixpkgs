@@ -55,6 +55,7 @@ in
     "burp-suite"
     "gpg-suite"
     "google-chrome"
+    "mole"
     "onedrive"
     "notunes"
     "protege"
