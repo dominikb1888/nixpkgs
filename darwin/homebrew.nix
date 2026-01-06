@@ -55,7 +55,6 @@ in
     "burp-suite"
     "gpg-suite"
     "google-chrome"
-    "mole"
     "onedrive"
     "notunes"
     "protege"
@@ -75,6 +74,7 @@ in
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.
   homebrew.brews = [
+    "mole"
     "marp-cli"
     "slides"
   ];
