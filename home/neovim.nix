@@ -110,6 +110,12 @@ let
     ${colorSetToVimscript config.colors.malo-ok-solar-light.colors}
     ${colorSetToVimscript config.colors.malo-ok-solar-light.namedColors}
     lua require('init')
+    lua <<EOF
+            require'nvim-treesitter.config'.setup {      highlight = { enable = true },
+      incremental_selection = { enable = true },
+      indent = { enable = true },
+    }
+    EOF
   '';
 
   # Add NodeJs since it's required by some plugins I use.
@@ -118,7 +124,7 @@ let
   programs.neovim.extraLuaPackages = ps: [ ps.penlight ];
 
   # Add plugins using my `packer` function.
-  programs.neovim.plugins = with pkgs.vimPlugins; map packer [
+  programs.neovim.plugins = with pkgs.vimPlugins; (map packer [
     # Apperance, interface, UI, etc.
     {
       use = bufferline-nvim;
@@ -179,23 +185,6 @@ let
 
     # Language support/utilities
     # { use = agda-vim; ft = [ "agda" ]; }
-    {
-      pname = "nvim-treesitter";
-      use = nvim-treesitter.withPlugins (plugins: with plugins; [
-        tree-sitter-nix
-        tree-sitter-lua
-        tree-sitter-python
-        tree-sitter-bash
-        tree-sitter-c
-        tree-sitter-javascript
-        tree-sitter-typescript
-        tree-sitter-html
-        tree-sitter-css
-        tree-sitter-json
-        tree-sitter-yaml
-      ]);
-      config = requireConf nvim-treesitter;
-    }
     # { use = vim-haskell-module-name; vscode = true; ft = [ "haskell" ]; }
     { use = vim-polyglot; config = requireConf vim-polyglot; }
 
@@ -219,6 +208,20 @@ let
     { use = vim-eunuch; vscode = true; }
     { use = vim-fugitive; }
     { use = which-key-nvim; }
+  ]) ++ [
+    (nvim-treesitter.withPlugins (plugins: with plugins; [
+      tree-sitter-nix
+      tree-sitter-lua
+      tree-sitter-python
+      tree-sitter-bash
+      tree-sitter-c
+      tree-sitter-javascript
+      tree-sitter-typescript
+      tree-sitter-html
+      tree-sitter-css
+      tree-sitter-json
+      tree-sitter-yaml
+    ]))
   ];
 
   # From personal addon module `../modules/home/programs/neovim/extras.nix`
