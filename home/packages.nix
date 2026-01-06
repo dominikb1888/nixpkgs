@@ -96,7 +96,7 @@ programs.ssh = {
     graphviz
     goose-cli
     # Dev stuff
-    claude-code
+
     copier
     git-filter-repo
     jdk
