@@ -82,7 +82,6 @@ programs.ssh = {
     fzf # fuzzy commandline finder
     eza # fancy version of `ls`
     fabric-ai
-    aichat
     fd # fancy version of `find`
     ffmpeg
     git-lfs
@@ -92,24 +91,17 @@ programs.ssh = {
     nmap
     unrar # extract RAR archives
     wget
-    tmate
-    graphviz
     goose-cli
     # Dev stuff
+    gemini-cli
 
-    copier
     git-filter-repo
-    jdk
     nodejs
-    podman
-    podman-compose
     uv
-
-    glow
 
     #VPN
     gnupg
-    pass
+
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
     comma # run software from without installing it
