@@ -22,6 +22,8 @@ let
   # Function to create `programs.neovim.plugins` entries inspired by `packer.nvim`.
   packer =
     { use
+    # Manually specified plugin name.
+    , pname ? use.pname or use.name
       # Plugins that this plugin depends on.
     , deps ? [ ]
       # Used to manually specify that the plugin shouldn't be loaded at start up.
@@ -39,16 +41,17 @@ let
     , event ? [ ]
     }:
     let
-      loadFunctionName = "load_${builtins.replaceStrings [ "." "-" ] [ "_" "_" ] use.pname}";
+      loadFunctionName = "load_${builtins.replaceStrings [ "." "-" ] [ "_" "_" ] pname}";
       autoload = !opt && vscode && ft == [ ] && event == [ ];
       configFinal =
         concatStringsSep "\n" (
-          optional (!autoload && !opt) "vim.cmd 'packadd ${use.pname}'"
+          optional (!autoload && !opt) "vim.cmd 'packadd ${pname}'"
           ++ optional (config != "") config
         );
     in
     {
       plugin = use.overrideAttrs (old: {
+        inherit pname;
         dependencies = lib.unique (old.dependencies or [ ] ++ deps);
       });
       optional = !autoload;
@@ -57,7 +60,7 @@ let
       (
         concatStringsSep "\n"
           (
-            [ "\n-- ${use.pname or use.name}" ]
+            [ "\n-- ${pname}" ]
             ++ optional (setup != "") setup
 
             # If the plugin isn't always loaded at startup
@@ -177,6 +180,7 @@ let
     # Language support/utilities
     # { use = agda-vim; ft = [ "agda" ]; }
     {
+      pname = "nvim-treesitter";
       use = nvim-treesitter.withPlugins (plugins: with plugins; [
         tree-sitter-nix
         tree-sitter-lua
