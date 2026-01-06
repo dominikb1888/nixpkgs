@@ -105,7 +105,6 @@
                 # Add flake input names here for a Vim plugin repos
               ] // {
                 # Other Vim plugins
-                inherit (inputs.cornelis.packages.${prev.stdenv.system}) cornelis-vim;
               }
             );
           };

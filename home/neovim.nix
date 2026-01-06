@@ -177,7 +177,19 @@ let
     # Language support/utilities
     # { use = agda-vim; ft = [ "agda" ]; }
     {
-      use = nvim-treesitter.withAllGrammars; #(_: pkgs.tree-sitter.allGrammars);
+      use = nvim-treesitter.withPlugins (plugins: with plugins; [
+        tree-sitter-nix
+        tree-sitter-lua
+        tree-sitter-python
+        tree-sitter-bash
+        tree-sitter-c
+        tree-sitter-javascript
+        tree-sitter-typescript
+        tree-sitter-html
+        tree-sitter-css
+        tree-sitter-json
+        tree-sitter-yaml
+      ]);
       config = requireConf nvim-treesitter;
     }
     # { use = vim-haskell-module-name; vscode = true; ft = [ "haskell" ]; }
@@ -247,7 +259,6 @@ let
     pyright
 
     # Generic
-    tree-sitter
 
     # Vim
     nodePackages.vim-language-server
