@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# NOTE: This script is not compatible with macOS as it relies on the /proc filesystem.
+# It is designed for Linux and FreeBSD.
+
 # Try to determine how much RAM is currently being used per program.
 # Note per _program_, not per process. So for example this script
 # will report RAM used by all httpd process together. In detail it reports:

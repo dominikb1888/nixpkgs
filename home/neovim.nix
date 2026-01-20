@@ -125,6 +125,37 @@ let
 
   # Add plugins using my `packer` function.
   programs.neovim.plugins = with pkgs.vimPlugins; (map packer [
+    # Core dependencies
+    { use = plenary-nvim; }
+    { use = nvim-cmp; config = requireConf nvim-cmp; }
+    { use = luasnip; }
+
+    # Completions
+    {
+      use = cmp-async-path;
+      deps = [ nvim-cmp ];
+    }
+    {
+      use = cmp-buffer;
+      deps = [ nvim-cmp ];
+    }
+    {
+      use = cmp-nvim-lsp;
+      deps = [ nvim-cmp ];
+    }
+    {
+      use = cmp-nvim-lsp-signature-help;
+      deps = [ nvim-cmp ];
+    }
+    {
+      use = lspkind-nvim;
+      deps = [ nvim-cmp ];
+    }
+    {
+      use = cmp_luasnip;
+      deps = [ nvim-cmp luasnip ];
+    }
+
     # Apperance, interface, UI, etc.
     {
       use = bufferline-nvim;
@@ -147,32 +178,16 @@ let
         telescope-zoxide
       ];
     }
-    # Error when updating to new version
-    # { use = octo-nvim;
-    #   deps = [
-    #     plenary-nvim
-    #     telescope-nvim
-    #     nvim-web-devicons
-    #   ];
-    #   config = requireConf octo-nvim;
-    # }
+    { use = octo-nvim;
+      deps = [
+        plenary-nvim
+        telescope-nvim
+        nvim-web-devicons
+      ];
+      config = requireConf octo-nvim;
+    }
     { use = toggleterm-nvim; config = requireConf toggleterm-nvim; }
 
-    # Completions
-    {
-      use = nvim-cmp;
-      deps = [
-        cmp-async-path
-        cmp-buffer
-        cmp-nvim-lsp
-        cmp-nvim-lsp-signature-help
-        lspkind-nvim
-
-        luasnip
-        cmp_luasnip
-      ];
-      config = requireConf nvim-cmp;
-    }
     # Language servers, linters, etc.
     {
       use = lsp_lines-nvim;
