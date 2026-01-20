@@ -2,23 +2,24 @@
 
 # Assign the current work directory to the bash script variable 'CWD'.
 CWD=$(pwd)
+# WARNING: The following path is hardcoded and may need to be changed.
 TEMPLATE='/home/dominikb1888/.templates/letterhead.tex'
 
 if [ $1 ]
 then
-  NAME=`echo $1 | sed 's/.tex//g'`
+  NAME=$(basename "$1" .tex)
   
   if [ $2 ] 
   then
-    SENDER=`echo $2`
-    xelatex -jobname=$NAME '\def\'$SENDER'{1} \def\inputfile{'$NAME'} \input{'$TEMPLATE'}'
+    SENDER=$2
+    xelatex -jobname="$NAME" '\def\'"$SENDER"'{1} \def\inputfile{'"$NAME"'} \input{'"$TEMPLATE"'}'
   else
-    xelatex -jobname=$NAME '\def\inputfile{'$NAME'} \input{'$TEMPLATE'}' 
+    xelatex -jobname="$NAME" '\def\inputfile{'"$NAME"'} \input{'"$TEMPLATE"'}' 
   fi
 
-  if [ -f ${CWD}/$NAME.pdf ]
+  if [ -f "${CWD}/${NAME}.pdf" ]
   then
-    start "" /max "$NAME.pdf";
+    open "${NAME}.pdf"
   fi
 
   ## declare an array variable
@@ -27,12 +28,8 @@ then
   ## now loop through the above array
   for i in "${formats[@]}"
   do
-    if [ -f ${CWD}/$NAME.$i ]
-    then
-      rm $NAME.$i
-    fi
+    rm -f "${NAME}.$i"
   done
   
   exit
 fi
-

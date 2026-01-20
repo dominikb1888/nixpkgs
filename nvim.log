@@ -1,0 +1,53 @@
+Error detected while processing /Users/dominikb1888/.config/nvim/init.lua:
+E5113: Error while calling lua chunk: ...ir/pack/hm/start/telescope.nvim/lua/telescope/config.lua:1: module 'plenary.strings' not found:
+	no field package.preload['plenary.strings']
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/plenary/strings.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/plenary/strings/init.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/lib/lua/5.1/plenary/strings.so'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/lib/lua/5.1/plenary.so'
+stack traceback:
+	[C]: in function 'require'
+	...ir/pack/hm/start/telescope.nvim/lua/telescope/config.lua:1: in main chunk
+	[C]: in function 'require'
+	...k/hm/start/telescope.nvim/lua/telescope/actions/init.lua:57: in main chunk
+	[C]: in function 'require'
+	...rs/dominikb1888/.config/nvim/lua/malo/telescope-nvim.lua:10: in main chunk
+	[C]: in function 'require'
+	/Users/dominikb1888/.config/nvim/init.lua:52: in function 'load_telescope_nvim'
+	/Users/dominikb1888/.config/nvim/init.lua:55: in main chunk
+Error detected while processing /nix/store/vw24d79fwfv43bvf7azvq1vvi3db9xnw-vimplugin-cmp-async-path-0-unstable-2026-01-09/plugin/cmp_async_path.lua:
+E5113: Error while calling lua chunk: ...ync-path-0-unstable-2026-01-09/plugin/cmp_async_path.lua:5: module 'cmp' not found:
+	no field package.preload['cmp']
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/cmp.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/cmp/init.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/lib/lua/5.1/cmp.so'
+stack traceback:
+	[C]: in function 'require'
+	...ync-path-0-unstable-2026-01-09/plugin/cmp_async_path.lua:5: in main chunk
+Error detected while processing /nix/store/jkck3d85yhhnxhxmqh5qwz9xvd022jxl-vimplugin-cmp-buffer-0-unstable-2025-04-01/after/plugin/cmp_buffer.lua:
+E5113: Error while calling lua chunk: ...buffer-0-unstable-2025-04-01/after/plugin/cmp_buffer.lua:1: module 'cmp' not found:
+	no field package.preload['cmp']
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/cmp.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/cmp/init.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/lib/lua/5.1/cmp.so'
+stack traceback:
+	[C]: in function 'require'
+	...buffer-0-unstable-2025-04-01/after/plugin/cmp_buffer.lua:1: in main chunk
+Error detected while processing /nix/store/xik8i4wpcsmxa2b6rjnvcbfc88g35hdy-vimplugin-cmp-nvim-lsp-signature-help-0-unstable-2025-11-14/after/plugin/cmp_nvim_lsp_signature_help.lua:
+E5113: Error while calling lua chunk: ...-2025-11-14/after/plugin/cmp_nvim_lsp_signature_help.lua:1: module 'cmp' not found:
+	no field package.preload['cmp']
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/cmp.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/cmp/init.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/lib/lua/5.1/cmp.so'
+stack traceback:
+	[C]: in function 'require'
+	...-2025-11-14/after/plugin/cmp_nvim_lsp_signature_help.lua:1: in main chunk
+Error detected while processing /nix/store/1alvcmd6s4m9xw03129pyhmcnxpyb4ii-vimplugin-cmp_luasnip-0-unstable-2024-11-04/after/plugin/cmp_luasnip.lua:
+E5113: Error while calling lua chunk: ...asnip-0-unstable-2024-11-04/after/plugin/cmp_luasnip.lua:1: module 'cmp' not found:
+	no field package.preload['cmp']
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/cmp.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/share/lua/5.1/cmp/init.lua'
+	no file '/nix/store/nlb7x85yc2bz5mxs7l6pzxkfqk5zclnm-luajit2.1-penlight-1.15.0-1/lib/lua/5.1/cmp.so'
+stack traceback:
+	[C]: in function 'require'
+	...asnip-0-unstable-2024-11-04/after/plugin/cmp_luasnip.lua:1: in main chunkvim.lsp.buf_get_clients() is deprecated. Run ":checkhealth vim.depre
