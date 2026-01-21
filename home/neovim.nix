@@ -127,6 +127,7 @@ let
   programs.neovim.plugins = with pkgs.vimPlugins; (map packer [
     # Core dependencies
     { use = plenary-nvim; }
+    { use = lspkind-nvim; deps = [ nvim-cmp ]; }
     { use = nvim-cmp; config = requireConf nvim-cmp; }
     { use = luasnip; }
 
@@ -145,10 +146,6 @@ let
     }
     {
       use = cmp-nvim-lsp-signature-help;
-      deps = [ nvim-cmp ];
-    }
-    {
-      use = lspkind-nvim;
       deps = [ nvim-cmp ];
     }
     {
@@ -178,14 +175,14 @@ let
         telescope-zoxide
       ];
     }
-    { use = octo-nvim;
-      deps = [
-        plenary-nvim
-        telescope-nvim
-        nvim-web-devicons
-      ];
-      config = requireConf octo-nvim;
-    }
+    # { use = octo-nvim;
+    #   deps = [
+    #     plenary-nvim
+    #     telescope-nvim
+    #     nvim-web-devicons
+    #   ];
+    #   config = requireConf octo-nvim;
+    # }
     { use = toggleterm-nvim; config = requireConf toggleterm-nvim; }
 
     # Language servers, linters, etc.
