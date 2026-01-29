@@ -257,6 +257,15 @@ let
       "Bash(nix flake:*)"
       "Bash(nix eval:*)"
       "Bash(nix develop:*)"
+      "Bash(nh darwin build:*)"
+      # General utilities
+      "Bash(find:*)"
+      "Bash(du:*)"
+      "Bash(grep:*)"
+      "Bash(brew info:*)"
+      "Bash(brew search:*)"
+      "Bash(* --version)"
+      "Bash(* --help *)"
       # GitHub CLI read operations
       "Bash(gh pr view:*)"
       "Bash(gh pr list:*)"
