@@ -134,6 +134,7 @@ in
 
       # Dev stuff
       inherit (pkgs)
+        bun # JavaScript runtime & package manager
         cloc # source code line counter
         colima # container runtime (Docker alternative)
         docker-client # Docker CLI
