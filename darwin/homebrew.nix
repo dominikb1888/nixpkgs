@@ -102,6 +102,7 @@ in
     "postman"
     "protonvpn"
     "raycast"
+    "riverside-studio"
     "shortwave"
     "signal"
     "sloth"
