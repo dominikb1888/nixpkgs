@@ -38,13 +38,18 @@ in
   # Prefer installing application from the Mac App Store
   homebrew.masApps = {
     "1Password for Safari" = 1569813296;
+    "Affinity Designer 2" = 1616831348;
+    CardPointers = 1472875808;
     Cardhop = 1290358394;
     DaisyDisk = 411643860;
     Fantastical = 975937182;
     Flighty = 1358823008;
+    GarageBand = 682658836;
     Hyperspace = 6739505345;
+    iMovie = 408981434;
     "Kagi Search" = 1622835804;
     Keynote = 409183694;
+    "Marked 2" = 890031187;
     "Notion Web Clipper" = 1559269364;
     Numbers = 409203825;
     Pages = 409201541;
@@ -56,8 +61,11 @@ in
     SiteSucker = 442168834;
     Slack = 803453959;
     "Tailscale" = 1475387142;
+    TestFlight = 899247664;
     "Things 3" = 904280696;
+    WhatsApp = 310633997;
     "WiFi Explorer" = 494803304;
+    "Whisper Transcription" = 1668083311;
     Xcode = 497799835;
     "Yubico Authenticator" = 1497506650;
   };
