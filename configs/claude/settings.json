@@ -41,17 +41,6 @@
       "mcp__nixos__nix"
     ]
   },
-  "enabledPlugins": {
-    "plugin-dev@claude-plugins-official": true,
-    "commit-commands@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
-    "pr-review-toolkit@claude-plugins-official": true,
-    "nix-lsp@malos-plugins": true,
-    "json-lsp@malos-plugins": true,
-    "tts@malos-plugins": true,
-    "pua-unicode@malos-plugins": true
-  },
   "hooks": {
     "PreToolUse": [
       {
@@ -99,5 +88,17 @@
     "type": "command",
     "command": "~/.claude/statusline.sh",
     "padding": 0
+  },
+  "enabledPlugins": {
+    "plugin-dev@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true,
+    "frontend-design@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true,
+    "nix-lsp@malos-plugins": true,
+    "json-lsp@malos-plugins": true,
+    "tts@malos-plugins": true,
+    "pua-unicode@malos-plugins": true,
+    "claude-md-management@claude-plugins-official": true
   }
 }
