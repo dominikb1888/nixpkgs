@@ -1,0 +1,8 @@
+{
+  "name": "cc-maintenance",
+  "description": "Claude Code maintenance utilities - audit permissions, clean up settings, and keep your configuration healthy",
+  "author": {
+    "name": "Malo Bourgon"
+  },
+  "keywords": ["maintenance", "permissions", "settings", "audit", "cleanup", "hygiene"]
+}

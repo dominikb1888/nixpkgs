@@ -29,6 +29,11 @@
       "name": "pua-unicode",
       "description": "Workaround for BMP PUA Unicode filtering with placeholder syntax and automatic conversion (primarily for Nerd Font icons)",
       "source": "./pua-unicode"
+    },
+    {
+      "name": "cc-maintenance",
+      "description": "Claude Code maintenance utilities - audit permissions, clean up settings, and keep your configuration healthy",
+      "source": "./cc-maintenance"
     }
   ]
 }
