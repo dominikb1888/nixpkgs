@@ -41,6 +41,6 @@ In no particular order:
   * a [Fish shell config](./home/fish.nix), which provides a `toggle-background` function (and an alias `tb`) which toggles a universal environment variable (`$term_background`) between the values `"light"` and `"dark"`, along with `set-shell-colors` function which trigger automatically when `$term_background` changes.
 * A nice [shell prompt config](./home/starship.nix) for Fish using Starship.
 * [Claude Code config](./home/claude.nix) with live-editable configuration.
-  * Wraps `claude-code` with MCP config flag
+  * Uses [1MCP](https://docs.1mcp.app) to aggregate MCP servers via LaunchAgent
   * Symlinks config files to [`configs/claude/`](./configs/claude/) for editing without rebuild
   * Global context, settings, and permissions managed declaratively

@@ -24,8 +24,8 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 
 ### Search/Discovery → Exa
 When you need to find information but don't have a URL:
-- `mcp__exa__web_search_exa` - General web search
-- `mcp__exa__get_code_context_exa` - Code/programming (docs, examples, APIs, GitHub)
+- `mcp__1mcp__exa_1mcp_web_search_exa` - General web search
+- `mcp__1mcp__exa_1mcp_get_code_context_exa` - Code/programming (docs, examples, APIs, GitHub)
 
 **Query style:** Write natural language questions, not keyword lists. Exa uses semantic search that understands meaning.
 - Good: "What are the common issues users experience with Firecrawl's MCP server?"
@@ -33,14 +33,14 @@ When you need to find information but don't have a URL:
 
 ### Content Extraction → Firecrawl
 When you have a URL and need its content:
-- `firecrawl_scrape` - Single URL (default choice)
-- `firecrawl_batch_scrape` - Multiple known URLs
-- `firecrawl_map` - Discover URLs on a site (returns list only)
-- `firecrawl_crawl` - Multi-page extraction (use sparingly, set low `limit`)
-- `firecrawl_extract` - Structured JSON with schema
+- `mcp__1mcp__firecrawl_1mcp_firecrawl_scrape` - Single URL (default choice)
+- `mcp__1mcp__firecrawl_1mcp_firecrawl_batch_scrape` - Multiple known URLs
+- `mcp__1mcp__firecrawl_1mcp_firecrawl_map` - Discover URLs on a site (returns list only)
+- `mcp__1mcp__firecrawl_1mcp_firecrawl_crawl` - Multi-page extraction (use sparingly, set low `limit`)
+- `mcp__1mcp__firecrawl_1mcp_firecrawl_extract` - Structured JSON with schema
 
 **Avoid:**
-- `firecrawl_search` and `firecrawl_agent` - redundant (Exa handles search, you're the agent)
+- `mcp__1mcp__firecrawl_1mcp_firecrawl_search` and `mcp__1mcp__firecrawl_1mcp_firecrawl_agent` - redundant (Exa handles search, you're the agent)
 - Built-in WebSearch/WebFetch - use Exa/Firecrawl instead
 
 **Firecrawl tips:**

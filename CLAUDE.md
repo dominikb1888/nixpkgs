@@ -71,7 +71,9 @@ Files in `configs/` are symlinked via `mkOutOfStoreSymlink`, allowing edits with
 - **`settings.json`** (user-editable symlink from `configs/claude/`):
   All other settings using portable `~` paths. Edit directly without rebuild.
 
-**Note:** `~/.claude/mcp.json` is still Nix-generated since MCP server configs are complex.
+**MCP architecture:** Uses 1MCP to aggregate all MCP servers. Server definitions are in
+`configs/claude/1mcp.json` (symlinked to `~/.config/1mcp/mcp.json`). The Nix-generated
+`~/.claude/mcp.json` just points CLI to 1MCP on localhost:3050.
 
 ### Package Version Overlays
 

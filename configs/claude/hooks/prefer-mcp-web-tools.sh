@@ -13,7 +13,7 @@ if [[ "$tool_name" == "WebSearch" ]]; then
 {
   "hookSpecificOutput": {
     "hookEventName": "PostToolUse",
-    "additionalContext": "Reminder: You used WebSearch, but user prefers mcp__exa__web_search_exa or mcp__exa__get_code_context_exa. Please use those for subsequent searches unless there's a specific reason not to."
+    "additionalContext": "Reminder: You used WebSearch, but user prefers mcp__1mcp__exa_1mcp_web_search_exa or mcp__1mcp__exa_1mcp_get_code_context_exa. Please use those for subsequent searches unless there's a specific reason not to."
   }
 }
 EOF
@@ -22,7 +22,7 @@ elif [[ "$tool_name" == "WebFetch" ]]; then
 {
   "hookSpecificOutput": {
     "hookEventName": "PostToolUse",
-    "additionalContext": "Reminder: You used WebFetch, but user prefers mcp__firecrawl__firecrawl_scrape. Please use that for subsequent URL fetches unless there's a specific reason not to."
+    "additionalContext": "Reminder: You used WebFetch, but user prefers mcp__1mcp__firecrawl_1mcp_firecrawl_scrape. Please use that for subsequent URL fetches unless there's a specific reason not to."
   }
 }
 EOF

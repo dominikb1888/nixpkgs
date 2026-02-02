@@ -1,25 +1,22 @@
-# Claude Code configuration with hybrid settings and generated MCP config files.
+# Claude Code configuration with hybrid settings and 1MCP aggregator.
 #
 # This module:
-# - Wraps claude-code to include --mcp-config flag
-# - Generates MCP configs for both CLI and Desktop from a single source
-# - Symlinks settings.json and other config directories for live editing
+# - Adds shell alias with --mcp-config flag (Homebrew installs the binary)
+# - Runs 1MCP LaunchAgent to aggregate all MCP servers
+# - Symlinks config directories from configs/claude/ for live editing
 #
-# Settings are split into two files:
-# - managed-settings.json (Nix-generated, highest precedence):
-#   Path-dependent settings that need nixConfigDirectory interpolation.
-#   Created by darwin/claude-managed-settings.nix at /Library/Application Support/ClaudeCode/
-# - settings.json (user-editable, symlinked from configs/claude/):
-#   All other settings with portable ~ paths. Edit without rebuild.
+# Settings architecture:
+# - managed-settings.json (Nix-generated at /Library/Application Support/ClaudeCode/):
+#   Path-dependent settings needing nixConfigDirectory. See darwin/claude-managed-settings.nix.
+# - settings.json (symlinked from configs/claude/): All other settings. Edit without rebuild.
 #
-# MCP servers are defined once and transformed for each target:
-# - CLI: stdio servers used directly, HTTP servers used directly
-# - Desktop: stdio servers used directly, HTTP bridged via mcp-remote
-# - Servers with secrets are wrapped with `op run` to expand op:// references
+# MCP architecture:
+# - Server definitions: configs/claude/1mcp.json (symlinked to ~/.config/1mcp/mcp.json)
+# - 1MCP runs as a LaunchAgent; both CLI and Desktop connect to localhost:3050
+# - Secrets: 1Password Environment at ~/.claude/secrets.env
 {
   config,
   pkgs,
-  lib,
   osConfig,
   ...
 }:
@@ -31,208 +28,61 @@ let
   # Path where the MCP config will be generated
   mcpConfigPath = "${config.home.homeDirectory}/.claude/mcp.json";
 
+  # 1MCP server port (default 3050 to avoid conflicts with common dev servers)
+  mcpPort = "3050";
+
   # GUI apps don't inherit shell PATH, so we build it from nix-darwin config
   # Expand $HOME and $USER since JSON doesn't support shell variables
   desktopPath =
     builtins.replaceStrings [ "$HOME" "$USER" ] [ config.home.homeDirectory config.home.username ]
       osConfig.environment.systemPath;
 
-  # ============================================================================
-  # MCP Server Definitions
-  # ============================================================================
-  #
-  # Each server can specify:
-  # - stdio: { command, args?, env? } - Native stdio server
-  # - sse: { url } - SSE endpoint (Desktop uses mcp-remote bridge)
-  # - http: { url, headers? } - HTTP endpoint (Desktop uses mcp-remote bridge)
-  # - desktopOnly / cliOnly: bool - Limit to one target
-  #
-  # Env vars containing "op://" are automatically expanded via `op run`.
-  #
-  mcpServers = {
-    nixos.stdio = {
-      command = "nix";
-      args = [
-        "run"
-        "github:utensils/mcp-nixos"
-        "--"
-      ];
-    };
+  # 1MCP launcher script - sources secrets and starts the aggregator
+  start1mcp = pkgs.writeShellScript "start-1mcp" ''
+    set -euo pipefail
 
-    exa.stdio = {
-      command = "npx";
-      args = [
-        "-y"
-        "exa-mcp-server"
-      ];
-      env.EXA_API_KEY = "op://Personal/Exa API Key/credential";
-    };
+    SECRETS_FILE="$HOME/.claude/secrets.env"
 
-    firecrawl.stdio = {
-      command = "npx";
-      args = [
-        "-y"
-        "firecrawl-mcp"
-      ];
-      env.FIRECRAWL_API_KEY = "op://Personal/Firecrawl API Key/credential";
-    };
+    # Source secrets from 1Password Environment (may be a named pipe from 1Password)
+    if [[ -r "$SECRETS_FILE" ]]; then
+      set -a
+      # shellcheck source=/dev/null
+      source "$SECRETS_FILE"
+      set +a
+    else
+      echo "Warning: $SECRETS_FILE not found. MCP servers requiring secrets may fail." >&2
+    fi
 
-    beeper.stdio = {
-      command = "npx";
-      args = [
-        "-y"
-        "@beeper/mcp-remote"
-      ];
-    };
+    # Add Nix paths for GUI app compatibility
+    export PATH="$PATH:/run/current-system/sw/bin:$HOME/.nix-profile/bin"
 
-    # https://developers.asana.com/docs/using-asanas-mcp-server
-    asana.sse.url = "https://mcp.asana.com/sse";
+    # Start 1MCP aggregator (uses default config at ~/.config/1mcp/mcp.json)
+    exec npx -y @1mcp/agent --port ${mcpPort} --enable-async-loading
+  '';
 
-    # https://workspacemcp.com/docs
-    # Pinned to 1.7.1 due to YAML bug in 1.8.0: https://github.com/taylorwilsdon/google_workspace_mcp/issues/398
-    google-workspace.stdio = {
-      command = "uvx";
-      args = [
-        "--from"
-        "workspace-mcp==1.7.1"
-        "workspace-mcp"
-        "--tools"
-        "gmail"
-        "drive"
-        "docs"
-        "sheets"
-        "calendar"
-        "--tool-tier"
-        "complete"
-        "--single-user"
-      ];
-      env = {
-        GOOGLE_OAUTH_CLIENT_ID = "159058921887-9dude49fdtl0chaq8dklq4pv7tmf00ji.apps.googleusercontent.com";
-        GOOGLE_OAUTH_CLIENT_SECRET = "op://Personal/Google Workspace MCP/client_secret";
-        GOOGLE_MCP_CREDENTIALS_DIR = "${config.xdg.dataHome}/google-workspace-mcp";
-        USER_GOOGLE_EMAIL = "malo@intelligence.org";
-      };
-    };
+  # CLI MCP config - connects to 1MCP via SSE
+  cliMcpConfig.mcpServers."1mcp" = {
+    type = "sse";
+    url = "http://localhost:${mcpPort}/sse";
   };
 
-  # Claude Desktop preferences (separate from MCP servers)
-  desktopPreferences = {
-    chromeExtensionEnabled = true;
-    quickEntryDictationShortcut = "capslock";
-  };
-
-  # ============================================================================
-  # Config Generation
-  # ============================================================================
-
-  # Check if any env values contain op:// references
-  hasOpSecrets = env: lib.any (v: lib.hasPrefix "op://" v) (lib.attrValues env);
-
-  # Wrap a command with `op run` if env contains op:// references
-  wrapWithOp =
-    {
-      command,
-      args,
-      env,
-    }:
-    if hasOpSecrets env then
-      {
-        command = "op";
-        args = [
-          "run"
-          "--"
-          command
-        ]
-        ++ args;
-      }
-    else
-      { inherit command args; };
-
-  # Generate CLI MCP config entry
-  mkCliServer =
-    name: server:
-    let
-      env = server.stdio.env or { };
-    in
-    if server ? sse then
-      {
-        type = "sse";
-        url = server.sse.url;
-      }
-    else if server ? http then
-      {
-        type = "http";
-        url = server.http.url;
-      }
-      // lib.optionalAttrs (server.http ? headers) { headers = server.http.headers; }
-    else if server ? stdio then
-      let
-        wrapped = wrapWithOp {
-          inherit (server.stdio) command;
-          inherit env;
-          args = server.stdio.args or [ ];
-        };
-      in
-      {
-        type = "stdio";
-        inherit (wrapped) command args;
-        inherit env;
-      }
-    else
-      throw "MCP server '${name}' must define 'sse', 'http', or 'stdio'";
-
-  # Generate Desktop MCP config entry
-  # Desktop requires stdio, so HTTP/SSE servers are bridged via mcp-remote
-  mkDesktopServer =
-    name: server:
-    let
-      env = server.stdio.env or { };
-
-      # Get base command/args (bridge HTTP/SSE via mcp-remote)
-      base =
-        if server ? sse then
-          {
-            command = "npx";
-            args = [
-              "-y"
-              "mcp-remote"
-              server.sse.url
-            ];
-          }
-        else if server ? http then
-          {
-            command = "npx";
-            args = [
-              "-y"
-              "mcp-remote"
-              server.http.url
-            ];
-          }
-        else if server ? stdio then
-          {
-            inherit (server.stdio) command;
-            args = server.stdio.args or [ ];
-          }
-        else
-          throw "MCP server '${name}' must define 'sse', 'http', or 'stdio'";
-
-      wrapped = wrapWithOp (base // { inherit env; });
-    in
-    {
-      inherit (wrapped) command args;
-      env = env // {
-        PATH = desktopPath;
-      };
-    };
-
-  # Filter and transform servers for each target
-  cliServers = lib.filterAttrs (_: s: !(s.desktopOnly or false)) mcpServers;
-  desktopServers = lib.filterAttrs (_: s: !(s.cliOnly or false)) mcpServers;
-
-  cliMcpConfig.mcpServers = lib.mapAttrs mkCliServer cliServers;
+  # Desktop MCP config - uses proxy to connect to the running 1MCP LaunchAgent
   desktopConfig = {
-    mcpServers = lib.mapAttrs mkDesktopServer desktopServers;
-    preferences = desktopPreferences;
+    mcpServers."1mcp" = {
+      command = "npx";
+      args = [
+        "-y"
+        "@1mcp/agent"
+        "proxy"
+        "--url"
+        "http://localhost:${mcpPort}/mcp"
+      ];
+      env.PATH = desktopPath;
+    };
+    preferences = {
+      chromeExtensionEnabled = true;
+      quickEntryDictationShortcut = "capslock";
+    };
   };
 
   # Helper for human-readable JSON files
@@ -253,14 +103,16 @@ in
   # Shell alias adds --mcp-config flag (Homebrew installs the binary via cask)
   home.shellAliases.claude = "claude --mcp-config ${mcpConfigPath}";
 
+  # 1MCP server config (symlinked for live editing)
+  xdg.configFile."1mcp/mcp.json".source = mkOutOfStoreSymlink "${claudeDir}/1mcp.json";
+
   home.file = {
-    # Generated by Nix (machine-specific paths)
+    # Generated configs (point CLI/Desktop to 1MCP)
     ".claude/mcp.json".source = toFormattedJSON cliMcpConfig;
+    "Library/Application Support/Claude/claude_desktop_config.json".source =
+      toFormattedJSON desktopConfig;
 
     # Symlinked for live editing (no rebuild needed)
-    # Note: Path-dependent settings (additionalDirectories, nix-config permissions,
-    # extraKnownMarketplaces) are in managed-settings.json, created by
-    # ../darwin/claude-managed-settings.nix at /Library/Application Support/ClaudeCode/
     ".claude/settings.json".source = mkOutOfStoreSymlink "${claudeDir}/settings.json";
     ".claude/CLAUDE.md".source = mkOutOfStoreSymlink "${claudeDir}/CLAUDE.md";
     ".claude/commands".source = mkOutOfStoreSymlink "${claudeDir}/commands";
@@ -269,9 +121,25 @@ in
     ".claude/rules".source = mkOutOfStoreSymlink "${claudeDir}/rules";
     ".claude/hooks".source = mkOutOfStoreSymlink "${claudeDir}/hooks";
     ".claude/statusline.sh".source = mkOutOfStoreSymlink "${claudeDir}/statusline.sh";
+  };
 
-    # Claude Desktop config
-    "Library/Application Support/Claude/claude_desktop_config.json".source =
-      toFormattedJSON desktopConfig;
+  # 1MCP LaunchAgent - keeps the aggregator running when secrets are available
+  # Uses PathState to only run when 1Password has mounted the secrets file
+  launchd.agents."1mcp" = {
+    enable = true;
+    config = {
+      Label = "com.malo.1mcp";
+      ProgramArguments = [ "${start1mcp}" ];
+      KeepAlive = {
+        PathState = {
+          "${config.home.homeDirectory}/.claude/secrets.env" = true;
+        };
+      };
+      StandardOutPath = "${config.home.homeDirectory}/Library/Logs/1mcp.log";
+      StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/1mcp.error.log";
+      EnvironmentVariables = {
+        PATH = desktopPath;
+      };
+    };
   };
 }

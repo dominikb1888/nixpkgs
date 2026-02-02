@@ -1,0 +1,44 @@
+{
+  "mcpServers": {
+    "nixos": {
+      "command": "uvx",
+      "args": ["mcp-nixos"],
+      "restartOnExit": true,
+      "maxRestarts": 3
+    },
+    "exa": {
+      "command": "npx",
+      "args": ["-y", "exa-mcp-server"],
+      "env": {
+        "EXA_API_KEY": "${EXA_API_KEY}"
+      },
+      "restartOnExit": true,
+      "maxRestarts": 3
+    },
+    "firecrawl": {
+      "url": "https://mcp.firecrawl.dev/${FIRECRAWL_API_KEY}/v2/mcp"
+    },
+    "beeper": {
+      "url": "http://localhost:23373/v0/mcp"
+    },
+    "asana": {
+      "url": "https://mcp.asana.com/sse"
+    },
+    "gws": {
+      "command": "uvx",
+      "args": [
+        "workspace-mcp",
+        "--tools", "gmail", "drive", "docs", "sheets", "calendar", "contacts",
+        "--tool-tier", "complete", "--single-user"
+      ],
+      "restartOnExit": true,
+      "maxRestarts": 3,
+      "env": {
+        "GOOGLE_OAUTH_CLIENT_ID": "${GOOGLE_OAUTH_CLIENT_ID}",
+        "GOOGLE_OAUTH_CLIENT_SECRET": "${GOOGLE_OAUTH_CLIENT_SECRET}",
+        "GOOGLE_MCP_CREDENTIALS_DIR": "${HOME}/.local/share/google-workspace-mcp",
+        "USER_GOOGLE_EMAIL": "${USER_GOOGLE_EMAIL}"
+      }
+    }
+  }
+}

@@ -30,15 +30,15 @@
       "Bash(gh issue view:*)",
       "Bash(gh issue list:*)",
       "Skill(tts:*)",
-      "mcp__exa__web_search_exa",
-      "mcp__exa__get_code_context_exa",
-      "mcp__firecrawl__firecrawl_scrape",
-      "mcp__firecrawl__firecrawl_map",
-      "mcp__firecrawl__firecrawl_crawl",
-      "mcp__firecrawl__firecrawl_check_crawl_status",
-      "mcp__firecrawl__firecrawl_extract",
-      "mcp__firecrawl__firecrawl_batch_scrape",
-      "mcp__nixos__nix"
+      "mcp__1mcp__exa_1mcp_web_search_exa",
+      "mcp__1mcp__exa_1mcp_get_code_context_exa",
+      "mcp__1mcp__firecrawl_1mcp_firecrawl_scrape",
+      "mcp__1mcp__firecrawl_1mcp_firecrawl_map",
+      "mcp__1mcp__firecrawl_1mcp_firecrawl_crawl",
+      "mcp__1mcp__firecrawl_1mcp_firecrawl_check_crawl_status",
+      "mcp__1mcp__firecrawl_1mcp_firecrawl_extract",
+      "mcp__1mcp__firecrawl_1mcp_firecrawl_batch_scrape",
+      "mcp__1mcp__nixos_1mcp_nix"
     ]
   },
   "hooks": {

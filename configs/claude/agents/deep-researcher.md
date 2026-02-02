@@ -18,10 +18,10 @@ tools:
   - Grep
   - Glob
   - Bash
-  - mcp__exa__web_search_exa
-  - mcp__exa__get_code_context_exa
-  - mcp__firecrawl__firecrawl_scrape
-  - mcp__firecrawl__firecrawl_map
+  - mcp__1mcp__exa_1mcp_web_search_exa
+  - mcp__1mcp__exa_1mcp_get_code_context_exa
+  - mcp__1mcp__firecrawl_1mcp_firecrawl_scrape
+  - mcp__1mcp__firecrawl_1mcp_firecrawl_map
 ---
 
 # Deep Researcher Sub-Agent
@@ -39,8 +39,8 @@ Given a research angle, you must:
 
 ## Available Tools
 
-**For web search** → Use Exa (`mcp__exa__web_search_exa`, `mcp__exa__get_code_context_exa`)
-**For content extraction** → Use Firecrawl (`mcp__firecrawl__firecrawl_scrape`, `mcp__firecrawl__firecrawl_map`)
+**For web search** → Use Exa (`mcp__1mcp__exa_1mcp_web_search_exa`, `mcp__1mcp__exa_1mcp_get_code_context_exa`)
+**For content extraction** → Use Firecrawl (`mcp__1mcp__firecrawl_1mcp_firecrawl_scrape`, `mcp__1mcp__firecrawl_1mcp_firecrawl_map`)
 
 Do NOT use WebSearch or WebFetch—they are not available to you.
 
@@ -127,7 +127,7 @@ Query 5 (temporal):       "Recent research on RAG failure analysis 2024-2025"
 
 **Choose 3-5 variations** based on what gaps you're trying to fill. You don't need all five techniques for every angle — adapt to what will get diverse, useful results.
 
-For code/programming topics specifically, use `mcp__exa__get_code_context_exa` which is optimized for technical documentation and APIs.
+For code/programming topics specifically, use `mcp__1mcp__exa_1mcp_get_code_context_exa` which is optimized for technical documentation and APIs.
 
 ### Domain-Specific Query Patterns
 
