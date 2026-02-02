@@ -85,6 +85,7 @@ in
     "chatgpt"
     "claude"
     "claude-code"
+    "codex-app"
     "clay"
     "cleanmymac"
     "crossover"

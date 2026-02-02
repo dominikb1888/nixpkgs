@@ -1,6 +1,107 @@
 # Livecheck Strategies Reference
 
-Detailed patterns for configuring `livecheck` blocks in Homebrew casks.
+Detailed patterns for configuring `livecheck` blocks in Homebrew casks. Referenced from the main new-cask skill when configuring version checking.
+
+## Choosing a Strategy
+
+Use this decision tree to select the appropriate strategy:
+
+1. **Does the app use Sparkle for auto-updates?** (Check for Sparkle framework or `SUFeedURL` in Info.plist)
+   → Use `:sparkle`
+
+2. **Is the download from GitHub releases?**
+   → Try `:git` first (lower API overhead), then `:github_latest` only if `:git` doesn't work
+   → GitHub rate-limits API requests, so prefer `:git` when possible
+
+3. **Does the download URL redirect (e.g., `/latest` endpoint)?**
+   → Use `:header_match`
+
+4. **Is there a JSON feed (RELEASES.json, releases.json)?**
+   → Use `:json`
+
+5. **Is it an Electron app with `latest-mac.yml`?**
+   → Use `:electron_builder`
+
+6. **Can you scrape a download page or changelog?**
+   → Use `:page_match`
+
+7. **Nothing else works?**
+   → Use `:extract_plist` as **last resort** (downloads artifact, excluded from autobumping)
+
+## Strategy: `:sparkle`
+
+Use for apps that self-update via the Sparkle framework. Find the appcast URL in the app's Info.plist (`SUFeedURL` key). This is the most common strategy for macOS apps.
+
+```ruby
+# Basic
+livecheck do
+  url "https://example.com/appcast.xml"
+  strategy :sparkle
+end
+
+# Use short_version only
+livecheck do
+  url "https://example.com/appcast.xml"
+  strategy :sparkle, &:short_version
+end
+
+# Use version only
+livecheck do
+  url "https://example.com/appcast.xml"
+  strategy :sparkle, &:version
+end
+
+# Complex extraction
+livecheck do
+  url "https://example.com/appcast.xml"
+  strategy :sparkle do |item|
+    "#{item.short_version},#{item.version}"
+  end
+end
+```
+
+**Finding the appcast URL**:
+
+```bash
+brew find-appcast "/Applications/Example.app"
+# Or manually:
+defaults read "/Applications/Example.app/Contents/Info.plist" SUFeedURL
+```
+
+## Strategy: `:github_latest`
+
+Use for GitHub-hosted projects when `:git` strategy doesn't work. Try `:git` first (lower API overhead) - GitHub rate-limits API requests.
+
+```ruby
+# Basic - uses stable URL's GitHub repo
+livecheck do
+  url :stable
+  strategy :github_latest
+end
+
+# Explicit URL
+livecheck do
+  url "https://github.com/owner/repo"
+  strategy :github_latest
+end
+
+# With regex for tag format
+livecheck do
+  url :stable
+  regex(/^v?(\d+(?:\.\d+)+)$/i)
+  strategy :github_latest
+end
+
+# With block for complex extraction
+livecheck do
+  url :stable
+  strategy :github_latest do |json, regex|
+    json["tag_name"]&.sub(/^v/, "")
+  end
+end
+```
+
+**Note**: GitHub rate-limits API requests. Only use when `:git` strategy is insufficient.
 
 ## Strategy: `:header_match`
 
@@ -32,6 +133,7 @@ end
 ```
 
 **Architecture-specific livecheck**: When ARM and Intel have different version feeds:
+
 ```ruby
 livecheck do
   url "https://example.com/#{arch}/latest"
@@ -79,6 +181,7 @@ end
 ```
 
 **Architecture-specific JSON feeds**:
+
 ```ruby
 cask "example" do
   arch arm: "arm64", intel: "x64"
@@ -92,80 +195,6 @@ cask "example" do
     end
   end
 end
-```
-
-## Strategy: `:github_latest`
-
-Use for GitHub-hosted projects with proper releases. Preferred over `:git` when the repo uses GitHub's release feature.
-
-```ruby
-# Basic - uses stable URL's GitHub repo
-livecheck do
-  url :stable
-  strategy :github_latest
-end
-
-# Explicit URL
-livecheck do
-  url "https://github.com/owner/repo"
-  strategy :github_latest
-end
-
-# With regex for tag format
-livecheck do
-  url :stable
-  regex(/^v?(\d+(?:\.\d+)+)$/i)
-  strategy :github_latest
-end
-
-# With block for complex extraction
-livecheck do
-  url :stable
-  strategy :github_latest do |json, regex|
-    json["tag_name"]&.sub(/^v/, "")
-  end
-end
-```
-
-**Note**: GitHub rate-limits API requests. Only use when `:git` strategy is insufficient.
-
-## Strategy: `:sparkle`
-
-Use for apps that self-update via the Sparkle framework. Find the appcast URL in the app's Info.plist (`SUFeedURL` key).
-
-```ruby
-# Basic
-livecheck do
-  url "https://example.com/appcast.xml"
-  strategy :sparkle
-end
-
-# Use short_version only
-livecheck do
-  url "https://example.com/appcast.xml"
-  strategy :sparkle, &:short_version
-end
-
-# Use version only
-livecheck do
-  url "https://example.com/appcast.xml"
-  strategy :sparkle, &:version
-end
-
-# Complex extraction
-livecheck do
-  url "https://example.com/appcast.xml"
-  strategy :sparkle do |item|
-    "#{item.short_version},#{item.version}"
-  end
-end
-```
-
-**Finding the appcast URL**:
-```bash
-brew find-appcast "/Applications/Example.app"
-# Or manually:
-defaults read "/Applications/Example.app/Contents/Info.plist" SUFeedURL
 ```
 
 ## Strategy: `:page_match`
@@ -202,7 +231,7 @@ end
 
 ## Strategy: `:git`
 
-Use for Git repositories when checking tags. Lower API overhead than GitHub strategies.
+Use for Git repositories when checking tags. Lower API overhead than GitHub strategies. More common for formulae than casks.
 
 ```ruby
 # Basic - matches version tags
@@ -235,6 +264,28 @@ livecheck do
   url "https://example.com/latest-mac.yml"
   strategy :electron_builder do |yaml|
     yaml["version"]
+  end
+end
+```
+
+## Strategy: `:extract_plist` (Last Resort)
+
+Use only when no online source provides version information. This strategy downloads the artifact and extracts version from `.plist` files inside the app bundle.
+
+**Warning**: Casks using this strategy are excluded from autobumping due to CI impact.
+
+```ruby
+# Basic - extracts from downloaded artifact
+livecheck do
+  url :url
+  strategy :extract_plist
+end
+
+# With block - for specific bundle ID
+livecheck do
+  url :url
+  strategy :extract_plist do |items|
+    items["com.example.MyApp"].short_version
   end
 end
 ```
@@ -279,6 +330,7 @@ brew livecheck --cask <name>
 ```
 
 Debug output shows:
+
 - URLs being checked
 - Strategies being tried
 - Regex matches

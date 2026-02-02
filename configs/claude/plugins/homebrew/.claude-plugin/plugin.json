@@ -1,0 +1,8 @@
+{
+  "name": "homebrew",
+  "description": "Tools for working with Homebrew - cask creation, package management, and more",
+  "author": {
+    "name": "Malo Bourgon"
+  },
+  "keywords": ["homebrew", "cask", "macos", "packaging", "brew"]
+}

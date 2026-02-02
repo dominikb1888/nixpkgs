@@ -123,6 +123,7 @@
     "tts@malos-plugins": true,
     "pua-unicode@malos-plugins": true,
     "cc-maintenance@malos-plugins": true,
+    "homebrew@malos-plugins": true,
     "claude-md-management@claude-plugins-official": true
   }
 }

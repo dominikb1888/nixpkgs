@@ -8,6 +8,7 @@ A collection of Claude Code plugins for personal use.
 | -------------- | ----------------------------------------------------------- |
 | ai-sdk         | Vercel AI SDK documentation lookup and model queries        |
 | cc-maintenance | Audit permissions, clean up settings, configuration hygiene |
+| homebrew       | Cask creation workflow for Homebrew                         |
 | json-lsp       | JSON language server for schema validation and diagnostics  |
 | nix-lsp        | Nix language server integration using nixd                  |
 | pua-unicode    | Workaround for BMP PUA filtering (Nerd Font icons)          |

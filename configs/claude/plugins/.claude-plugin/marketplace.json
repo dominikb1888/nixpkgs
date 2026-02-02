@@ -34,6 +34,11 @@
       "name": "cc-maintenance",
       "description": "Claude Code maintenance utilities - audit permissions, clean up settings, and keep your configuration healthy",
       "source": "./cc-maintenance"
+    },
+    {
+      "name": "homebrew",
+      "description": "Tools for working with Homebrew - cask creation, package management, and more",
+      "source": "./homebrew"
     }
   ]
 }
