@@ -5,7 +5,7 @@ description: >-
   "audit permissions", "review local claude settings", "promote permissions to global",
   "clean up claude settings", "find permission patterns", or wants to identify
   project-local Claude Code permissions that should be added to global configuration.
-allowed-tools: Bash, Read, Write
+allowed-tools: Bash(*/audit-permissions/scripts/*), Read(~/.claude/settings.json), Read(**/.claude/settings.local.json), Write(~/.claude/settings.json), Write(**/.claude/settings.local.json)
 ---
 
 # Audit Claude Permissions
@@ -19,13 +19,6 @@ This audit runs in three phases, each as a separate task. Use TaskCreate at the 
 **Phase 1: Promote to Global** - Review candidates and add selected permissions to global config
 **Phase 2: Clean Up Redundant** - Remove local permissions now covered by global
 **Phase 3: Security Hygiene** - Review and remove risky or stale permissions
-
-## Pre-flight Check
-
-To avoid permission prompts during the audit, consider adding these to global settings:
-
-- `Read(~/.claude/settings.json)` - read global settings
-- `Read(**/.claude/settings.local.json)` - read all local settings files
 
 ## Initial Setup
 

@@ -8,7 +8,7 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 ## Environment
 - macOS with nix-darwin and Home Manager
 - Nix config at `~/.config/nix-config`
-- Claude Code config managed via Nix: `home/claude.nix` (settings, MCP servers) and `configs/claude/` (CLAUDE.md, rules, skills, agents, hooks)
+- Claude Code config managed via Nix: `home/claude.nix` (settings, MCP servers) and `configs/claude/` (CLAUDE.md, rules, skills, agents, hooks, plugins)
 - Fish shell with Starship prompt
 - 1Password for secrets management
 

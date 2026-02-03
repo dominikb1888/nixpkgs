@@ -25,6 +25,7 @@
       "Bash(nix eval:*)",
       "Bash(nix flake:*)",
       "Bash(nix path-info:*)",
+      "Bash(nix-prefetch-github:*)",
       "Bash(nix-prefetch-url:*)",
       "Bash(nix-build:*)",
       "Bash(brew info:*)",
@@ -52,6 +53,7 @@
       "Bash(npx tsx:*)",
       "Bash(* --help *)",
       "Bash(* --version)",
+      "Skill(plugin-dev:*)",
       "Skill(tts:*)",
       "mcp__1mcp__exa_1mcp_get_code_context_exa",
       "mcp__1mcp__exa_1mcp_web_search_exa",
@@ -62,6 +64,9 @@
       "mcp__1mcp__firecrawl_1mcp_firecrawl_map",
       "mcp__1mcp__firecrawl_1mcp_firecrawl_scrape",
       "mcp__1mcp__nixos_1mcp_nix"
+    ],
+    "additionalDirectories": [
+      "~/.claude"
     ]
   },
   "hooks": {
