@@ -15,7 +15,7 @@ Conduct thorough, iterative research by orchestrating parallel sub-agents, then 
 │  - Clarify & scope the question                            │
 │  - Decompose into 3-5 research angles                      │
 │  - Spawn parallel deep-researcher sub-agents               │
-│  - Receive structured summaries (~60-80 lines each)        │
+│  - Receive structured summaries (~120 lines each)          │
 │  - Triangulate and synthesize final report                 │
 └────────────────────────────────────────────────────────────┘
          │             │             │             │
@@ -23,8 +23,8 @@ Conduct thorough, iterative research by orchestrating parallel sub-agents, then 
     ┌─────────┐   ┌─────────┐   ┌─────────┐   ┌─────────┐
     │Research │   │Research │   │Research │   │Research │
     │Angle 1  │   │Angle 2  │   │Angle 3  │   │Angle 4  │
-    │(haiku/  │   │(haiku/  │   │(haiku/  │   │(haiku/  │
-    │ sonnet) │   │ sonnet) │   │ sonnet) │   │ sonnet) │
+    │(sonnet/ │   │(sonnet/ │   │(sonnet/ │   │(sonnet/ │
+    │  opus)  │   │  opus)  │   │  opus)  │   │  opus)  │
     └─────────┘   └─────────┘   └─────────┘   └─────────┘
 ```
 
@@ -47,13 +47,13 @@ Conduct thorough, iterative research by orchestrating parallel sub-agents, then 
 
 | Mode         | Sub-Agents | Model  | Sources/Agent | Best For                               |
 |--------------|------------|--------|---------------|----------------------------------------|
-| **quick**    | 3          | haiku  | 3-4           | Initial exploration, time-sensitive    |
-| **standard** | 4          | haiku  | 4-5           | Most research questions                |
-| **deep**     | 5          | sonnet | 5-6           | Important decisions, thorough analysis |
+| **quick**    | 3          | sonnet | 4-6           | Initial exploration, time-sensitive    |
+| **standard** | 4          | sonnet | 6-10          | Most research questions                |
+| **deep**     | 5          | opus   | 8-15          | Important decisions, thorough analysis |
 
 Default to **standard** unless user specifies otherwise.
 
-**Model selection rationale:** Haiku 4.5 is explicitly recommended by Anthropic for sub-agent tasks and achieves near-Sonnet performance (73% vs 77% on SWE-bench) at 1/3 the cost. For deep mode where quality matters most, Sonnet provides better instruction following and synthesis.
+**Model selection rationale:** Research agents use an iterative investigation loop with mandatory reflection — they must identify gaps, notice contradictions, and decide whether to search more. This metacognitive work benefits from stronger models. Sonnet provides strong instruction following for quick/standard modes. For deep mode, Opus provides the best reasoning about what's missing and when to push deeper.
 
 ## Process
 
@@ -92,9 +92,9 @@ Use the `deep-researcher` sub-agent for each angle. Each Task call requires:
 - `subagent_type`: "deep-researcher"
 - `description`: Short (3-5 word) summary like "Research X topic"
 - `prompt`: The full research instructions
-- `model`: (optional) "sonnet" for deep mode, omit for quick/standard (defaults to haiku)
+- `model`: (optional) "opus" for deep mode, omit for quick/standard (defaults to sonnet)
 
-**Example: Spawn 4 sub-agents in parallel (standard mode, haiku):**
+**Example: Spawn 4 sub-agents in parallel (standard mode, sonnet):**
 
 ```
 Task 1:
@@ -118,12 +118,12 @@ Task 4:
   prompt: "Research angle: Alternatives and comparisons for [topic]. Investigate competing options and how they compare. Return structured findings following your output format."
 ```
 
-**For deep mode, add `model: "sonnet"` to each Task call:**
+**For deep mode, add `model: "opus"` to each Task call:**
 
 ```
 Task 1:
   subagent_type: "deep-researcher"
-  model: "sonnet"
+  model: "opus"
   description: "Research core concepts"
   prompt: "..."
 ```
@@ -132,7 +132,7 @@ Task 1:
 - Gets its own fresh ~170k token context
 - Can search and scrape extensively without polluting main context
 - Returns only structured summary (~60-80 lines)
-- Uses haiku (quick/standard) or sonnet (deep) based on mode
+- Uses sonnet (quick/standard) or opus (deep) based on mode
 
 **Optional: Wave-based launching**
 
@@ -323,7 +323,7 @@ Combine sub-agent findings into a coherent report. Structure:
 1. Clarify with user (depth, focus, context)
 2. Announce mode: "Starting standard research with 4 parallel sub-agents"
 3. Decompose into angles
-4. Launch sub-agents IN PARALLEL (single message with multiple Task calls; add `model: "sonnet"` for deep mode)
+4. Launch sub-agents IN PARALLEL (single message with multiple Task calls; add `model: "opus"` for deep mode)
 5. Triangulate findings (systematic cross-validation)
 6. **Deep mode only**: Selective verification of low-confidence or contested claims
 7. Synthesize and deliver

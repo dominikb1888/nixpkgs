@@ -120,11 +120,11 @@ For maximum reliability after experiencing rate limits, agents can launch in wav
 
 ## Model Selection
 
-### Haiku for Quick/Standard, Sonnet for Deep
+### Sonnet for Quick/Standard, Opus for Deep
 
-**Anthropic explicitly recommends Haiku 4.5 for sub-agent tasks**. It achieves near-Sonnet performance (73% vs 77% on SWE-bench) at 1/3 the cost. Token usage explains 80% of performance variance — model choice is secondary.
+Research agents use an iterative investigation loop with mandatory reflection — they must identify gaps, notice contradictions, and decide whether to search more. This metacognitive work benefits from stronger models. While Anthropic recommends Haiku for simple, focused sub-agent tasks, iterative research agents are not simple focused tasks.
 
-For deep mode where quality matters most, Sonnet provides better instruction following and synthesis, justifying the additional cost.
+Sonnet provides strong instruction following and synthesis for quick/standard modes. For deep mode, Opus provides the best reasoning about what is missing and when to push deeper, justifying the additional cost for important research.
 
 ## Future Considerations
 
