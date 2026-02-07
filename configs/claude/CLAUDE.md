@@ -24,12 +24,21 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 
 ### Search/Discovery → Exa
 When you need to find information but don't have a URL:
-- `mcp__1mcp__exa_1mcp_web_search_exa` - General web search
+- `mcp__1mcp__exa_1mcp_web_search_advanced_exa` - Web search (supports domain/date/category filters, highlights, summaries)
 - `mcp__1mcp__exa_1mcp_get_code_context_exa` - Code/programming (docs, examples, APIs, GitHub)
 
 **Query style:** Write natural language questions, not keyword lists. Exa uses semantic search that understands meaning.
 - Good: "What are the common issues users experience with Firecrawl's MCP server?"
 - Bad: "Firecrawl MCP server issues problems bugs"
+
+**Token efficiency:** Unless otherwise instructed, use `enableSummary: true` and
+`textMaxCharacters: 1`. This returns focused AI summaries per result instead of noisy
+full-page text. Do NOT set `contextMaxCharacters` -- it suppresses per-result summaries.
+For deep reading, scrape the URL with Firecrawl instead.
+
+**Category gotchas:** `tweet` and `company` categories reject most filters (`includeText`,
+`includeDomains`, date filters) with 400 errors -- put filtering terms in `query` instead.
+`includeText`/`excludeText` only accept single-item arrays across all categories.
 
 ### Content Extraction → Firecrawl
 When you have a URL and need its content:

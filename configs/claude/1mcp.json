@@ -7,13 +7,8 @@
       "maxRestarts": 3
     },
     "exa": {
-      "command": "npx",
-      "args": ["-y", "exa-mcp-server"],
-      "env": {
-        "EXA_API_KEY": "${EXA_API_KEY}"
-      },
-      "restartOnExit": true,
-      "maxRestarts": 3
+      "type": "http",
+      "url": "https://mcp.exa.ai/mcp?tools=web_search_advanced_exa,get_code_context_exa&exaApiKey=${EXA_API_KEY}"
     },
     "firecrawl": {
       "url": "https://mcp.firecrawl.dev/${FIRECRAWL_API_KEY}/v2/mcp"
@@ -23,6 +18,9 @@
     },
     "asana": {
       "url": "https://mcp.asana.com/sse"
+    },
+    "notion": {
+      "url": "https://mcp.notion.com/mcp"
     },
     "gws": {
       "command": "uvx",
