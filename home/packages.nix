@@ -143,6 +143,7 @@ in
         nixd # Nix language server
         nodejs
         pnpm
+        prettier
         s3cmd
         shellcheck
         stack
