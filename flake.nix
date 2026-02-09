@@ -69,7 +69,7 @@
           attrValues self.overlays
           ++ [ inputs.prefmanager.overlays.prefmanager ]
           ++ singleton (
-            final: prev:
+            _: prev:
             (optionalAttrs (prev.stdenv.hostPlatform.system == "aarch64-darwin") {
               # Sub in x86 version of packages that don't build on Apple Silicon.
               # inherit (final.pkgs-x86) [...];
@@ -312,7 +312,14 @@
         {
           default = pkgs.mkShellNoCC {
             name = "default";
-            packages = attrValues { inherit (pkgs) nixd nixfmt; };
+            packages = attrValues {
+              inherit (pkgs)
+                deadnix
+                nixd
+                nixfmt
+                statix
+                ;
+            };
           };
         };
     });

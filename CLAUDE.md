@@ -114,6 +114,10 @@ rm -rf ~/.claude/plugins/cache/malos-plugins/<plugin-name>
 - Module files named for their purpose (e.g., `git.nix`, `fish.nix`)
 - Home-manager modules prefixed with `malo-` in flake outputs
 - Use `inherit` for clarity when pulling from attribute sets
+- Extract repeated deep paths into `let`/`inherit` at the top of each file. If a dotted path like
+  `config.home.homeDirectory`, `pkgs.stdenv.isDarwin`, or `lib.mkIf` appears two or more times in
+  a file body, pull it into the `let` block (e.g., `inherit (config.home) homeDirectory;`). Single-use
+  paths are fine inline — the goal is compactness when repetition adds noise
 
 ## Gotchas
 

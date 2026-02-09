@@ -23,6 +23,7 @@
 }:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
+  inherit (config.home) homeDirectory;
   inherit (config.home.user-info) nixConfigDirectory;
   inherit (pkgs.stdenv) isDarwin;
 
@@ -49,7 +50,7 @@ let
 
   # Implementation ---------------------------------------------------------------------------------
 
-  mcpConfigPath = "${config.home.homeDirectory}/.claude/mcp.json";
+  mcpConfigPath = "${homeDirectory}/.claude/mcp.json";
 
   # CLI MCP config - connects to 1MCP via SSE
   cliMcpConfig.mcpServers."1mcp" = {
@@ -74,7 +75,7 @@ let
 
   # GUI apps don't inherit shell PATH, so we build it from nix-darwin config
   desktopPath =
-    builtins.replaceStrings [ "$HOME" "$USER" ] [ config.home.homeDirectory config.home.username ]
+    builtins.replaceStrings [ "$HOME" "$USER" ] [ homeDirectory config.home.username ]
       osConfig.environment.systemPath;
 
   # 1MCP launcher script - sources secrets and starts the aggregator
@@ -150,8 +151,8 @@ lib.mkMerge [
     home.activation.installClaudeSkills =
       let
         npx = "${pkgs.nodejs}/bin/npx";
-        skillsDir = "${config.home.homeDirectory}/.claude/skills";
-        agentsDir = "${config.home.homeDirectory}/.agents/skills";
+        skillsDir = "${homeDirectory}/.claude/skills";
+        agentsDir = "${homeDirectory}/.agents/skills";
       in
       lib.hm.dag.entryAfter [ "writeBoundary" ] ''
         export PATH="${pkgs.nodejs}/bin:${pkgs.git}/bin:$PATH"
@@ -182,11 +183,11 @@ lib.mkMerge [
         ProgramArguments = [ "${start1mcp}" ];
         KeepAlive = {
           PathState = {
-            "${config.home.homeDirectory}/.claude/secrets.env" = true;
+            "${homeDirectory}/.claude/secrets.env" = true;
           };
         };
-        StandardOutPath = "${config.home.homeDirectory}/Library/Logs/1mcp.log";
-        StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/1mcp.error.log";
+        StandardOutPath = "${homeDirectory}/Library/Logs/1mcp.log";
+        StandardErrorPath = "${homeDirectory}/Library/Logs/1mcp.error.log";
         EnvironmentVariables = {
           PATH = desktopPath;
         };

@@ -6,8 +6,9 @@
 }:
 
 let
-  inherit (builtins) attrValues elem map;
+  inherit (builtins) attrValues elem;
   inherit (lib) mkIf;
+  inherit (pkgs.stdenv) isDarwin;
 
   mkOpRunAliases =
     cmds:
@@ -28,8 +29,8 @@ in
 {
   # Link apps to ~/Applications/Home Manager Apps
   # Unlike Spotlight, Raycast can find symlinked apps so copying isn't needed
-  targets.darwin.copyApps.enable = mkIf pkgs.stdenv.isDarwin false;
-  targets.darwin.linkApps.enable = mkIf pkgs.stdenv.isDarwin true;
+  targets.darwin.copyApps.enable = mkIf isDarwin false;
+  targets.darwin.linkApps.enable = mkIf isDarwin true;
   # 1Password CLI plugin integration
   # https://developer.1password.com/docs/cli/shell-plugins/nix
   programs._1password-shell-plugins.enable = true;
@@ -176,7 +177,7 @@ in
         ;
 
     }
-    // lib.optionalAttrs pkgs.stdenv.isDarwin {
+    // lib.optionalAttrs isDarwin {
       inherit (pkgs)
         cocoapods
         m-cli # useful macOS CLI commands
