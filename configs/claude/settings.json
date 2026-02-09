@@ -91,17 +91,6 @@
     ]
   },
   "hooks": {
-    "PreToolUse": [
-      {
-        "matcher": "Bash",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "~/.claude/hooks/op-plugin-wrap.sh"
-          }
-        ]
-      }
-    ],
     "PostToolUse": [
       {
         "matcher": "WebSearch|WebFetch",

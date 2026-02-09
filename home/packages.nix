@@ -6,24 +6,30 @@
 }:
 
 let
-  inherit (builtins) attrValues elem;
+  inherit (builtins) attrValues;
   inherit (lib) mkIf;
   inherit (pkgs.stdenv) isDarwin;
 
-  mkOpRunAliases =
-    cmds:
-    lib.listToAttrs (
-      map (
-        cmd:
-        let
-          mainProgram = pkgs.${cmd}.meta.mainProgram or cmd;
-        in
-        {
-          name = mainProgram;
-          value = mkIf (elem pkgs.${cmd} config.home.packages) "op run -- ${mainProgram}";
-        }
-      ) cmds
-    );
+  # Wrap a package's main binary with `op run`, injecting 1Password secret URIs as env vars.
+  # Uses symlinkJoin to preserve shell completions, man pages, etc. from the original package.
+  mkOpRunWrapper =
+    pkg: env:
+    let
+      mainProgram = pkg.meta.mainProgram or pkg.pname;
+      envExports = lib.concatStringsSep "\n" (lib.mapAttrsToList (k: v: "export ${k}='${v}'") env);
+      wrapper = pkgs.writeShellScriptBin mainProgram ''
+        ${envExports}
+        exec op run -- ${lib.getExe pkg} "$@"
+      '';
+    in
+    pkgs.symlinkJoin {
+      name = "${mainProgram}-op-wrapped";
+      paths = [
+        wrapper
+        pkg
+      ];
+    };
+
 in
 
 {
@@ -31,24 +37,18 @@ in
   # Unlike Spotlight, Raycast can find symlinked apps so copying isn't needed
   targets.darwin.copyApps.enable = mkIf isDarwin false;
   targets.darwin.linkApps.enable = mkIf isDarwin true;
+
   # 1Password CLI plugin integration
   # https://developer.1password.com/docs/cli/shell-plugins/nix
   programs._1password-shell-plugins.enable = true;
   programs._1password-shell-plugins.plugins = attrValues {
-    inherit (pkgs) gh cachix;
+    inherit (pkgs) cachix;
   };
-  # Setup tools to work with 1Password
   home.sessionVariables = {
-    GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
     # Fix Nerd Font icons in less/bat (PUA characters not displayed by default in less 632+)
     # https://github.com/ryanoasis/nerd-fonts/wiki/FAQ-and-Troubleshooting#less-settings
     LESSUTFCHARDEF = "E000-F8FF:p,F0000-FFFFD:p,100000-10FFFD:p";
   };
-  # claude-code alias is handled in claude.nix
-  home.shellAliases = mkOpRunAliases [
-    "nix-update"
-    "nixpkgs-review"
-  ];
 
   # Programs ---------------------------------------------------------------------------------------
 
@@ -170,11 +170,17 @@ in
         cachix # adding/managing alternative binary caches hosted by Cachix
         nix-output-monitor # get additional information while building packages
         nix-tree # interactively browse dependency graphs of Nix derivations
-        nix-update # swiss-knife for updating nix packages
-        nixpkgs-review # review pull-requests on nixpkgs
         node2nix # generate Nix expressions to build NPM packages
         statix # lints and suggestions for the Nix programming language
         ;
+
+      # Wrapped with `op run` to inject 1Password secrets
+      nix-update = mkOpRunWrapper pkgs.nix-update {
+        GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
+      };
+      nixpkgs-review = mkOpRunWrapper pkgs.nixpkgs-review {
+        GITHUB_TOKEN = "op://Personal/GitHub Personal Access Token/credential";
+      };
 
     }
     // lib.optionalAttrs isDarwin {
