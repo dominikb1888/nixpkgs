@@ -118,6 +118,29 @@ in
       '';
       onVariable = "term_background";
     };
+    # Background git fetch with rate limiting — runs at most once every 5 minutes per repo.
+    # Updates remote tracking refs so Starship shows behind/ahead arrows without manual fetch.
+    git-background-fetch = {
+      body = ''
+        if not command -q git; or not git rev-parse --is-inside-work-tree &>/dev/null
+          return
+        end
+        set -l repo_id (git rev-parse --show-toplevel 2>/dev/null | string replace -a / -)
+        set -l stamp_dir "$HOME/.cache/git-background-fetch"
+        set -l stamp "$stamp_dir/$repo_id"
+        mkdir -p $stamp_dir
+        if test -f $stamp
+          set -l last_fetch (cat $stamp)
+          if test (math (date +%s) - $last_fetch) -lt 300
+            return
+          end
+        end
+        date +%s > $stamp
+        git fetch --quiet --all &
+        disown
+      '';
+      onEvent = "fish_prompt";
+    };
   };
   # }}}
 
@@ -189,8 +212,9 @@ in
     # they are triggerd when the relevent event happens or variable changes.
     set-shell-colors
 
-    # Activate notification event handler
+    # Activate event handlers
     functions notify-done > /dev/null
+    functions git-background-fetch > /dev/null
 
     # Set Fish colors that aren't dependant the `$term_background`.
     set -g fish_color_quote        cyan      # color of commands
