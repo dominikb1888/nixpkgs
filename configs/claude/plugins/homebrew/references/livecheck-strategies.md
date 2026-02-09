@@ -63,10 +63,25 @@ end
 **Finding the appcast URL**:
 
 ```bash
+# First, try the built-in helper
 brew find-appcast "/Applications/Example.app"
-# Or manually:
+
+# Or check the plist directly
 defaults read "/Applications/Example.app/Contents/Info.plist" SUFeedURL
 ```
+
+**If SUFeedURL isn't in the plist** but Sparkle framework exists, try common appcast locations relative to the download URL:
+
+```bash
+# If download is https://example.com/app-prod/App.dmg
+# Try common appcast filenames at the same base URL
+curl -sI "https://example.com/app-prod/appcast.xml" | head -1
+curl -sI "https://example.com/app-prod/updates.xml" | head -1
+```
+
+Common appcast filenames: `appcast.xml`, `updates.xml`, `sparkle.xml`, `feed.xml`
+
+Verify the URL returns valid XML before using it in livecheck.
 
 ## Strategy: `:github_latest`
 
