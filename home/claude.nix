@@ -136,16 +136,22 @@ in
   # External skills --------------------------------------------------------------------------------
 
   # External skills from skills.sh - nuke and repave on each activation.
-  # Only touches Claude Code; other agents' skills are unaffected.
+  # Removes external skill symlinks/dirs, then re-adds from externalSkills list.
+  # Uses direct file removal instead of `skills remove` (which has interactive TUI prompts
+  # that hang under home-manager's non-interactive activation).
   home.activation.installClaudeSkills =
     let
       npx = "${pkgs.nodejs}/bin/npx";
+      skillsDir = "${config.home.homeDirectory}/.claude/skills";
+      agentsDir = "${config.home.homeDirectory}/.agents/skills";
     in
     lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       export PATH="${pkgs.nodejs}/bin:${pkgs.git}/bin:$PATH"
       export DISABLE_TELEMETRY=1
       echo "Reconciling Claude Code skills from skills.sh..."
-      run --silence ${npx} -y skills remove -g -a claude-code -y || true
+      # Remove external skill symlinks (pointing into ~/.agents/) and their cloned sources
+      ${pkgs.findutils}/bin/find "${skillsDir}" -maxdepth 1 -type l -lname '*/\.agents/*' -delete 2>/dev/null || true
+      rm -rf "${agentsDir}" 2>/dev/null || true
       ${lib.concatMapStringsSep "\n      " (
         s: "run --silence ${npx} -y skills add ${s} -g -a claude-code -y || true"
       ) externalSkills}
