@@ -18,6 +18,17 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 - `comma` for ad-hoc access to any nixpkgs command (`, <cmd>` runs without installing)
 - Opening URLs: use `open "URL"` in Bash (opens in Safari), not Chrome browser automation tools
 
+## Nix Dev Shells
+
+Tool environments available without installing globally. Use `nix develop my#<name>` to enter
+a shell, or wrap a single command with `nix develop my#<name> -c <cmd>`.
+
+- **`pdf`** -- Python (pypdf, pdfplumber, reportlab, pytesseract, pdf2image, Pillow, pandas)
+  + CLI (poppler_utils, qpdf, tesseract, ghostscript). Use for all PDF tasks.
+
+When a task needs tools from a dev shell, prefer wrapping commands over comma.
+For multi-step work, enter the shell once rather than wrapping each command.
+
 ## Web Tools
 
 **Prefer MCP tools over built-in WebSearch/WebFetch.**

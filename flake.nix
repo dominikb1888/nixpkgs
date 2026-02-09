@@ -321,6 +321,32 @@
                 ;
             };
           };
+
+          pdf = pkgs.mkShellNoCC {
+            name = "pdf";
+            packages = attrValues {
+              inherit (pkgs)
+                ghostscript
+                poppler-utils
+                qpdf
+                tesseract
+                ;
+              python = pkgs.python3.withPackages (
+                ps:
+                attrValues {
+                  inherit (ps)
+                    pandas
+                    pdf2image
+                    pdfplumber
+                    pillow
+                    pypdf
+                    pytesseract
+                    reportlab
+                    ;
+                }
+              );
+            };
+          };
         };
     });
 }
