@@ -16,6 +16,7 @@
 # - Secrets: 1Password Environment at ~/.claude/secrets.env
 {
   config,
+  lib,
   pkgs,
   osConfig,
   ...
@@ -24,6 +25,13 @@ let
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
   claudeDir = "${nixConfigDirectory}/configs/claude";
+
+  # External skills from skills.sh, installed via activation script.
+  # Add entries here, then `nh darwin switch` to reconcile.
+  # Format: "owner/repo --skill skill-name"
+  externalSkills = [
+    "anthropics/skills --skill pdf"
+  ];
 
   # Path where the MCP config will be generated
   mcpConfigPath = "${config.home.homeDirectory}/.claude/mcp.json";
@@ -122,6 +130,22 @@ in
     ".claude/hooks".source = mkOutOfStoreSymlink "${claudeDir}/hooks";
     ".claude/statusline.sh".source = mkOutOfStoreSymlink "${claudeDir}/statusline.sh";
   };
+
+  # External skills from skills.sh - nuke and repave on each activation.
+  # Only touches Claude Code; other agents' skills are unaffected.
+  home.activation.installClaudeSkills =
+    let
+      npx = "${pkgs.nodejs}/bin/npx";
+    in
+    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      export PATH="${pkgs.nodejs}/bin:${pkgs.git}/bin:$PATH"
+      export DISABLE_TELEMETRY=1
+      echo "Reconciling Claude Code skills from skills.sh..."
+      run --silence ${npx} -y skills remove -g -a claude-code -y || true
+      ${lib.concatMapStringsSep "\n      " (
+        s: "run --silence ${npx} -y skills add ${s} -g -a claude-code -y || true"
+      ) externalSkills}
+    '';
 
   # 1MCP LaunchAgent - keeps the aggregator running when secrets are available
   # Uses PathState to only run when 1Password has mounted the secrets file

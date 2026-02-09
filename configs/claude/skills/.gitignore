@@ -1,0 +1,7 @@
+# External skills (installed as symlinks by `npx skills add`) are not tracked.
+# Custom skills are regular directories and must be explicitly un-ignored.
+# See home/claude.nix for the declarative list of external skills.
+/*
+!.gitignore
+!.gitkeep
+!*/
