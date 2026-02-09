@@ -28,6 +28,9 @@ let
 
   claudeDir = "${nixConfigDirectory}/configs/claude";
 
+  # Configuration ----------------------------------------------------------------------------------
+  # Edit these values to customize your setup. Everything below is implementation.
+
   # External skills from skills.sh, installed via activation script.
   # Add entries here, then `nh darwin switch` to reconcile.
   # Format: "owner/repo --skill skill-name"
@@ -35,11 +38,18 @@ let
     "anthropics/skills --skill pdf"
   ];
 
-  # Path where the MCP config will be generated
-  mcpConfigPath = "${config.home.homeDirectory}/.claude/mcp.json";
-
   # 1MCP server port (default 3050 to avoid conflicts with common dev servers)
   mcpPort = "3050";
+
+  # Claude Desktop app preferences (macOS only)
+  desktopPreferences = {
+    chromeExtensionEnabled = true;
+    quickEntryDictationShortcut = "capslock";
+  };
+
+  # Implementation ---------------------------------------------------------------------------------
+
+  mcpConfigPath = "${config.home.homeDirectory}/.claude/mcp.json";
 
   # CLI MCP config - connects to 1MCP via SSE
   cliMcpConfig.mcpServers."1mcp" = {
@@ -60,10 +70,9 @@ let
         jq . "$jsonPath" > $out
       '';
 
-  # --- macOS-only definitions ---
+  # --- macOS-only (guarded by mkIf isDarwin; lazy evaluation prevents errors on Linux) ---
 
   # GUI apps don't inherit shell PATH, so we build it from nix-darwin config
-  # Expand $HOME and $USER since JSON doesn't support shell variables
   desktopPath =
     builtins.replaceStrings [ "$HOME" "$USER" ] [ config.home.homeDirectory config.home.username ]
       osConfig.environment.systemPath;
@@ -104,10 +113,7 @@ let
       ];
       env.PATH = desktopPath;
     };
-    preferences = {
-      chromeExtensionEnabled = true;
-      quickEntryDictationShortcut = "capslock";
-    };
+    preferences = desktopPreferences;
   };
 
 in
@@ -139,10 +145,8 @@ lib.mkMerge [
 
     # External skills ------------------------------------------------------------------------------
 
-    # External skills from skills.sh - nuke and repave on each activation.
-    # Removes external skill symlinks/dirs, then re-adds from externalSkills list.
-    # Uses direct file removal instead of `skills remove` (which has interactive TUI prompts
-    # that hang under home-manager's non-interactive activation).
+    # Nuke and repave on each activation. Uses direct file removal instead of `skills remove`
+    # (which has interactive TUI prompts that hang under home-manager's non-interactive activation).
     home.activation.installClaudeSkills =
       let
         npx = "${pkgs.nodejs}/bin/npx";
