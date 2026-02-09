@@ -108,6 +108,8 @@ let
 
 in
 {
+  # Shell and config files -------------------------------------------------------------------------
+
   # Shell alias adds --mcp-config flag (Homebrew installs the binary via cask)
   home.shellAliases.claude = "claude --mcp-config ${mcpConfigPath}";
 
@@ -131,6 +133,8 @@ in
     ".claude/statusline.sh".source = mkOutOfStoreSymlink "${claudeDir}/statusline.sh";
   };
 
+  # External skills --------------------------------------------------------------------------------
+
   # External skills from skills.sh - nuke and repave on each activation.
   # Only touches Claude Code; other agents' skills are unaffected.
   home.activation.installClaudeSkills =
@@ -146,6 +150,8 @@ in
         s: "run --silence ${npx} -y skills add ${s} -g -a claude-code -y || true"
       ) externalSkills}
     '';
+
+  # 1MCP LaunchAgent -------------------------------------------------------------------------------
 
   # 1MCP LaunchAgent - keeps the aggregator running when secrets are available
   # Uses PathState to only run when 1Password has mounted the secrets file

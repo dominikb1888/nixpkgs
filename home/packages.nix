@@ -49,6 +49,8 @@ in
     "nixpkgs-review"
   ];
 
+  # Programs ---------------------------------------------------------------------------------------
+
   # Bat, a substitute for cat.
   # https://github.com/sharkdp/bat
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.enable
@@ -107,6 +109,8 @@ in
   programs.zsh.enable = true;
   programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
   programs.zsh.history.path = "${config.xdg.stateHome}/zsh_history";
+
+  # Packages ---------------------------------------------------------------------------------------
 
   home.packages = attrValues (
     {

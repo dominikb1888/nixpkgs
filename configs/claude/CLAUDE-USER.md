@@ -65,6 +65,7 @@ When you have a URL and need its content:
 - Rebase-based (pull.rebase = true)
 - SSH protocol for GitHub
 - Commit messages: imperative mood, concise
+- Tags are GPG-signed: always use `git tag -a <name> -m "message"` (lightweight tags fail)
 - Only use `git -C <path>` when CWD is outside the target repo; git finds the repo root from any subdirectory
 
 ## Code Style

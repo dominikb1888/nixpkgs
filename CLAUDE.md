@@ -109,6 +109,8 @@ rm -rf ~/.claude/plugins/cache/malos-plugins/<plugin-name>
 ## Conventions
 
 - Follow nixpkgs code style
+- Line length: 100 columns
+- Section banners: `# Section name` followed by dashes to column 100, with a blank line before and after
 - Module files named for their purpose (e.g., `git.nix`, `fish.nix`)
 - Home-manager modules prefixed with `malo-` in flake outputs
 - Use `inherit` for clarity when pulling from attribute sets

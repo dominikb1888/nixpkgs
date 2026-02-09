@@ -24,6 +24,8 @@ in
     end
   '';
 
+  # Homebrew settings ------------------------------------------------------------------------------
+
   homebrew.enable = true;
   homebrew.onActivation.autoUpdate = true;
   homebrew.onActivation.cleanup = "zap";
@@ -34,6 +36,8 @@ in
     "homebrew/core"
     "nrlquaker/createzap"
   ];
+
+  # Mac App Store ----------------------------------------------------------------------------------
 
   # Prefer installing application from the Mac App Store
   homebrew.masApps = {
@@ -69,6 +73,8 @@ in
     Xcode = 497799835;
     "Yubico Authenticator" = 1497506650;
   };
+
+  # Casks ------------------------------------------------------------------------------------------
 
   # If an app isn't available in the Mac App Store, or the version in the App Store has
   # limitiations, e.g., Transmit, install the Homebrew Cask.
@@ -125,6 +131,8 @@ in
     "yubico-yubikey-manager"
     "zed"
   ];
+
+  # Cask-dependent configuration -------------------------------------------------------------------
 
   # Configuration related to casks
   home-manager.users.${config.users.primaryUser.username} =
