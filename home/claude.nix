@@ -2,7 +2,7 @@
 #
 # This module:
 # - Adds shell alias with --mcp-config flag (Homebrew installs the binary)
-# - Runs 1MCP LaunchAgent to aggregate all MCP servers
+# - Runs 1MCP LaunchAgent to aggregate all MCP servers (macOS only)
 # - Symlinks config directories from configs/claude/ for live editing
 #
 # Settings architecture:
@@ -12,18 +12,20 @@
 #
 # MCP architecture:
 # - Server definitions: configs/claude/1mcp.json (symlinked to ~/.config/1mcp/mcp.json)
-# - 1MCP runs as a LaunchAgent; both CLI and Desktop connect to localhost:3050
+# - 1MCP runs as a LaunchAgent (macOS); both CLI and Desktop connect to localhost:3050
 # - Secrets: 1Password Environment at ~/.claude/secrets.env
 {
   config,
   lib,
   pkgs,
-  osConfig,
+  osConfig ? null,
   ...
 }:
 let
   inherit (config.lib.file) mkOutOfStoreSymlink;
   inherit (config.home.user-info) nixConfigDirectory;
+  inherit (pkgs.stdenv) isDarwin;
+
   claudeDir = "${nixConfigDirectory}/configs/claude";
 
   # External skills from skills.sh, installed via activation script.
@@ -38,6 +40,27 @@ let
 
   # 1MCP server port (default 3050 to avoid conflicts with common dev servers)
   mcpPort = "3050";
+
+  # CLI MCP config - connects to 1MCP via SSE
+  cliMcpConfig.mcpServers."1mcp" = {
+    type = "sse";
+    url = "http://localhost:${mcpPort}/sse";
+  };
+
+  # Helper for human-readable JSON files
+  toFormattedJSON =
+    data:
+    pkgs.runCommand "formatted.json"
+      {
+        nativeBuildInputs = [ pkgs.jq ];
+        passAsFile = [ "json" ];
+        json = builtins.toJSON data;
+      }
+      ''
+        jq . "$jsonPath" > $out
+      '';
+
+  # --- macOS-only definitions ---
 
   # GUI apps don't inherit shell PATH, so we build it from nix-darwin config
   # Expand $HOME and $USER since JSON doesn't support shell variables
@@ -68,12 +91,6 @@ let
     exec npx -y @1mcp/agent --port ${mcpPort} --enable-async-loading
   '';
 
-  # CLI MCP config - connects to 1MCP via SSE
-  cliMcpConfig.mcpServers."1mcp" = {
-    type = "sse";
-    url = "http://localhost:${mcpPort}/sse";
-  };
-
   # Desktop MCP config - uses proxy to connect to the running 1MCP LaunchAgent
   desktopConfig = {
     mcpServers."1mcp" = {
@@ -93,89 +110,83 @@ let
     };
   };
 
-  # Helper for human-readable JSON files
-  toFormattedJSON =
-    data:
-    pkgs.runCommand "formatted.json"
-      {
-        nativeBuildInputs = [ pkgs.jq ];
-        passAsFile = [ "json" ];
-        json = builtins.toJSON data;
-      }
-      ''
-        jq . "$jsonPath" > $out
-      '';
-
 in
-{
-  # Shell and config files -------------------------------------------------------------------------
+lib.mkMerge [
 
-  # Shell alias adds --mcp-config flag (Homebrew installs the binary via cask)
-  home.shellAliases.claude = "claude --mcp-config ${mcpConfigPath}";
+  # Cross-platform configuration -------------------------------------------------------------------
 
-  # 1MCP server config (symlinked for live editing)
-  xdg.configFile."1mcp/mcp.json".source = mkOutOfStoreSymlink "${claudeDir}/1mcp.json";
+  {
+    # Shell alias adds --mcp-config flag (Homebrew installs the binary via cask)
+    home.shellAliases.claude = "claude --mcp-config ${mcpConfigPath}";
 
-  home.file = {
-    # Generated configs (point CLI/Desktop to 1MCP)
-    ".claude/mcp.json".source = toFormattedJSON cliMcpConfig;
-    "Library/Application Support/Claude/claude_desktop_config.json".source =
+    # 1MCP server config (symlinked for live editing)
+    xdg.configFile."1mcp/mcp.json".source = mkOutOfStoreSymlink "${claudeDir}/1mcp.json";
+
+    home.file = {
+      # Generated CLI config (points to 1MCP)
+      ".claude/mcp.json".source = toFormattedJSON cliMcpConfig;
+
+      # Symlinked for live editing (no rebuild needed)
+      ".claude/settings.json".source = mkOutOfStoreSymlink "${claudeDir}/settings.json";
+      ".claude/CLAUDE.md".source = mkOutOfStoreSymlink "${claudeDir}/CLAUDE-USER.md";
+      ".claude/commands".source = mkOutOfStoreSymlink "${claudeDir}/commands";
+      ".claude/skills".source = mkOutOfStoreSymlink "${claudeDir}/skills";
+      ".claude/agents".source = mkOutOfStoreSymlink "${claudeDir}/agents";
+      ".claude/rules".source = mkOutOfStoreSymlink "${claudeDir}/rules";
+      ".claude/hooks".source = mkOutOfStoreSymlink "${claudeDir}/hooks";
+      ".claude/statusline.sh".source = mkOutOfStoreSymlink "${claudeDir}/statusline.sh";
+    };
+
+    # External skills ------------------------------------------------------------------------------
+
+    # External skills from skills.sh - nuke and repave on each activation.
+    # Removes external skill symlinks/dirs, then re-adds from externalSkills list.
+    # Uses direct file removal instead of `skills remove` (which has interactive TUI prompts
+    # that hang under home-manager's non-interactive activation).
+    home.activation.installClaudeSkills =
+      let
+        npx = "${pkgs.nodejs}/bin/npx";
+        skillsDir = "${config.home.homeDirectory}/.claude/skills";
+        agentsDir = "${config.home.homeDirectory}/.agents/skills";
+      in
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        export PATH="${pkgs.nodejs}/bin:${pkgs.git}/bin:$PATH"
+        export DISABLE_TELEMETRY=1
+        echo "Reconciling Claude Code skills from skills.sh..."
+        # Remove external skill symlinks (pointing into ~/.agents/) and their cloned sources
+        ${pkgs.findutils}/bin/find "${skillsDir}" -maxdepth 1 -type l -lname '*/\.agents/*' -delete 2>/dev/null || true
+        rm -rf "${agentsDir}" 2>/dev/null || true
+        ${lib.concatMapStringsSep "\n        " (
+          s: "run --silence ${npx} -y skills add ${s} -g -a claude-code -y || true"
+        ) externalSkills}
+      '';
+  }
+
+  # macOS-only configuration -----------------------------------------------------------------------
+
+  (lib.mkIf isDarwin {
+    # Desktop app config (points to 1MCP via proxy for GUI PATH compatibility)
+    home.file."Library/Application Support/Claude/claude_desktop_config.json".source =
       toFormattedJSON desktopConfig;
 
-    # Symlinked for live editing (no rebuild needed)
-    ".claude/settings.json".source = mkOutOfStoreSymlink "${claudeDir}/settings.json";
-    ".claude/CLAUDE.md".source = mkOutOfStoreSymlink "${claudeDir}/CLAUDE-USER.md";
-    ".claude/commands".source = mkOutOfStoreSymlink "${claudeDir}/commands";
-    ".claude/skills".source = mkOutOfStoreSymlink "${claudeDir}/skills";
-    ".claude/agents".source = mkOutOfStoreSymlink "${claudeDir}/agents";
-    ".claude/rules".source = mkOutOfStoreSymlink "${claudeDir}/rules";
-    ".claude/hooks".source = mkOutOfStoreSymlink "${claudeDir}/hooks";
-    ".claude/statusline.sh".source = mkOutOfStoreSymlink "${claudeDir}/statusline.sh";
-  };
-
-  # External skills --------------------------------------------------------------------------------
-
-  # External skills from skills.sh - nuke and repave on each activation.
-  # Removes external skill symlinks/dirs, then re-adds from externalSkills list.
-  # Uses direct file removal instead of `skills remove` (which has interactive TUI prompts
-  # that hang under home-manager's non-interactive activation).
-  home.activation.installClaudeSkills =
-    let
-      npx = "${pkgs.nodejs}/bin/npx";
-      skillsDir = "${config.home.homeDirectory}/.claude/skills";
-      agentsDir = "${config.home.homeDirectory}/.agents/skills";
-    in
-    lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      export PATH="${pkgs.nodejs}/bin:${pkgs.git}/bin:$PATH"
-      export DISABLE_TELEMETRY=1
-      echo "Reconciling Claude Code skills from skills.sh..."
-      # Remove external skill symlinks (pointing into ~/.agents/) and their cloned sources
-      ${pkgs.findutils}/bin/find "${skillsDir}" -maxdepth 1 -type l -lname '*/\.agents/*' -delete 2>/dev/null || true
-      rm -rf "${agentsDir}" 2>/dev/null || true
-      ${lib.concatMapStringsSep "\n      " (
-        s: "run --silence ${npx} -y skills add ${s} -g -a claude-code -y || true"
-      ) externalSkills}
-    '';
-
-  # 1MCP LaunchAgent -------------------------------------------------------------------------------
-
-  # 1MCP LaunchAgent - keeps the aggregator running when secrets are available
-  # Uses PathState to only run when 1Password has mounted the secrets file
-  launchd.agents."1mcp" = {
-    enable = true;
-    config = {
-      Label = "com.malo.1mcp";
-      ProgramArguments = [ "${start1mcp}" ];
-      KeepAlive = {
-        PathState = {
-          "${config.home.homeDirectory}/.claude/secrets.env" = true;
+    # 1MCP LaunchAgent - keeps the aggregator running when secrets are available
+    # Uses PathState to only run when 1Password has mounted the secrets file
+    launchd.agents."1mcp" = {
+      enable = true;
+      config = {
+        Label = "com.malo.1mcp";
+        ProgramArguments = [ "${start1mcp}" ];
+        KeepAlive = {
+          PathState = {
+            "${config.home.homeDirectory}/.claude/secrets.env" = true;
+          };
+        };
+        StandardOutPath = "${config.home.homeDirectory}/Library/Logs/1mcp.log";
+        StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/1mcp.error.log";
+        EnvironmentVariables = {
+          PATH = desktopPath;
         };
       };
-      StandardOutPath = "${config.home.homeDirectory}/Library/Logs/1mcp.log";
-      StandardErrorPath = "${config.home.homeDirectory}/Library/Logs/1mcp.error.log";
-      EnvironmentVariables = {
-        PATH = desktopPath;
-      };
     };
-  };
-}
+  })
+]
