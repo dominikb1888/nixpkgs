@@ -48,11 +48,11 @@ in
     Hyperspace = 6739505345;
     iMovie = 408981434;
     "Kagi Search" = 1622835804;
-    Keynote = 409183694;
+    Keynote = 361285480;
     "Marked 2" = 890031187;
     "Notion Web Clipper" = 1559269364;
-    Numbers = 409203825;
-    Pages = 409201541;
+    Numbers = 361304891;
+    Pages = 361309726;
     Parcel = 375589283;
     Patterns = 429449079;
     "Pixelmator Pro" = 1289583905;
@@ -104,6 +104,7 @@ in
     "monologue"
     "multiviewer"
     "notion"
+    "obsidian"
     "parallels"
     "pdf-expert"
     "postman"
