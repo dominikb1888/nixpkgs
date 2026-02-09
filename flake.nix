@@ -195,6 +195,7 @@
         malo-packages = import ./home/packages.nix;
         malo-starship = import ./home/starship.nix;
         malo-starship-symbols = import ./home/starship-symbols.nix;
+        malo-tmux = import ./home/tmux.nix;
 
         # Modules I've created
         colors = import ./modules/home/colors;
