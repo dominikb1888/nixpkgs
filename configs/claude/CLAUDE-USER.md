@@ -65,6 +65,7 @@ When you have a URL and need its content:
 - Rebase-based (pull.rebase = true)
 - SSH protocol for GitHub
 - Commit messages: imperative mood, concise
+- Only use `git -C <path>` when CWD is outside the target repo; git finds the repo root from any subdirectory
 
 ## Code Style
 - Functional programming: strong types, immutability, composition
@@ -100,6 +101,8 @@ Proactively suggest improvements to Claude Code configuration based on our conve
 
 Propose changes rather than making them silently.
 
-**Skills vs agents:** Use skills with `context: fork` for repeatable, parameterized tasks where the workflow is fixed but inputs vary (`/fix-issue 123`). Use agents when you need a custom system prompt and the task varies each time. Skills bake the task into the file; agents separate "how" (system prompt) from "what" (delegation message), allowing per-invocation flexibility.
+**Skills, agents, and plugins:** Skills, agents, commands, and hooks that are under development
+or specific to this configuration should live in `configs/claude/` (symlinked to `~/.claude/`).
+Once refined and configuration-independent, move them to a plugin in `configs/claude/plugins/`.
 
 When you have multiple questions to ask, use the AskUserQuestion tool rather than asking inline.

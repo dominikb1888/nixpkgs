@@ -16,9 +16,6 @@ nix flake update
 
 # Update a specific input
 nix flake update nixpkgs-unstable
-
-# Enter development shell with nixd and nixfmt
-nix develop
 ```
 
 ## Architecture
@@ -60,7 +57,7 @@ in { ... }
 ### Live-Editable Configs
 
 Files in `configs/` are symlinked via `mkOutOfStoreSymlink`, allowing edits without rebuild:
-- `configs/claude/` → `~/.claude/` (CLAUDE.md, settings.json, commands, plugins, etc.)
+- `configs/claude/` → `~/.claude/` (CLAUDE-USER.md → CLAUDE.md, settings.json, commands, plugins, etc.)
 - `configs/nvim/` → Neovim Lua config
 
 **Claude Code settings** use a hybrid approach:
@@ -73,7 +70,11 @@ Files in `configs/` are symlinked via `mkOutOfStoreSymlink`, allowing edits with
 
 **MCP architecture:** Uses 1MCP to aggregate all MCP servers. Server definitions are in
 `configs/claude/1mcp.json` (symlinked to `~/.config/1mcp/mcp.json`). The Nix-generated
-`~/.claude/mcp.json` just points CLI to 1MCP on localhost:3050.
+`~/.claude/mcp.json` just points CLI to 1MCP on localhost:3050. 1MCP runs as a LaunchAgent
+(`com.malo.1mcp`, defined in `home/claude.nix`). After editing `1mcp.json`, restart it:
+```bash
+launchctl kickstart -k gui/$(id -u)/com.malo.1mcp
+```
 
 ### Package Version Overlays
 
@@ -96,6 +97,10 @@ pkgs.pkgs-x86.some-package       # x86 version (Apple Silicon only)
 
 **Add a darwin module:** Same pattern in `darwin/` directory and `darwinModules` in flake.nix.
 
+**Add an external Claude Code skill:** Add to `externalSkills` in `home/claude.nix`, then rebuild.
+Custom skills go in `configs/claude/skills/<malo-prefix>/` as regular directories (committed to git).
+External skills are symlinks managed by the activation script (gitignored).
+
 **Iterate on Claude Code plugins:** Plugins in `configs/claude/plugins/` are symlinked but cached by Claude. After making changes, nuke the cache and restart:
 ```bash
 rm -rf ~/.claude/plugins/cache/malos-plugins/<plugin-name>
@@ -108,3 +113,13 @@ rm -rf ~/.claude/plugins/cache/malos-plugins/<plugin-name>
 - Module files named for their purpose (e.g., `git.nix`, `fish.nix`)
 - Home-manager modules prefixed with `malo-` in flake outputs
 - Use `inherit` for clarity when pulling from attribute sets
+
+## Gotchas
+
+- **Home-manager activation PATH:** Activation scripts run with a minimal PATH (bash, coreutils,
+  findutils, etc.) — no `node`, `git`, or user-profile binaries. Use full nix store paths
+  (e.g. `${pkgs.nodejs}/bin/npx`) or prepend to PATH explicitly.
+- **`run --silence` hides errors:** Home-manager's `run --silence` redirects both stdout and
+  stderr to `/dev/null`. When debugging activation scripts, temporarily remove `--silence` or
+  use `run` without flags to see output. The generated script is at
+  `~/.local/state/home-manager/gcroots/current-home/activate`.

@@ -122,7 +122,7 @@ in
 
     # Symlinked for live editing (no rebuild needed)
     ".claude/settings.json".source = mkOutOfStoreSymlink "${claudeDir}/settings.json";
-    ".claude/CLAUDE.md".source = mkOutOfStoreSymlink "${claudeDir}/CLAUDE.md";
+    ".claude/CLAUDE.md".source = mkOutOfStoreSymlink "${claudeDir}/CLAUDE-USER.md";
     ".claude/commands".source = mkOutOfStoreSymlink "${claudeDir}/commands";
     ".claude/skills".source = mkOutOfStoreSymlink "${claudeDir}/skills";
     ".claude/agents".source = mkOutOfStoreSymlink "${claudeDir}/agents";
