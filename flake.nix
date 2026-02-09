@@ -96,7 +96,7 @@
         }
       );
 
-      # Overlays --------------------------------------------------------------------------------{{{
+      # Overlays -----------------------------------------------------------------------------------
 
       overlays = {
         # Overlays to add different versions `nixpkgs` into package set
@@ -128,28 +128,6 @@
             };
           };
 
-        # Overlay that adds various additional utility functions to `vimUtils`
-        vimUtils = import ./overlays/vimUtils.nix;
-
-        # Overlay that adds some additional Neovim plugins
-        vimPlugins =
-          final: prev:
-          let
-            inherit (self.overlays.vimUtils final prev) vimUtils;
-          in
-          {
-            vimPlugins = prev.vimPlugins.extend (
-              _: _:
-              # Useful for testing/using Vim plugins that aren't in `nixpkgs`.
-              vimUtils.buildVimPluginsFromFlakeInputs inputs [
-                # Add flake input names here for a Vim plugin repos
-              ]
-              // {
-                # Other Vim plugins
-              }
-            );
-          };
-
         tweaks =
           _: prev:
           let
@@ -162,9 +140,8 @@
             comma = prev.comma.override { nix = determinateNix; };
           };
       };
-      # }}}
 
-      # Modules -------------------------------------------------------------------------------- {{{
+      # Modules ------------------------------------------------------------------------------------
 
       darwinModules = {
         # My configurations
@@ -191,7 +168,6 @@
         malo-git-aliases = import ./home/git-aliases.nix;
         malo-gh-aliases = import ./home/gh-aliases.nix;
         malo-ghostty = import ./home/ghostty.nix;
-        malo-neovim = import ./home/neovim.nix;
         malo-packages = import ./home/packages.nix;
         malo-starship = import ./home/starship.nix;
         malo-starship-symbols = import ./home/starship-symbols.nix;
@@ -199,7 +175,6 @@
 
         # Modules I've created
         colors = import ./modules/home/colors;
-        programs-neovim-extras = import ./modules/home/programs/neovim/extras.nix;
         programs-starship-extras = import ./modules/home/programs/starship/extras.nix;
         home-user-info =
           { lib, ... }:
@@ -214,9 +189,8 @@
         _1password-shell-plugins = inputs._1password-shell-plugins.hmModules.default;
         nix-index-database = inputs.nix-index-database.homeModules.nix-index;
       };
-      # }}}
 
-      # System configurations ------------------------------------------------------------------ {{{
+      # System configurations ----------------------------------------------------------------------
 
       darwinConfigurations = {
         # Minimal macOS configurations to bootstrap systems
@@ -320,8 +294,6 @@
             home.user-info.nixConfigDirectory = mkForce "/home/runner/work/nix-config/nix-config";
           };
       });
-      # }}}
-
     }
     // flake-utils.lib.eachDefaultSystem (system: {
       # Re-export `nixpkgs-unstable` with overlays.
@@ -329,7 +301,7 @@
       # Allows doing things like `nix run my#prefmanager -- watch --all`
       legacyPackages = import inputs.nixpkgs-unstable (nixpkgsDefaults // { inherit system; });
 
-      # Development shells ----------------------------------------------------------------------{{{
+      # Development shells -------------------------------------------------------------------------
       # Shell environments for development
       # With `nix.registry.my.flake = inputs.self`, development shells can be created by running,
       # e.g., `nix develop my#python`.
@@ -343,7 +315,5 @@
             packages = attrValues { inherit (pkgs) nixd nixfmt; };
           };
         };
-      # }}}
     });
 }
-# vim: foldmethod=marker

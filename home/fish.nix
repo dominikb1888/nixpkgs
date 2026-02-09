@@ -20,7 +20,7 @@ in
   home.packages = [
   ];
 
-  # Fish functions ----------------------------------------------------------------------------- {{{
+  # Fish functions ---------------------------------------------------------------------------------
 
   programs.fish.functions = {
     # TODO: Replace with Ghostty's native command completion notifications when available
@@ -107,14 +107,6 @@ in
         else
           alias btm "btm --theme default"
         end
-      ''
-      + optionalString config.programs.neovim.enable ''
-
-        # Set `background` of all running Neovim instances.
-        for server in (${pkgs.neovim-remote}/bin/nvr --serverlist)
-          ${pkgs.neovim-remote}/bin/nvr -s --nostart --servername $server \
-            -c "set background=$term_background" &
-        end
       '';
       onVariable = "term_background";
     };
@@ -142,9 +134,8 @@ in
       onEvent = "fish_prompt";
     };
   };
-  # }}}
 
-  # Fish configuration ------------------------------------------------------------------------- {{{
+  # Fish configuration -----------------------------------------------------------------------------
 
   # Aliases
   home.shellAliases = {
@@ -228,6 +219,4 @@ in
     set -g fish_color_escape       red       # color of character escapes like '\n' and and '\x70'
     set -g fish_color_cancel       red       # color of the '^C' indicator on a canceled command
   '';
-  # }}}
 }
-# vim: foldmethod=marker

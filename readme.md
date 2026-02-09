@@ -23,9 +23,8 @@ In no particular order:
   * `darwinModules` output for `nix-darwin` modules with additional functionality and prepackaged configuration, including:
     * [`users-primaryUser`](./modules/darwin/users.nix) that provides `users.primaryUsers.{username,fullName,email,nixConfigDirectory}` options, which allows specifying this information one time by setting these options and then referencing their values when setting other options.
   * `homeManagerModules` output for `home-manager` modules with additional functionality and prepackaged configuration, including:
-    * `home-user-info`, that provides the same options as the my `nix-darwin` module `users-primaryUsers` above under `home.user-info`. See examples of it in use in [`home/git.nix`](./home/git.nix), [`home/neovim.nix`](./home/neovim.nix).
+    * `home-user-info`, that provides the same options as the my `nix-darwin` module `users-primaryUsers` above under `home.user-info`. See examples of it in use in [`home/git.nix`](./home/git.nix).
     * [`colors`](./modules/home/colors) which is a WIP module used to define colorschemes. See [`home/colors.nix`](./home/colors.nix), for an example of how to define a colorscheme.
-    * [`programs-neovim-extras`](./modules/home/programs/neovim/extras.nix) that provides `programs.neovim.extras.{defaultEditor,nvrAliases,termBufferAutoChangeDir}` options.
     * [`malo-git-aliases`](./home/git-aliases.nix)
     * [`malo-gh-aliases`](./home/gh-aliases.nix)
     * [`programs-starship-extras`](./modules/home/programs/starship/extras.nix) that provides `programs.starship.extras.presets.<name>` options for easily enabling [Starship presets](https://starship.rs/presets/).
@@ -34,10 +33,8 @@ In no particular order:
 * Support for Macs with Apple Silicon including ability to easily overlay in x86 version of packages, when they don't build on ARM. Search `pkgs-x86` in [`flake.nix`](./flake.nix) and see `nix.settings.extra-platforms` in [`darwin/bootstrap.nix`](./darwin/bootstrap.nix) for details.
 * A GitHub [workflow](./.github/workflows/ci.yml) that builds the my macOS system `nix-darwin` config and `home-manager` Linux user config, and updates a Cachix cache. Also, once a week it updates all the flake inputs before building, and if the build succeeds, it commits the updated `flake.lock` file.
 * [Git config](./home/git.nix) with a bunch of handy aliases and better diffs using [`delta`](https://github.com/dandavison/delta).
-* A slick Neovim [config](./configs/nvim) in Lua. See also [`neovim.nix`](./home/neovim.nix).
-* Unified colorscheme (based on [Solarized](https://ethanschoonover.com/solarized/)) with light and dark variant for [Ghostty terminal](https://ghostty.org), [Fish shell](https://fishshell.com), [Neovim](https://neovim.io), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
-  * using the `colors` module mentioned above;
-  * using a self-made WIP Solarized based [colorscheme](./configs/nvim/lua/malo/theme.lua) with Neovim; and
+* Unified colorscheme (based on [Solarized](https://ethanschoonover.com/solarized/)) with light and dark variant for [Ghostty terminal](https://ghostty.org), [Fish shell](https://fishshell.com), and other tools, where toggling between light and dark can be done for all of them simultaneously by calling a Fish function. This is achieved by:
+  * using the `colors` module mentioned above; and
   * a [Fish shell config](./home/fish.nix), which provides a `toggle-background` function (and an alias `tb`) which toggles a universal environment variable (`$term_background`) between the values `"light"` and `"dark"`, along with `set-shell-colors` function which trigger automatically when `$term_background` changes.
 * A nice [shell prompt config](./home/starship.nix) for Fish using Starship.
 * [Claude Code config](./home/claude.nix) with live-editable configuration.

@@ -29,7 +29,7 @@ This is a Nix flake that manages system configuration for macOS (via nix-darwin)
 - **`home/`** - home-manager modules for user-level configuration
 - **`modules/`** - Reusable modules (both darwin and home-manager)
 - **`lib/`** - Helper functions including `mkDarwinSystem`
-- **`configs/`** - Application configs (Neovim, Claude Code) symlinked for live editing
+- **`configs/`** - Application configs (Claude Code) symlinked for live editing
 - **`overlays/`** - Nixpkgs overlays
 
 ### System Configurations
@@ -58,7 +58,6 @@ in { ... }
 
 Files in `configs/` are symlinked via `mkOutOfStoreSymlink`, allowing edits without rebuild:
 - `configs/claude/` → `~/.claude/` (CLAUDE-USER.md → CLAUDE.md, settings.json, commands, plugins, etc.)
-- `configs/nvim/` → Neovim Lua config
 
 **Claude Code settings** use a hybrid approach:
 - **`managed-settings.json`** (Nix-generated at `/Library/Application Support/ClaudeCode/`):
