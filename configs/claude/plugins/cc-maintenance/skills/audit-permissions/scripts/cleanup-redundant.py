@@ -20,6 +20,16 @@ import sys
 from pathlib import Path
 
 
+def normalize_permission(perm: str) -> str:
+    """Normalize legacy colon-wildcard to space-wildcard for comparison.
+
+    Bash(cmd:*) -> Bash(cmd *)
+    """
+    if perm.endswith(":*)"):
+        return perm[:-3] + " *)"
+    return perm
+
+
 def load_global_permissions(global_path: Path) -> list[str]:
     """Load allow list from global settings."""
     try:
@@ -34,25 +44,33 @@ def load_global_permissions(global_path: Path) -> list[str]:
 def permission_matches(pattern: str, permission: str) -> bool:
     """Check if a global pattern covers a local permission.
 
-    Patterns ending in :* match any permission starting with that prefix.
-    Patterns ending in *) match any permission starting with that prefix (inside parens).
-    Exact matches are also valid.
+    Normalizes both sides before comparison so that colon-syntax and
+    space-syntax are treated as equivalent (e.g., global `Bash(sort *)`
+    matches local `Bash(sort:*)`).
     """
+    pattern = normalize_permission(pattern)
+    permission = normalize_permission(permission)
+
     if pattern == permission:
         return True
 
-    # Handle :*) suffix - matches prefix inside the parens
-    # e.g., "Bash(ls:*)" matches "Bash(ls -la)" or "Bash(ls)"
-    if pattern.endswith(":*)"):
-        prefix = pattern[:-3]  # Remove ":*)"
-        # Check if permission starts with this prefix and ends with )
-        if permission.startswith(prefix) and permission.endswith(")"):
+    # Handle MCP server wildcards: mcp__server__* matches mcp__server__tool
+    if pattern.endswith("__*"):
+        prefix = pattern[:-1]  # Remove trailing *, keep mcp__server__
+        if permission.startswith(prefix):
             return True
 
-    # Handle wildcard at start: "Bash(* --version)" matches "Bash(foo --version)"
-    if ":*)" not in pattern and "*" in pattern:
-        # Convert glob pattern to regex
-        # Escape special regex chars except *
+    # Handle " *)" suffix as prefix match, but only when the prefix itself
+    # has no wildcards. e.g., "Bash(ls *)" matches "Bash(ls -la)" or "Bash(ls)"
+    # but "Bash(* --help *)" should fall through to the regex branch.
+    if pattern.endswith(" *)"):
+        prefix = pattern[:-3]  # Remove " *)"
+        if "*" not in prefix:
+            if permission.startswith(prefix) and permission.endswith(")"):
+                return True
+
+    # Handle glob wildcards: "Bash(* --version)" matches "Bash(foo --version)"
+    if "*" in pattern:
         regex_pattern = re.escape(pattern).replace(r"\*", ".*")
         if re.fullmatch(regex_pattern, permission):
             return True
@@ -97,16 +115,17 @@ def process_file(
     result = {
         "file": str(file_path),
         "removed": redundant,
-        "kept": keep,  # Show what's kept for transparency
+        "kept": keep,
         "total_before": len(allow_list),
     }
 
     if not dry_run:
-        # Update the file - never delete, just clean out redundant permissions
+        # Normalize remaining permissions from colon-syntax to space-syntax
+        keep = [normalize_permission(p) for p in keep]
+
         if keep:
             data["permissions"]["allow"] = keep
         else:
-            # Leave empty allow list rather than deleting
             data["permissions"]["allow"] = []
 
         with open(file_path, "w") as f:
@@ -124,6 +143,9 @@ def main():
     for i, arg in enumerate(sys.argv):
         if arg == "--global-settings" and i + 1 < len(sys.argv):
             global_path = Path(sys.argv[i + 1])
+
+    # Resolve symlinks so we read the actual file
+    global_path = global_path.resolve()
 
     global_perms = load_global_permissions(global_path)
 
