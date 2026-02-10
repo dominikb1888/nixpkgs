@@ -149,6 +149,7 @@ in
         nodejs
         pnpm
         prettier
+        pyright # Python type checker / language server
         s3cmd
         shellcheck
         stack
