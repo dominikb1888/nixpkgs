@@ -37,6 +37,7 @@ let
   # Format: "owner/repo --skill skill-name"
   externalSkills = [
     "anthropics/skills --skill docx"
+    "anthropics/skills --skill mcp-builder"
     "anthropics/skills --skill pdf"
   ];
 
