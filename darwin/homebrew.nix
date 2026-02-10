@@ -3,27 +3,9 @@
 let
   inherit (lib) mkIf;
   caskPresent = cask: lib.any (x: x.name == cask) config.homebrew.casks;
-  brewEnabled = config.homebrew.enable;
-  brewShellInit = mkIf brewEnabled ''
-    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
-  '';
 in
 
 {
-  environment.shellInit = brewShellInit;
-  programs.zsh.shellInit = brewShellInit; # `zsh` doesn't inherit `environment.shellInit`
-
-  # https://docs.brew.sh/Shell-Completion#configuring-completions-in-fish
-  programs.fish.interactiveShellInit = mkIf brewEnabled ''
-    if test -d (brew --prefix)"/share/fish/completions"
-      set -p fish_complete_path (brew --prefix)/share/fish/completions
-    end
-
-    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
-      set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
-    end
-  '';
-
   # Homebrew settings ------------------------------------------------------------------------------
 
   homebrew.enable = true;
@@ -31,9 +13,10 @@ in
   homebrew.onActivation.cleanup = "zap";
   homebrew.global.brewfile = true;
 
+  homebrew.enableFishIntegration = true;
+  homebrew.enableZshIntegration = true;
+
   homebrew.taps = [
-    "homebrew/cask"
-    "homebrew/core"
     "nrlquaker/createzap"
   ];
 
