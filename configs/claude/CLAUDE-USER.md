@@ -23,6 +23,8 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 Tool environments available without installing globally. Use `nix develop my#<name>` to enter
 a shell, or wrap a single command with `nix develop my#<name> -c <cmd>`.
 
+- **`docx`** -- Python (defusedxml, lxml) + Node.js (docx via NODE_PATH) + pandoc + soffice
+  (LibreOffice from Homebrew). Use for all Word document tasks.
 - **`pdf`** -- Python (pypdf, pdfplumber, reportlab, pytesseract, pdf2image, Pillow, pandas)
   + CLI (poppler_utils, qpdf, tesseract, ghostscript). Use for all PDF tasks.
 

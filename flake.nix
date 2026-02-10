@@ -322,6 +322,39 @@
             };
           };
 
+          docx = pkgs.mkShell {
+            name = "docx";
+            packages = attrValues {
+              inherit (pkgs)
+                nodejs
+                pandoc
+                ;
+              python = pkgs.python3.withPackages (
+                ps:
+                attrValues {
+                  inherit (ps)
+                    defusedxml
+                    lxml
+                    ;
+                }
+              );
+            };
+            shellHook = ''
+              # LibreOffice from Homebrew (not available on Darwin in nixpkgs)
+              if [ -x "/Applications/LibreOffice.app/Contents/MacOS/soffice" ]; then
+                export PATH="/Applications/LibreOffice.app/Contents/MacOS:$PATH"
+              fi
+              # Auto-install docx npm package and expose via NODE_PATH
+              _docx_cache="$HOME/.cache/nix-devshell-docx"
+              if [ ! -d "$_docx_cache/node_modules/docx" ]; then
+                echo "Installing docx npm package..."
+                mkdir -p "$_docx_cache"
+                npm install --prefix "$_docx_cache" docx >/dev/null 2>&1
+              fi
+              export NODE_PATH="$_docx_cache/node_modules''${NODE_PATH:+:$NODE_PATH}"
+            '';
+          };
+
           pdf = pkgs.mkShellNoCC {
             name = "pdf";
             packages = attrValues {

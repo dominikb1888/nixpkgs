@@ -36,6 +36,7 @@ let
   # Add entries here, then `nh darwin switch` to reconcile.
   # Format: "owner/repo --skill skill-name"
   externalSkills = [
+    "anthropics/skills --skill docx"
     "anthropics/skills --skill pdf"
   ];
 

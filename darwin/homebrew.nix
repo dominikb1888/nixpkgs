@@ -105,6 +105,7 @@ in
     "gpg-suite"
     # "keybase"
     "ledger-wallet"
+    "libreoffice"
     "lm-studio"
     "loopback"
     "monologue"
