@@ -10,7 +10,7 @@
 
     # Environment/system management
     darwin = {
-      url = "github:malob/nix-darwin/homebrew-module-refresh";
+      url = "github:nix-darwin/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     home-manager = {

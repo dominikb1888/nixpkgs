@@ -28,16 +28,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1770723626,
-        "narHash": "sha256-499UjCKSW9NBUP8OlxPSc/m2tcBN7HHn21IZ3wVe7Ko=",
-        "owner": "malob",
+        "lastModified": 1770922915,
+        "narHash": "sha256-6J/JoK9iL7sHvKJcGW2KId2agaKv1OGypsa7kN+ZBD4=",
+        "owner": "nix-darwin",
         "repo": "nix-darwin",
-        "rev": "7bdda0a0da93a578b71b3af6fb601981716e589e",
+        "rev": "6c5a56295d2a24e43bcd8af838def1b9a95746b2",
         "type": "github"
       },
       "original": {
-        "owner": "malob",
-        "ref": "homebrew-module-refresh",
+        "owner": "nix-darwin",
         "repo": "nix-darwin",
         "type": "github"
       }
