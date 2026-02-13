@@ -86,14 +86,27 @@ let
 
     SECRETS_FILE="$HOME/.claude/secrets.env"
 
-    # Source secrets from 1Password Environment (may be a named pipe from 1Password)
-    if [[ -r "$SECRETS_FILE" ]]; then
+    # Source secrets from 1Password Environment (may be a named pipe from 1Password).
+    # When secrets.env is a FIFO, reading blocks until 1Password is ready. At boot,
+    # 1Password isn't serving yet, so we use timeout to avoid hanging indefinitely.
+    # On failure we exit 1 and let launchd KeepAlive retry.
+    if [[ -p "$SECRETS_FILE" ]]; then
+      content=$(${pkgs.coreutils}/bin/timeout 15 cat "$SECRETS_FILE" 2>/dev/null) || {
+        echo "1Password not ready (FIFO read timed out). launchd will retry." >&2
+        exit 1
+      }
+      [[ -n "$content" ]] || { echo "Empty secrets from FIFO. launchd will retry." >&2; exit 1; }
       set -a
-      # shellcheck source=/dev/null
+      eval "$content"
+      set +a
+      echo "Secrets loaded from 1Password." >&2
+    elif [[ -r "$SECRETS_FILE" ]]; then
+      set -a
       source "$SECRETS_FILE"
       set +a
     else
-      echo "Warning: $SECRETS_FILE not found. MCP servers requiring secrets may fail." >&2
+      echo "$SECRETS_FILE not found. launchd will retry." >&2
+      exit 1
     fi
 
     # Add Nix paths for GUI app compatibility
