@@ -6,7 +6,7 @@ let
   brewEnabled = config.homebrew.enable;
   caskPresent = cask: lib.any (x: x.name == cask) config.homebrew.casks;
   brewShellInit = mkIf brewEnabled ''
-    eval "$(${config.homebrew.brewPrefix}/brew shellenv)"
+    eval "$(${config.homebrew.prefix}/brew shellenv)"
   '';
 in
 {
