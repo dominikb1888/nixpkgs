@@ -39,6 +39,11 @@
       "name": "homebrew",
       "description": "Tools for working with Homebrew - cask creation, package management, and more",
       "source": "./homebrew"
+    },
+    {
+      "name": "haskell-lsp",
+      "description": "Haskell Language Server integration via HLS",
+      "source": "./haskell-lsp"
     }
   ]
 }

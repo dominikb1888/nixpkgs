@@ -1,0 +1,8 @@
+{
+  "name": "haskell-lsp",
+  "description": "Haskell Language Server integration via HLS",
+  "author": {
+    "name": "Malo Bourgon"
+  },
+  "keywords": ["haskell", "lsp", "language-server", "hls"]
+}
