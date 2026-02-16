@@ -83,7 +83,11 @@
       "mcp__1mcp__firecrawl_1mcp_firecrawl_extract",
       "mcp__1mcp__firecrawl_1mcp_firecrawl_map",
       "mcp__1mcp__firecrawl_1mcp_firecrawl_scrape",
-      "mcp__1mcp__nixos_1mcp_nix"
+      "mcp__1mcp__nixos_1mcp_nix",
+      "Read(//nix/store/**)",
+      "Read(//tmp/**)",
+      "Write(//tmp/**)",
+      "Edit(//tmp/**)"
     ],
     "additionalDirectories": [
       "~/.claude",
@@ -141,6 +145,17 @@
     "homebrew@malos-plugins": true,
     "claude-md-management@claude-plugins-official": true,
     "obsidian@obsidian-skills": true,
-    "pyright-lsp@claude-plugins-official": true
-  }
+    "pyright-lsp@claude-plugins-official": true,
+    "haskell-lsp@malos-plugins": true,
+    "video-tools@miri-tools": true
+  },
+  "extraKnownMarketplaces": {
+    "miri-tools": {
+      "source": {
+        "source": "github",
+        "repo": "machine-intelligence/claude-code-plugins"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true
 }
