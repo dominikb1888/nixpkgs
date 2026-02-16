@@ -21,12 +21,14 @@ let
   managedSettings = {
     additionalDirectories = [ nixConfigDirectory ];
     permissions.allow = [
-      "Edit(${nixConfigDirectory}/**)"
-      "Write(${nixConfigDirectory}/**)"
+      "Edit(/${nixConfigDirectory}/**)"
+      "Write(/${nixConfigDirectory}/**)"
     ];
-    extraKnownMarketplaces.malos-plugins.source = {
-      source = "directory";
-      path = "${claudeDir}/plugins";
+    extraKnownMarketplaces = {
+      malos-plugins.source = {
+        source = "directory";
+        path = "${claudeDir}/plugins";
+      };
     };
   };
 
