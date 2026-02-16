@@ -11,15 +11,19 @@
       "url": "https://mcp.exa.ai/mcp?tools=web_search_advanced_exa,get_code_context_exa&exaApiKey=${EXA_API_KEY}"
     },
     "firecrawl": {
+      "type": "http",
       "url": "https://mcp.firecrawl.dev/${FIRECRAWL_API_KEY}/v2/mcp"
     },
     "beeper": {
+      "type": "http",
       "url": "http://localhost:23373/v0/mcp"
     },
     "asana": {
-      "url": "https://mcp.asana.com/sse"
+      "type": "http",
+      "url": "https://mcp.asana.com/mcp"
     },
     "notion": {
+      "type": "http",
       "url": "https://mcp.notion.com/mcp"
     },
     "reddit": {
