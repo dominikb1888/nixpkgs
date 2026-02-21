@@ -163,7 +163,7 @@
         # My Apple Silicon macOS laptop config
         Dominiks-MBP = makeOverridable self.lib.mkDarwinSystem (primaryUserDefaults // {
 	  system = "aarch64-darwin";
-          modules = attrValues self.darwinModules ++ singleton {
+          modules = attrValues self.darwinModules ++ singleton ({
             nixpkgs = nixpkgsDefaults;
             networking.computerName = "Dom’s 💻";
             networking.hostName = "Dominiks-MBP";
@@ -172,7 +172,19 @@
               "USB 10/100/1000 LAN"
             ];
             nix.registry.my.flake = inputs.self;
-          };
+            system.activationScripts = {
+              pathLogger = {
+                text = ''
+                  echo $PATH > /tmp/path.log
+                '';
+              };
+              testScript = {
+                text = ''
+                  echo "hello" > /tmp/test.log
+                '';
+              };
+            };
+          }) ;
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
         });
