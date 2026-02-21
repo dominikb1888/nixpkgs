@@ -10,24 +10,22 @@ let
   '';
 in
 {
-  environment.shellInit = brewShellInit;
-  programs.zsh.shellInit = brewShellInit; # `zsh` doesn't inherit `environment.shellInit`
+
+
+
+
 
   # https://docs.brew.sh/Shell-Completion#configuring-completions-in-fish
-   programs.fish.interactiveShellInit = mkIf brewEnabled ''
-    if test -d (brew --prefix)"/share/fish/completions"
-      set -p fish_complete_path (brew --prefix)/share/fish/completions
-    end
 
-    if test -d (brew --prefix)"/share/fish/vendor_completions.d"
-      set -p fish_complete_path (brew --prefix)/share/fish/vendor_completions.d
-    end
-  '';
 
   homebrew.enable = true;
   homebrew.onActivation.autoUpdate = true;
   homebrew.onActivation.cleanup = "zap";
   homebrew.global.brewfile = true;
+
+  # environment.pathsToLink = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
+
+  environment.shellInit = "export PATH=\"/opt/homebrew/bin:$PATH\"";
 
   homebrew.taps = [
   #  "homebrew/cask-fonts"
