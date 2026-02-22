@@ -15,7 +15,8 @@ For private details (phone, address, contact info), read `~/.claude/PRIVATE.md` 
 ## Tools
 - Ghostty terminal
 - GitHub CLI (`gh`) for PRs and issues
-- `comma` for ad-hoc access to any nixpkgs command (`, <cmd>` runs without installing)
+- Ad-hoc commands: `nix run my#<pkg>` runs any nixpkgs package without installing;
+  `nix develop my#<pkg> -c <cmd>` to access other binaries the package provides
 - Opening URLs: use `open "URL"` in Bash (opens in Safari), not Chrome browser automation tools
 
 ## Nix Dev Shells
@@ -28,7 +29,6 @@ a shell, or wrap a single command with `nix develop my#<name> -c <cmd>`.
 - **`pdf`** -- Python (pypdf, pdfplumber, reportlab, pytesseract, pdf2image, Pillow, pandas)
   + CLI (poppler_utils, qpdf, tesseract, ghostscript). Use for all PDF tasks.
 
-When a task needs tools from a dev shell, prefer wrapping commands over comma.
 For multi-step work, enter the shell once rather than wrapping each command.
 
 ## Web Tools
@@ -44,10 +44,14 @@ When you need to find information but don't have a URL:
 - Good: "What are the common issues users experience with Firecrawl's MCP server?"
 - Bad: "Firecrawl MCP server issues problems bugs"
 
-**Token efficiency:** Unless otherwise instructed, use `enableSummary: true` and
-`textMaxCharacters: 1`. This returns focused AI summaries per result instead of noisy
-full-page text. Do NOT set `contextMaxCharacters` -- it suppresses per-result summaries.
-For deep reading, scrape the URL with Firecrawl instead.
+**Token efficiency:** The MCP server always returns full page text by default -- there is no
+way to disable it. Use `enableSummary: true` and `textMaxCharacters: 1` to get focused AI
+summaries per result while minimizing the text payload to 1 character. Do NOT set
+`contextMaxCharacters` -- it suppresses per-result summaries. For deep reading, scrape the
+URL with Firecrawl instead.
+
+**Highlights broken (Exa MCP bug):** Don't use highlights -- `textMaxCharacters: 1` truncates
+before extraction. If `enableText: false` is added upstream, switch to highlights instead.
 
 **Category gotchas:** `tweet` and `company` categories reject most filters (`includeText`,
 `includeDomains`, date filters) with 400 errors -- put filtering terms in `query` instead.
@@ -92,9 +96,9 @@ When you have a URL and need its content:
 
 ## Working Style
 
-**Use available tools:** When specialized agents or skills exist for a task (e.g., `plugin-dev:skill-development` for writing skills, `claude-code-guide` for Claude Code questions), use them rather than doing things from scratch.
-
 **ToolSearch before MCP tools:** Before using an MCP tool for the first time in a session, look it up with ToolSearch to see the correct parameter schema. Avoids wasted calls from guessing parameter formats.
+
+**Use available tools:** When specialized agents or skills exist for a task (e.g., `plugin-dev:skill-development` for writing skills, `claude-code-guide` for Claude Code questions), use them rather than doing things from scratch.
 
 **Project-local config first:** When looking for project-specific configuration (hooks, agents, skills, settings), check the project-local `.claude/` directory before `~/.claude/` (global).
 
@@ -104,19 +108,15 @@ When you have a URL and need its content:
 
 **Todo lists for lists:** When working through a list of items (tasks, emails, files to review, etc.), always create a todo list to track progress. Don't wait to be asked—if there's a list, make a todo list.
 
+**Batch questions:** When you have multiple questions to ask, use the AskUserQuestion tool rather than asking inline.
+
 ## Evolving Configuration
 Proactively suggest improvements to Claude Code configuration based on our conversations:
 - Preferences or patterns → CLAUDE.md (global or project-level)
 - Repeated permission friction → settings.json allow rules
-- Workflow automations → hooks, custom commands, agents, etc.
+- Workflow automations → hooks, skills, agents, etc.
 - Project-specific settings → project settings.json
 - Tool integrations → MCP servers
 - Anything else that would reduce friction or improve our collaboration
 
 Propose changes rather than making them silently.
-
-**Skills, agents, and plugins:** Skills, agents, commands, and hooks that are under development
-or specific to this configuration should live in `configs/claude/` (symlinked to `~/.claude/`).
-Once refined and configuration-independent, move them to a plugin in `configs/claude/plugins/`.
-
-When you have multiple questions to ask, use the AskUserQuestion tool rather than asking inline.
