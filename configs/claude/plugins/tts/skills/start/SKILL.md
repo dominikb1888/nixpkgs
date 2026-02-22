@@ -1,6 +1,7 @@
 ---
 description: Enable auto TTS for this session
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Enable text-to-speech for this session by creating the session marker file:

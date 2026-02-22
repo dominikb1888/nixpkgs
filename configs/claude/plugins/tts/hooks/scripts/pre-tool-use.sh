@@ -12,7 +12,7 @@ COMMAND=$(echo "$INPUT" | jq -r '.tool_input.command // ""')
 SESSION_ID=$(echo "$INPUT" | jq -r '.session_id')
 
 # Build the expected speak script path
-SPEAK_SCRIPT="${CLAUDE_PLUGIN_ROOT}/hooks/scripts/speak.sh"
+SPEAK_SCRIPT="${CLAUDE_PLUGIN_ROOT}/skills/say/scripts/speak.sh"
 
 # Match if command starts with the speak script path (handles extra args Claude might add)
 if [[ "$TOOL_NAME" == "Bash" ]] && [[ "$COMMAND" == "$SPEAK_SCRIPT"* ]]; then
@@ -26,11 +26,10 @@ if [[ "$TOOL_NAME" == "Bash" ]] && [[ "$COMMAND" == "$SPEAK_SCRIPT"* ]]; then
     NEW_CMD="$SPEAK_SCRIPT $SESSION_ID"
   fi
 
-  # Check if this is an auto-invocation (marker file exists)
-  AUTO_MARKER="${TMPDIR:-/tmp}/tts-auto-pending-${SESSION_ID}"
-  if [[ -f "$AUTO_MARKER" ]]; then
-    # Auto-invocation: show confirmation, delete marker
-    rm -f "$AUTO_MARKER"
+  # Check if auto-TTS is enabled (marker file exists)
+  TTS_ENABLED_FILE="${TMPDIR:-/tmp}/tts-enabled-${SESSION_ID}"
+  if [[ -f "$TTS_ENABLED_FILE" ]]; then
+    # Auto-invocation: show confirmation
     jq -n --arg cmd "$NEW_CMD" '{
       hookSpecificOutput: {
         hookEventName: "PreToolUse",

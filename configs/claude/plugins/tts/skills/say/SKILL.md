@@ -11,5 +11,5 @@ arguments:
 Run the TTS script to speak the last response aloud:
 
 ```bash
-${CLAUDE_PLUGIN_ROOT}/hooks/scripts/speak.sh ${CLAUDE_SESSION_ID} $1
+${CLAUDE_PLUGIN_ROOT}/skills/say/scripts/speak.sh ${CLAUDE_SESSION_ID} $1
 ```

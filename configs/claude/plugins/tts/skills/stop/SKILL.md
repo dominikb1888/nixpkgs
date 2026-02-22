@@ -1,6 +1,7 @@
 ---
 description: Disable auto TTS for this session
 allowed-tools: Bash
+disable-model-invocation: true
 ---
 
 Disable text-to-speech for this session by removing the session marker file:
