@@ -7,7 +7,6 @@
 
 let
   inherit (builtins) elem;
-  inherit (lib) optionalString;
   inherit (config.home.user-info) nixConfigDirectory;
 in
 
@@ -16,9 +15,17 @@ in
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.fish.enable
   programs.fish.enable = true;
 
-  # Add Fish plugins
-  home.packages = [
-  ];
+  # Fish theme file (auto-switches on terminal background change via OSC detection)
+  xdg.configFile."fish/themes/ok-solar.theme".text = ''
+    # name: OK Solar
+    # url: https://meat.io/oksolar
+
+    [light]
+    ${config.colors.malo-ok-solar.light.fishThemeSection}
+
+    [dark]
+    ${config.colors.malo-ok-solar.dark.fishThemeSection}
+  '';
 
   # Fish functions ---------------------------------------------------------------------------------
 
@@ -35,80 +42,21 @@ in
       onEvent = "fish_postexec";
     };
 
-    # Toggles `$term_background` between "light" and "dark". Other Fish functions trigger when this
-    # variable changes. We use a universal variable so that all instances of Fish have the same
-    # value for the variable.
+    # Toggles macOS dark mode; Ghostty and Fish follow automatically via OSC detection
     toggle-background.body = ''
-      if test "$term_background" = light
-        set -U term_background dark
-      else
-        set -U term_background light
-      end
+      osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to not dark mode'
     '';
-
-    # Set `$term_background` based on whether macOS is light or dark mode. Other Fish functions
-    # trigger when this variable changes. We use a universal variable so that all instances of Fish
-    # have the same value for the variable.
-    set-background-to-macOS = {
+  }
+  // lib.optionalAttrs (elem pkgs.bottom config.home.packages) {
+    btm = {
       body = ''
-        # Returns 'Dark' if in dark mode fails otherwise.
-        if defaults read -g AppleInterfaceStyle &>/dev/null
-          if test "$term_background" != dark
-            set -U term_background dark
-          end
+        if test "$fish_terminal_color_theme" = light
+          command btm --theme default-light $argv
         else
-          if test "$term_background" != light
-            set -U term_background light
-          end
+          command btm $argv
         end
       '';
-      onEvent = "fish_prompt";
-    };
-
-    # Sets Fish Shell to light or dark colorscheme based on `$term_background`.
-    set-shell-colors = {
-      body = ''
-        # Set color variables
-        if test "$term_background" = light
-          set emphasized_text  brgreen  # base01
-          set normal_text      bryellow # base00
-          set secondary_text   brcyan   # base1
-          set background_light white    # base2
-          set background       brwhite  # base3
-        else
-          set emphasized_text  brcyan   # base1
-          set normal_text      brblue   # base0
-          set secondary_text   brgreen  # base01
-          set background_light black    # base02
-          set background       brblack  # base03
-        end
-
-        # Set Fish colors that change when background changes
-        set -g fish_color_command                    $emphasized_text --bold  # color of commands
-        set -g fish_color_param                      $normal_text             # color of regular command parameters
-        set -g fish_color_comment                    $secondary_text          # color of comments
-        set -g fish_color_autosuggestion             $secondary_text          # color of autosuggestions
-        set -g fish_pager_color_prefix               $emphasized_text --bold  # color of the pager prefix string
-        set -g fish_pager_color_description          $selection_text          # color of the completion description
-        set -g fish_pager_color_selected_prefix      $background
-        set -g fish_pager_color_selected_completion  $background
-        set -g fish_pager_color_selected_description $background
-      ''
-      + optionalString config.programs.bat.enable ''
-
-        # Use correct theme for `bat`.
-        set -xg BAT_THEME "Solarized ($term_background)"
-      ''
-      + optionalString (elem pkgs.bottom config.home.packages) ''
-
-        # Use correct theme for `btm`.
-        if test "$term_background" = light
-          alias btm "btm --theme default-light"
-        else
-          alias btm "btm --theme default"
-        end
-      '';
-      onVariable = "term_background";
+      wraps = "btm";
     };
   };
 
@@ -166,34 +114,13 @@ in
     };
   };
 
-  # Configuration that should be above `loginShellInit` and `interactiveShellInit`.
-  programs.fish.shellInit = ''
-    set -U fish_term24bit 1
-    ${optionalString pkgs.stdenv.isDarwin "set-background-to-macOS"}
-  '';
-
   programs.fish.interactiveShellInit = ''
     set -g fish_greeting ""
-    # {pkgs.thefuck}/bin/thefuck --alias | source
 
-    # Run function to set colors that are dependant on `$term_background` and to register them so
-    # they are triggerd when the relevent event happens or variable changes.
-    set-shell-colors
+    # Activate color-theme-aware theme (auto-switches on terminal background change)
+    fish_config theme choose ok-solar
 
     # Activate event handlers
     functions notify-done > /dev/null
-    functions git-background-fetch > /dev/null
-
-    # Set Fish colors that aren't dependant the `$term_background`.
-    set -g fish_color_quote        cyan      # color of commands
-    set -g fish_color_redirection  brmagenta # color of IO redirections
-    set -g fish_color_end          blue      # color of process separators like ';' and '&'
-    set -g fish_color_error        red       # color of potential errors
-    set -g fish_color_match        --reverse # color of highlighted matching parenthesis
-    set -g fish_color_search_match --background=yellow
-    set -g fish_color_selection    --reverse # color of selected text (vi mode)
-    set -g fish_color_operator     green     # color of parameter expansion operators like '*' and '~'
-    set -g fish_color_escape       red       # color of character escapes like '\n' and and '\x70'
-    set -g fish_color_cancel       red       # color of the '^C' indicator on a canceled command
   '';
 }

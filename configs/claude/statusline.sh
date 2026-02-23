@@ -39,7 +39,7 @@ fi
 # Green (0-50%): safe, Yellow (50-75%): getting full, Orange (75-90%): should compact, Red (90%+): critical
 if   [ "$PERCENT" -lt 50 ]; then COLOR="\033[32m"  # green
 elif [ "$PERCENT" -lt 75 ]; then COLOR="\033[33m"  # yellow
-elif [ "$PERCENT" -lt 90 ]; then COLOR="\033[91m"  # bright red (orange in Solarized)
+elif [ "$PERCENT" -lt 90 ]; then COLOR="\033[38;2;213;100;0m"  # orange (#D56400)
 else COLOR="\033[31m"  # red
 fi
 RESET="\033[0m"

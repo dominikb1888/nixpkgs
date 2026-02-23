@@ -26,7 +26,7 @@
 
       theme = "light:light,dark:dark";
       window-theme = "system";
-      window-colorspace = "display-p3";
+      window-colorspace = "srgb";
       # background-opacity = 0.9;
       # background-blur-radius = 20;
       window-padding-x = 10;
@@ -34,8 +34,8 @@
     };
 
     themes = {
-      light = config.colors.malo-ok-solar-light.pkgThemes.ghostty;
-      dark = config.colors.malo-ok-solar-dark.pkgThemes.ghostty;
+      light = config.colors.malo-ok-solar.light.pkgThemes.ghostty;
+      dark = config.colors.malo-ok-solar.dark.pkgThemes.ghostty;
     };
   };
 }

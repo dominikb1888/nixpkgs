@@ -56,8 +56,19 @@ in
   # https://github.com/sharkdp/bat
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.bat.enable
   programs.bat.enable = true;
+  programs.bat.themes = {
+    "malo-ok-solar (dark)" = {
+      src = pkgs.writeText "ok-solar-dark.tmTheme" config.colors.malo-ok-solar.dark.tmTheme;
+    };
+    "malo-ok-solar (light)" = {
+      src = pkgs.writeText "ok-solar-light.tmTheme" config.colors.malo-ok-solar.light.tmTheme;
+    };
+  };
   programs.bat.config = {
     style = "plain";
+    theme = "auto";
+    theme-dark = "malo-ok-solar (dark)";
+    theme-light = "malo-ok-solar (light)";
   };
 
   # Btop, a fancy version of `top`.
@@ -116,6 +127,14 @@ in
       linemode = "size";
     };
     preview.wrap = "yes";
+  };
+  programs.yazi.flavors = {
+    ok-solar-dark = config.colors.malo-ok-solar.dark.yaziFlavor;
+    ok-solar-light = config.colors.malo-ok-solar.light.yaziFlavor;
+  };
+  programs.yazi.theme.flavor = {
+    dark = "ok-solar-dark";
+    light = "ok-solar-light";
   };
 
   # Zoxide, a faster way to navigate the filesystem

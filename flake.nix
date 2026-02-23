@@ -26,6 +26,9 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
+    # Color math
+    nix-colorizer.url = "github:nutsalhan87/nix-colorizer";
+
     # Flake utilities
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -127,6 +130,8 @@
               inherit (nixpkgsDefaults) config;
             };
           };
+
+        nix-colorizer = _: _: { nix-colorizer = inputs.nix-colorizer; };
 
         tweaks =
           _: prev:
