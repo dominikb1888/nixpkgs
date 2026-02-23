@@ -100,6 +100,24 @@ in
   programs.nix-index.enableFishIntegration = true;
   programs.nix-index-database.comma.enable = true;
 
+  # Yazi, a blazing fast terminal file manager
+  # https://github.com/sxyazi/yazi
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.yazi.enable
+  programs.yazi.enable = true;
+  programs.yazi.settings = {
+    mgr = {
+      ratio = [
+        1
+        3
+        4
+      ];
+      show_hidden = true;
+      show_symlink = true;
+      linemode = "size";
+    };
+    preview.wrap = "yes";
+  };
+
   # Zoxide, a faster way to navigate the filesystem
   # https://github.com/ajeetdsouza/zoxide
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zoxide.enable
