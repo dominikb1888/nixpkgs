@@ -21,7 +21,7 @@ in
   };
 
   # Disable manpages until https://github.com/nix-community/home-manager/issues/3342 is fixed
-  manual.manpages.enable = false;
+  programs.man.enable = false;
 
   # Direnv, load and unload environment variables depending on the current directory.
   # https://direnv.net
