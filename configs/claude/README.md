@@ -19,7 +19,6 @@ The symlinks are set up in [`home/claude.nix`](../../home/claude.nix).
 | `CLAUDE.md`   | Global instructions loaded in every session           |
 | `settings.json` | Permissions, hooks, plugins (symlinked, live-editable) |
 | `1mcp.json`   | MCP server definitions for 1MCP aggregator            |
-| `commands/`   | Custom slash commands                                 |
 | `agents/`     | Custom agent definitions                              |
 | `skills/`     | Custom skills                                         |
 | `rules/`      | Custom rules                                          |
