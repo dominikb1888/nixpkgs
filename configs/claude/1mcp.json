@@ -22,10 +22,6 @@
       "type": "http",
       "url": "https://mcp.asana.com/mcp"
     },
-    "notion": {
-      "type": "http",
-      "url": "https://mcp.notion.com/mcp"
-    },
     "reddit": {
       "command": "npx",
       "args": ["reddit-mcp-server"],
@@ -37,7 +33,7 @@
       "command": "uvx",
       "args": [
         "workspace-mcp",
-        "--tools", "gmail", "drive", "docs", "sheets", "calendar", "contacts",
+        "--tools", "gmail", "drive", "docs", "sheets", "contacts",
         "--tool-tier", "complete", "--single-user"
       ],
       "restartOnExit": true,
