@@ -37,8 +37,8 @@ For multi-step work, enter the shell once rather than wrapping each command.
 
 ### Search/Discovery → Exa
 When you need to find information but don't have a URL:
-- `mcp__1mcp__exa_1mcp_web_search_advanced_exa` - Web search (supports domain/date/category filters, highlights, summaries)
-- `mcp__1mcp__exa_1mcp_get_code_context_exa` - Code/programming (docs, examples, APIs, GitHub)
+- `web_search_advanced_exa` - Web search (supports domain/date/category filters, highlights, summaries)
+- `get_code_context_exa` - Code/programming (docs, examples, APIs, GitHub)
 
 **Query style:** Write natural language questions, not keyword lists. Exa uses semantic search that understands meaning.
 - Good: "What are the common issues users experience with Firecrawl's MCP server?"
@@ -59,20 +59,15 @@ before extraction. If `enableText: false` is added upstream, switch to highlight
 
 ### Content Extraction → Firecrawl
 When you have a URL and need its content:
-- `mcp__1mcp__firecrawl_1mcp_firecrawl_scrape` - Single URL (default choice)
-- `mcp__1mcp__firecrawl_1mcp_firecrawl_batch_scrape` - Multiple known URLs
-- `mcp__1mcp__firecrawl_1mcp_firecrawl_map` - Discover URLs on a site (returns list only)
-- `mcp__1mcp__firecrawl_1mcp_firecrawl_crawl` - Multi-page extraction (use sparingly, set low `limit`)
-- `mcp__1mcp__firecrawl_1mcp_firecrawl_extract` - Structured JSON with schema
+- `firecrawl_scrape` - Single URL (default choice)
+- `firecrawl_batch_scrape` - Multiple known URLs
+- `firecrawl_map` - Discover URLs on a site (returns list only)
+- `firecrawl_crawl` - Multi-page extraction (use sparingly, set low `limit`)
+- `firecrawl_extract` - Structured JSON with schema
 
 **Avoid:**
-- `mcp__1mcp__firecrawl_1mcp_firecrawl_search` and `mcp__1mcp__firecrawl_1mcp_firecrawl_agent` - redundant (Exa handles search, you're the agent)
+- `firecrawl_search` and `firecrawl_agent` - redundant (Exa handles search, you're the agent)
 - Built-in WebSearch/WebFetch - use Exa/Firecrawl instead
-
-**Firecrawl tips:**
-- `onlyMainContent: true` - strips nav/footer noise
-- `maxAge: 86400000` - use 1-day cache for speed
-- For docs sites: `map` first → filter URLs → `batch_scrape`
 
 ## Languages
 - Primary: Nix, Haskell, TypeScript/JavaScript, Python
