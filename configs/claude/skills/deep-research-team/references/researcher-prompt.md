@@ -7,10 +7,8 @@ searching the web, evaluating sources, and reporting structured findings back to
 
 Before starting any research:
 
-1. **Load your search tools** using ToolSearch:
-   - `ToolSearch: "+exa search"` -- loads Exa web search tools
-   - `ToolSearch: "+firecrawl scrape"` -- loads Firecrawl scrape and map tools
-   - `ToolSearch: "+reddit"` -- loads Reddit MCP tools (for Reddit content access)
+1. **Load your search tools** using ToolSearch for Exa, Firecrawl, and Reddit MCP tools.
+   See "Available Tools" below for what you'll need.
 
 2. **Read your assigned task** using `TaskGet` with the task ID from your spawn prompt.
 
@@ -270,13 +268,16 @@ After loading via ToolSearch:
   (just pass `query`). See tool schema for all params.
 - `get_code_context_exa` -- code/programming topics (docs, APIs, GitHub).
 
-**Firecrawl** (browser-grade scraping):
+**Firecrawl** (browser-grade scraping + Google-powered search):
 
 - `firecrawl_scrape` -- extract clean content from a known URL. Supports markdown, JSON
   extraction with schema, summary, links, PDF parsing. See Content Extraction below.
 - `firecrawl_map` -- discover URLs on a site. Use the `search` parameter to filter.
+- `firecrawl_search` -- Google-powered web search. Use **only** for `site:reddit.com` queries
+  where Google's Reddit index vastly outperforms Exa's semantic search. For all other web
+  search, use Exa.
 
-**Reddit** (content extraction -- Exa and Firecrawl cannot access reddit.com):
+**Reddit** (content extraction -- Firecrawl cannot access reddit.com):
 
 - `get_top_posts` -- top posts from a subreddit by time period
 - `get_post_comments` -- threaded comments from a post
@@ -305,23 +306,25 @@ After loading via ToolSearch:
   recommendations need quantitative backing.
 
 **Default Exa search pattern:** Always include `enableSummary: true` and `textMaxCharacters: 1`.
-This returns focused AI summaries per result instead of noisy raw page text. Do NOT set
-`contextMaxCharacters` -- it suppresses per-result summaries. Use Exa for discovery/triage,
-then Firecrawl scrape (`onlyMainContent: true`) for deep extraction of promising sources.
+This returns focused AI summaries per result instead of noisy raw page text. Use Exa for
+discovery/triage, then Firecrawl scrape (`onlyMainContent: true`) for deep extraction of
+promising sources.
 
 **Category filter restrictions:** Some categories reject certain parameters with 400 errors.
 
 | Category           | Unsupported parameters                                                         |
 | ------------------ | ------------------------------------------------------------------------------ |
 | `tweet`            | `includeText`, `excludeText`, `includeDomains`, `excludeDomains`, `moderation` |
-| `company`          | `includeDomains`, `excludeDomains`, all date filters                           |
+| `company`          | All date filters                                                               |
 | `people`           | Date filters, `includeText`, `excludeText`, `excludeDomains`                   |
-| `financial report` | `excludeText`                                                                  |
 | `research paper`   | Full support                                                                   |
 | `personal site`    | Full support                                                                   |
+| `news`             | Full support                                                                   |
+| `financial report` | Full support                                                                   |
 
-`includeText` and `excludeText` only accept single-item arrays across all categories.
-Multi-item arrays cause 400 errors. Put multiple terms in the `query` string instead.
+`includeText` and `excludeText` only accept single-item arrays of up to 5 words each.
+Multi-item arrays or strings longer than 5 words cause 400 errors. Put additional terms in
+the `query` string instead.
 
 **When to use categories:** Most searches work fine without a category. Add one to focus results:
 
@@ -349,7 +352,7 @@ skip-links instead of article content, retry with `onlyMainContent: false`. Fire
 main-content detection is aggressive and misclassifies the article body on some sites (notably
 Future plc sites like iMore and Pocket-lint, GDPR-consent-heavy sites like StorageReview, and
 Blogspot/Blogger blogs). The full page will include nav/footer noise, but the article will be
-there. This is cheaper and more reliable than escalating to stealth proxy.
+there. This is cheaper and more reliable than escalating to enhanced proxy.
 
 **Oversized scrape results:** If a scrape overflows context, the content was too broad. Rather
 than trying to post-process the overflow file, re-scrape more narrowly: use `includeTags` to
@@ -357,19 +360,19 @@ target specific elements (e.g., `["article"]`, `["main"]`, `[".post-content"]`),
 `onlyMainContent: true`, or use Firecrawl's JSON extraction format with a schema targeting the
 specific data points you need.
 
-**arxiv papers:** Firecrawl scraping of arxiv abstract pages (`arxiv.org/abs/`) returns mostly
-navigation boilerplate. Instead:
+**arxiv papers:** Firecrawl scraping of arxiv abstract pages (`arxiv.org/abs/`) returns the
+abstract and metadata but mixed with navigation chrome. Instead:
 
 - Prefer Exa summaries for triage -- they capture the abstract effectively
 - For full paper content, scrape the HTML version: `arxiv.org/html/{paper-id}` (not `/abs/`)
 - For structured extraction, use the arxiv API: `http://export.arxiv.org/api/query?id_list={id}`
-- Only scrape when Exa summaries are insufficient and you need methodology or results details
+- Only scrape `/abs/` if you just need the abstract and Exa summaries are insufficient
 
 **Research-useful scrape features** (see tool description for full details):
 
 - `formats: ["links"]` -- follow citation chains or discover related sources
 - `includeTags`/`excludeTags` -- precision extraction (e.g., `includeTags: ["article"]`)
-- `proxy: "stealth"` -- rarely helps (most failures are content detection, not bot blocking)
+- `proxy: "enhanced"` -- rarely helps (most failures are content detection, not bot blocking)
 - `parsers: [{"type": "pdf", "maxPages": 10}]` -- extract text from PDFs
 - `maxAge: 86400000` -- 1-day cache for speed; `maxAge: 0` for always-fresh
 
@@ -386,39 +389,41 @@ workarounds before flagging as inaccessible. For detailed workarounds, see
 | Tom's Guide, ZDNET                   | Firecrawl policy block  | Exa summaries only; no scraping workaround        |
 | Pocket-lint, iMore, StorageReview    | `onlyMainContent` strip | Retry with `onlyMainContent: false`               |
 | Blogspot/Blogger blogs               | `onlyMainContent` strip | Retry with `onlyMainContent: false`               |
-| reddit.com                           | Firecrawl site block    | Firecrawl search for discovery + Reddit MCP tools |
+| reddit.com                           | Firecrawl site block    | Firecrawl search (`site:reddit.com`) + Reddit MCP |
 | Medium                               | Paywall                 | `freedium-mirror.cfd/{url}` (original is dead)    |
-| Twitter/X                            | Auth wall               | Exa tweets; xcancel.com timelines (not /status/)  |
+| Twitter/X                            | Auth wall               | Exa `category: "tweet"` only; no scraping option   |
 | Consumer Reports                     | Soft paywall on scores  | Product names visible; scores require login        |
 | Discourse forums                     | SPA, partial rendering  | Append `.json` to URL, or `/search.json?q=...`    |
 
 **Unavailable or paywalled pages:**
 
 - **Wayback Machine**: `https://web.archive.org/web/{FULL_URL}` -- Firecrawl follows the
-  redirect to the most recent snapshot automatically. The Wayback Machine toolbar appears at the
-  top of the extracted content but the full page follows. Useful for pages that are gone,
-  changed, or paywalled (if archived before the paywall). Returns "not archived" 404 if the
-  page was never captured. 1 credit.
+  redirect to the most recent snapshot automatically. Content extraction can be incomplete
+  (some pages render as iframes), but often sufficient for the key text. Useful for pages
+  that are gone, changed, or paywalled (if archived before the paywall). Returns "not
+  archived" 404 if the page was never captured. 1 credit.
 
 **Twitter/X content:**
 
-- Exa with `category: "tweet"` for discovery (primary).
-- Individual tweet URLs (`/status/{id}`) work in browsers but return 404 via Firecrawl
-  (headless scraping blocked). Try with `proxy: "stealth"` and `waitFor: 5000`; if still
-  404, note the gap rather than retrying.
-- **Profile/timeline pages work**: `https://xcancel.com/{username}` returns recent tweets,
-  profile info, and follower counts via Firecrawl (no proxy needed, 1 credit).
-- x.com itself is behind auth walls and cannot be scraped.
+- Exa with `category: "tweet"` for discovery (primary). Exa indexes tweet text directly --
+  this is the most reliable way to access Twitter content.
+- Individual tweet URLs (`/status/{id}`) and x.com are behind auth walls and cannot be scraped.
+- For tweet text, rely on Exa's tweet category. For profile/follower data, treat as
+  inaccessible and note in GAPS.
 
 **Reddit content:**
 
-Exa does not index reddit.com. Firecrawl scrape returns "We do not support this site" for all
-reddit.com URLs. Use **Firecrawl search for discovery + Reddit MCP tools for content**:
+Firecrawl scrape returns "We do not support this site" for all reddit.com URLs. Use
+**Firecrawl search for discovery + Reddit MCP tools for reading threads**:
 
-- **Discovery:** Use `firecrawl_search` with `site:reddit.com {query}` to find relevant
-  threads. Google's Reddit index is far better than Reddit's native search. Use broad
-  `site:reddit.com` with topic keywords -- scoping to a specific subreddit
+- **Discovery (primary):** Use `firecrawl_search` with `site:reddit.com {query}` for
+  Google-powered discovery. Google's Reddit index is far more accurate than Exa for finding
+  specific discussion threads — it matches exact entities and surfaces canonical "which X is
+  best" threads, while Exa's semantic search drifts toward conceptually related but off-topic
+  content. Use broad `site:reddit.com` with topic keywords — scoping to a specific subreddit
   (`site:reddit.com/r/subreddit`) often returns generic results instead.
+- **Discovery (fallback):** Exa with `includeDomains: ["reddit.com"]` can find threads when
+  Firecrawl search is rate-limited or returns thin results. Less precise but still useful.
 - **Subreddit browsing:** `get_top_posts` with a time filter (week/month/year). Useful for
   community temperature and sentiment, but top posts are often memes or meta content
   (especially in entertainment subreddits). For substantive analytical threads, prefer
@@ -449,15 +454,15 @@ reddit.com URLs. Use **Firecrawl search for discovery + Reddit MCP tools for con
 - **Freedium Mirror**: `https://freedium-mirror.cfd/{FULL_MEDIUM_URL}` -- works well via
   Firecrawl (200 status, full content, 1 credit). The original `freedium.cfd` is dead (DNS
   failure). Uptime can be intermittent.
-- archive.ph is not a viable fallback (CAPTCHA-blocked, see above).
 
-**Bluesky** (open, minor SPA caveat):
+**Bluesky** (open, SPA caveats):
 
-- Bluesky posts are on the public web (`bsky.app` URLs). Exa can discover them and Firecrawl
-  can scrape them -- but `bsky.app` is a JavaScript SPA, so add `waitFor: 5000` to Firecrawl
-  scrape calls. Without it, pages return "Post not found" because content hasn't rendered.
-  Profile pages (`bsky.app/profile/{handle}`) return extensive content including recent posts.
-  No proxy needed (1 credit).
+- Bluesky content is on the public web (`bsky.app` URLs). Exa can discover posts.
+- **Profile pages** (`bsky.app/profile/{handle}`) scrape well without `waitFor` -- they return
+  bio, follower counts, and recent posts. No proxy needed (1 credit).
+- **Individual post URLs** are unreliable via Firecrawl -- even with `waitFor: 5000`, posts
+  often return "Post not found" due to SPA rendering. Use Exa tweet-style discovery instead,
+  or note the gap if a specific post can't be scraped.
 
 **LinkedIn:** Use Exa with `category: "people"` to find public professional profiles.
 For direct LinkedIn pages, scraping is unreliable -- treat as effectively inaccessible.

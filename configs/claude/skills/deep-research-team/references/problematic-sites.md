@@ -27,7 +27,7 @@ support this site." No scraping workaround exists.
 
 - **Failure:** Hard block before any HTTP request is made.
 - **Workaround:** Exa summaries for triage. For deep content, check Wayback Machine. No
-  Firecrawl approach works (plain, stealth, enhanced all fail identically).
+  Firecrawl approach works (plain, enhanced all fail identically).
 
 ### reddit.com (all subdomains)
 
@@ -90,12 +90,8 @@ by retrying with `onlyMainContent: false`.
 
 - **x.com:** Behind auth walls, cannot be scraped.
 - **Exa `category: "tweet"`:** Works for discovery (primary method).
-- **xcancel.com / nitter mirrors:** Individual tweet URLs (`/status/{id}`) work in browsers
-  but return 404 via Firecrawl headless scraping (the mirror detects and blocks non-browser
-  clients). Stealth proxy does not help. **Profile/timeline pages work:**
-  `https://xcancel.com/{username}` returns recent tweets and profile info (no proxy, 1 credit).
-- **Bottom line:** You can discover tweets via Exa and browse user timelines via xcancel, but
-  cannot access specific individual tweets by URL.
+- **Bottom line:** Exa tweet category is the only reliable access to Twitter content. For
+  profile/follower data, treat as inaccessible and note in GAPS.
 
 ### LinkedIn
 

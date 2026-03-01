@@ -46,16 +46,17 @@ When you need to find information but don't have a URL:
 
 **Token efficiency:** The MCP server always returns full page text by default -- there is no
 way to disable it. Use `enableSummary: true` and `textMaxCharacters: 1` to get focused AI
-summaries per result while minimizing the text payload to 1 character. Do NOT set
-`contextMaxCharacters` -- it suppresses per-result summaries. For deep reading, scrape the
-URL with Firecrawl instead.
+summaries per result while minimizing the text payload to 1 character. For deep reading,
+scrape the URL with Firecrawl instead.
 
 **Highlights broken (Exa MCP bug):** Don't use highlights -- `textMaxCharacters: 1` truncates
 before extraction. If `enableText: false` is added upstream, switch to highlights instead.
 
-**Category gotchas:** `tweet` and `company` categories reject most filters (`includeText`,
-`includeDomains`, date filters) with 400 errors -- put filtering terms in `query` instead.
-`includeText`/`excludeText` only accept single-item arrays across all categories.
+**Category gotchas:** `tweet` category rejects `includeText`, `excludeText`, `includeDomains`,
+`excludeDomains`, and `moderation` with errors. `company` rejects all date filters. `people`
+rejects date filters, `includeText`, `excludeText`, `excludeDomains`. Put filtering terms in
+`query` instead. `includeText`/`excludeText` only accept single-item arrays across all
+categories.
 
 ### Content Extraction → Firecrawl
 When you have a URL and need its content:
@@ -66,7 +67,10 @@ When you have a URL and need its content:
 - `firecrawl_extract` - Structured JSON with schema
 
 **Avoid:**
-- `firecrawl_search` and `firecrawl_agent` - redundant (Exa handles search, you're the agent)
+- `firecrawl_agent` - redundant (you're the agent)
+- `firecrawl_search` - redundant for general web search (Exa handles it). **Exception:**
+  `site:reddit.com` queries, where Google's Reddit index is far more accurate than Exa's
+  semantic search for finding specific discussion threads
 - Built-in WebSearch/WebFetch - use Exa/Firecrawl instead
 
 ## Languages
