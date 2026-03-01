@@ -241,6 +241,10 @@ TaskCreate:
   activeForm: "Investigating {angle title}"
 ```
 
+**Task brief clarity:** Make scope boundaries explicit between researchers to avoid overlap
+and gaps. Flag name ambiguities (e.g., multiple products sharing a name). Mark optional
+sub-tasks clearly (e.g., "if time permits" vs required).
+
 **Step 4: Spawn researchers**
 
 Launch ALL researchers in a SINGLE message. Each researcher gets:

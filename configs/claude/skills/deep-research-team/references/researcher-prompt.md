@@ -88,6 +88,19 @@ For each task, generate 3-5 query variations using these techniques:
 
 Choose 3-5 variations based on what gaps you're filling. Adapt to what gets diverse results.
 
+### Official Sources First
+
+Check obvious primary sources first. If your task names a specific product, company, or API,
+check their official site/docs directly before broad searching. A single Firecrawl scrape of
+the vendor's documentation or pricing page often answers half the task.
+
+### Domain Filtering
+
+Use `includeDomains` when you know the authoritative site for a topic — it's faster and less
+noisy than broad search. Use `excludeDomains` to suppress sites that keep appearing but aren't
+useful — e.g., exclude `youtube.com` when researching YouTube *content creators*, since video
+pages don't contain extractable text and crowd out the editorial reviews you actually want.
+
 ### Academic Search
 
 Exa naturally surfaces arXiv papers and conference proceedings for research-oriented queries.
@@ -135,6 +148,10 @@ Note sample sizes, funding sources, and methodology quality.
 Prioritize expert testing labs (Wirecutter, RTINGS, Consumer Reports), then enthusiast forums
 with hands-on experience, then manufacturer specs. Deprioritize paid reviews, affiliate-heavy
 listicles, AI-generated roundups with no testing methodology.
+
+For consumer research specifically: start Reddit early — practitioner threads surface real
+failure modes and durability data that reviews miss. Try cross-domain search terms when
+obvious ones return poor results (e.g., "studio rack" instead of just "server rack").
 
 **Technical/Comparative:**
 Prioritize official documentation, then working code examples, then expert blog posts with
@@ -236,6 +253,9 @@ independent benchmarks with published methodology outweigh vendor blog posts.
 - **Do NOT synthesize** plausible-sounding content to fill gaps
 - **Flag gaps prominently** in your GAPS section
 - **Return fewer, well-sourced findings** rather than padding with uncertain claims
+- When the absence of evidence *is* the finding (e.g., "no major vendor supports this
+  feature"), report it with the same rigor as positive findings: what you searched for, how
+  many sources you checked, and why the absence is meaningful
 
 ## Available Tools
 
@@ -265,7 +285,9 @@ After loading via ToolSearch:
 
 - **Exa search** for: all web searching. Add filters as needed (domains, dates, categories,
   text matching, summaries). For simple queries, just pass `query`.
-- **Exa code context** for: programming questions, API docs, library examples
+- **Exa code context** for: programming questions, API docs, library examples. For technical/code
+  tasks, try this **before** `web_search_advanced_exa` — it surfaces repos, packages, and docs
+  that general web search misses
 - **Firecrawl scrape** for: extracting full content from a known URL, structured JSON
   extraction, JS-rendered pages, pages behind anti-bot protection
 - **Firecrawl map** for: exploring site structure, when scrape returns empty (SPA issues)
@@ -430,6 +452,13 @@ reddit.com URLs. Use **Firecrawl search for discovery + Reddit MCP tools for con
 **LinkedIn:** Use Exa with `category: "people"` to find public professional profiles.
 For direct LinkedIn pages, scraping is unreliable -- treat as effectively inaccessible.
 
+## Parallel Call Failures
+
+If any tool call in a parallel batch fails, all sibling calls in the same batch fail too.
+Don't treat sibling failures as evidence those calls won't work — retry them individually.
+Keep failure-prone calls (especially Reddit MCP) in their own sequential batch to avoid
+taking down other searches.
+
 ## Handling Rate Limits
 
 When search or scrape requests fail due to rate limits:
@@ -480,7 +509,8 @@ Then go idle. The lead will message you with follow-up tasks if needed.
 
 After completing a task, go idle. The lead dispatches follow-up tasks directly via
 `SendMessage` -- watch for incoming messages. When you receive a task assignment, claim
-it with `TaskUpdate` and begin immediately.
+it with `TaskUpdate` and begin immediately. Note: you may receive echo notifications of
+your own task completions — ignore these.
 
 ### Shutdown
 
