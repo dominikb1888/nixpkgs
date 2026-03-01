@@ -256,6 +256,8 @@ independent benchmarks with published methodology outweigh vendor blog posts.
 - When the absence of evidence *is* the finding (e.g., "no major vendor supports this
   feature"), report it with the same rigor as positive findings: what you searched for, how
   many sources you checked, and why the absence is meaningful
+- When researching non-English-speaking subjects or regions, flag the language limitation in
+  GAPS — key sources may exist in languages the current toolset cannot search
 
 ## Available Tools
 
@@ -296,6 +298,12 @@ After loading via ToolSearch:
 - **Reddit tools** for: reading Reddit content found via Firecrawl search or subreddit browsing.
   `get_top_posts` for subreddit sentiment, `get_post_comments` for discussions
 
+**YouTube metadata** (via Bash, for video/content recommendation tasks):
+
+- `nix run my#yt-dlp -- --dump-json --no-download "{url}"` returns structured JSON with view
+  count, like count, upload date, duration, channel, and subscriber count. Useful when editorial
+  recommendations need quantitative backing.
+
 **Default Exa search pattern:** Always include `enableSummary: true` and `textMaxCharacters: 1`.
 This returns focused AI summaries per result instead of noisy raw page text. Do NOT set
 `contextMaxCharacters` -- it suppresses per-result summaries. Use Exa for discovery/triage,
@@ -319,7 +327,9 @@ Multi-item arrays cause 400 errors. Put multiple terms in the `query` string ins
 
 - `research paper` -- academic/scientific evidence
 - `news` -- current events, recent announcements
-- `tweet` -- social sentiment, developer opinions
+- `tweet` -- social sentiment, developer opinions. **Do not use the default summary pattern**
+  (`enableSummary`/`textMaxCharacters: 1`) with this category — it produces hallucinated
+  summaries. Instead, omit those parameters to get actual tweet text
 - `personal site` -- practitioner takes, independent blogs (filters out corporate content)
 - `company` / `people` -- entity discovery (returns metadata like location, headcount)
 - `financial report` -- SEC filings, earnings reports
