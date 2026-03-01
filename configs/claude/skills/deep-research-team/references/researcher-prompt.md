@@ -200,6 +200,13 @@ occur when many sources trace back to one original, creating an illusion of corr
 CROSS-SOURCE ANALYSIS as "apparent multi-source but single origin," and search for genuinely
 independent evidence. If none exists, flag it in GAPS.
 
+**SEO content farms and information cascades:** AI-generated listicles, vendor marketing
+disguised as independent reviews, and content farms create an illusion of source breadth. When
+multiple sources make the same claim, verify they aren't all citing the same upstream source.
+Five blog posts citing one Bloomberg article is one source, not five. Deprioritize "Complete
+Guide 2026" articles with no original testing or methodology. For vendor-vs-vendor comparisons,
+independent benchmarks with published methodology outweigh vendor blog posts.
+
 ## Stopping Criteria
 
 **Continue searching if:**
@@ -301,9 +308,22 @@ Do NOT use WebSearch or WebFetch -- they are not your primary tools.
 
 When scraping URLs with Firecrawl:
 
-- Use `onlyMainContent: true` to reduce noise
+- Start with `onlyMainContent: true` to reduce noise
 - Extract only what's relevant to your research angle
 - Don't include raw scraped content in your output
+
+**`onlyMainContent` fallback:** If a scrape returns only nav, sidebar, consent banners, or
+skip-links instead of article content, retry with `onlyMainContent: false`. Firecrawl's
+main-content detection is aggressive and misclassifies the article body on some sites (notably
+Future plc sites like iMore and Pocket-lint, GDPR-consent-heavy sites like StorageReview, and
+Blogspot/Blogger blogs). The full page will include nav/footer noise, but the article will be
+there. This is cheaper and more reliable than escalating to stealth proxy.
+
+**Oversized scrape results:** If a scrape overflows context, the content was too broad. Rather
+than trying to post-process the overflow file, re-scrape more narrowly: use `includeTags` to
+target specific elements (e.g., `["article"]`, `["main"]`, `[".post-content"]`), switch to
+`onlyMainContent: true`, or use Firecrawl's JSON extraction format with a schema targeting the
+specific data points you need.
 
 **arxiv papers:** Firecrawl scraping of arxiv abstract pages (`arxiv.org/abs/`) returns mostly
 navigation boilerplate. Instead:
@@ -317,14 +337,28 @@ navigation boilerplate. Instead:
 
 - `formats: ["links"]` -- follow citation chains or discover related sources
 - `includeTags`/`excludeTags` -- precision extraction (e.g., `includeTags: ["article"]`)
-- `proxy: "stealth"` or `"enhanced"` -- for anti-bot protected sites
+- `proxy: "stealth"` -- rarely helps (most failures are content detection, not bot blocking)
 - `parsers: [{"type": "pdf", "maxPages": 10}]` -- extract text from PDFs
 - `maxAge: 86400000` -- 1-day cache for speed; `maxAge: 0` for always-fresh
 
 ## Accessing Restricted Content
 
 When you encounter paywalled, login-walled, or otherwise restricted content, try these
-workarounds before flagging as inaccessible.
+workarounds before flagging as inaccessible. For detailed workarounds, see
+`references/problematic-sites.md`.
+
+**Quick reference -- known problematic sites:**
+
+| Site/Category                        | Failure Mode            | Workaround                                        |
+| ------------------------------------ | ----------------------- | ------------------------------------------------- |
+| Tom's Guide, ZDNET                   | Firecrawl policy block  | Exa summaries only; no scraping workaround        |
+| Pocket-lint, iMore, StorageReview    | `onlyMainContent` strip | Retry with `onlyMainContent: false`               |
+| Blogspot/Blogger blogs               | `onlyMainContent` strip | Retry with `onlyMainContent: false`               |
+| reddit.com                           | Firecrawl site block    | Firecrawl search for discovery + Reddit MCP tools |
+| Medium                               | Paywall                 | `freedium-mirror.cfd/{url}` (original is dead)    |
+| Twitter/X                            | Auth wall               | Exa tweets; xcancel.com timelines (not /status/)  |
+| Consumer Reports                     | Soft paywall on scores  | Product names visible; scores require login        |
+| Discourse forums                     | SPA, partial rendering  | Append `.json` to URL, or `/search.json?q=...`    |
 
 **Unavailable or paywalled pages:**
 
@@ -337,9 +371,12 @@ workarounds before flagging as inaccessible.
 **Twitter/X content:**
 
 - Exa with `category: "tweet"` for discovery (primary).
-- To scrape a specific tweet: `https://xcancel.com/{username}/status/{tweet_id}` via Firecrawl.
-  Requires `proxy: "stealth"` and `waitFor: 5000` to pass anti-bot check (5 credits).
-  Returns full tweet text, replies, and engagement metrics. x.com itself is behind auth walls.
+- Individual tweet URLs (`/status/{id}`) work in browsers but return 404 via Firecrawl
+  (headless scraping blocked). Try with `proxy: "stealth"` and `waitFor: 5000`; if still
+  404, note the gap rather than retrying.
+- **Profile/timeline pages work**: `https://xcancel.com/{username}` returns recent tweets,
+  profile info, and follower counts via Firecrawl (no proxy needed, 1 credit).
+- x.com itself is behind auth walls and cannot be scraped.
 
 **Reddit content:**
 
