@@ -144,22 +144,14 @@
     "padding": 0
   },
   "enabledPlugins": {
-    "plugin-dev@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
-    "frontend-design@claude-plugins-official": true,
-    "feature-dev@claude-plugins-official": true,
-    "pr-review-toolkit@claude-plugins-official": true,
     "nix-lsp@malos-plugins": true,
     "json-lsp@malos-plugins": true,
     "tts@malos-plugins": true,
-    "pua-unicode@malos-plugins": true,
     "cc-maintenance@malos-plugins": true,
-    "homebrew@malos-plugins": true,
     "claude-md-management@claude-plugins-official": true,
-    "obsidian@obsidian-skills": true,
     "pyright-lsp@claude-plugins-official": true,
-    "haskell-lsp@malos-plugins": true,
-    "video-tools@miri-tools": true
+    "haskell-lsp@malos-plugins": true
   },
   "extraKnownMarketplaces": {
     "miri-tools": {
