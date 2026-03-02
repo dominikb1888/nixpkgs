@@ -33,7 +33,7 @@ For multi-step work, enter the shell once rather than wrapping each command.
 
 ## Web Tools
 
-**Prefer MCP tools over built-in WebSearch/WebFetch.**
+**Prefer Exa and Firecrawl over built-in WebSearch/WebFetch.**
 
 ### Search/Discovery → Exa
 When you need to find information but don't have a URL:
@@ -41,36 +41,35 @@ When you need to find information but don't have a URL:
 - `get_code_context_exa` - Code/programming (docs, examples, APIs, GitHub)
 
 **Query style:** Write natural language questions, not keyword lists. Exa uses semantic search that understands meaning.
-- Good: "What are the common issues users experience with Firecrawl's MCP server?"
-- Bad: "Firecrawl MCP server issues problems bugs"
+- Good: "What are the best practices for implementing RAG with vector databases in 2025?"
+- Bad: "RAG vector database best practices 2025"
 
 **Token efficiency:** The MCP server always returns full page text by default -- there is no
-way to disable it. Use `enableSummary: true` and `textMaxCharacters: 1` to get focused AI
-summaries per result while minimizing the text payload to 1 character. For deep reading,
-scrape the URL with Firecrawl instead.
+way to disable it. Use `enableHighlights: true` and `textMaxCharacters: 1` to get quoted
+passages from actual page text while minimizing the text payload. Control volume with
+`highlightsPerUrl` and `highlightsNumSentences` if needed.
 
-**Highlights broken (Exa MCP bug):** Don't use highlights -- `textMaxCharacters: 1` truncates
-before extraction. If `enableText: false` is added upstream, switch to highlights instead.
+**Category gotchas:** `tweet` rejects `includeText`, `excludeText`, `includeDomains`,
+`excludeDomains`, `moderation`. `company` rejects all date filters, `includeText`,
+`excludeText`, `includeDomains`, `excludeDomains`. `people` rejects date filters,
+`includeText`, `excludeText`, `excludeDomains`; `includeDomains` only accepts LinkedIn.
+Put filtering terms in `query` instead.
+`includeText`/`excludeText` only accept single-item arrays across all categories.
 
-**Category gotchas:** `tweet` category rejects `includeText`, `excludeText`, `includeDomains`,
-`excludeDomains`, and `moderation` with errors. `company` rejects all date filters. `people`
-rejects date filters, `includeText`, `excludeText`, `excludeDomains`. Put filtering terms in
-`query` instead. `includeText`/`excludeText` only accept single-item arrays across all
-categories.
+### Content Extraction → Firecrawl CLI
+When you have a URL and need its content, use `npx firecrawl-cli`:
+- `scrape "<url>" --only-main-content` - Single URL (default). Always use the flag to save tokens;
+  retry without it if results are empty/partial
+- `search "query" --scrape` - Google keyword search + fetch. Site-scoped (`site:reddit.com`),
+  academic (`--categories research`), time-filtered (`--tbs qdr:w`)
+- `map "<url>" --search "query"` - Discover URLs on a site
+- `crawl "<url>" --limit 10 --wait` - Multi-page extraction (use sparingly)
+- `browser "open <url>"` - Interactive pages (last resort)
 
-### Content Extraction → Firecrawl
-When you have a URL and need its content:
-- `firecrawl_scrape` - Single URL (default choice)
-- `firecrawl_batch_scrape` - Multiple known URLs
-- `firecrawl_map` - Discover URLs on a site (returns list only)
-- `firecrawl_crawl` - Multi-page extraction (use sparingly, set low `limit`)
-- `firecrawl_extract` - Structured JSON with schema
+Run `npx firecrawl-cli <command> --help` for all options. MCP tools (`firecrawl_scrape`, etc.)
+remain as fallbacks; `firecrawl_extract` (structured extraction with schema) is MCP-only.
 
 **Avoid:**
-- `firecrawl_agent` - redundant (you're the agent)
-- `firecrawl_search` - redundant for general web search (Exa handles it). **Exception:**
-  `site:reddit.com` queries, where Google's Reddit index is far more accurate than Exa's
-  semantic search for finding specific discussion threads
 - Built-in WebSearch/WebFetch - use Exa/Firecrawl instead
 
 ## Languages

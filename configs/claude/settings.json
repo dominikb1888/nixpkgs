@@ -6,6 +6,13 @@
     "CLAUDE_DEEP_RESEARCH_DIR": "~/Documents/Obsidian Vault/Deep Research"
   },
   "permissions": {
+    "ask": [
+      "Bash(gh api *-X *)",
+      "Bash(gh api *--method *)",
+      "Bash(gh api *-f *)",
+      "Bash(gh api *-F *)",
+      "Bash(gh api *--input *)"
+    ],
     "allow": [
       "Bash(git add *)",
       "Bash(git branch *)",
@@ -50,6 +57,10 @@
       "Bash(gh pr diff *)",
       "Bash(gh pr list *)",
       "Bash(gh pr view *)",
+      "Bash(gh release list *)",
+      "Bash(gh release view *)",
+      "Bash(gh repo list *)",
+      "Bash(gh repo view *)",
       "Bash(gh run list *)",
       "Bash(gh run view *)",
       "Bash(gh search *)",
@@ -65,6 +76,7 @@
       "Bash(cargo build *)",
       "Bash(deno check *)",
       "Bash(deno lint *)",
+      "Bash(npx firecrawl-cli *)",
       "Bash(npx tsc *)",
       "Bash(npx tsx *)",
       "Bash(uv add *)",

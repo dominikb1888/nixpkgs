@@ -521,7 +521,8 @@ TeamDelete
 - **`references/question-types.md`** -- 7-type taxonomy, signals, decomposition rules,
   type-to-scope defaults. Read in Phase 0.
 - **`references/researcher-prompt.md`** -- Investigation methodology, type-aware source
-  evaluation, output format. Path provided to researchers in spawn prompt.
+  evaluation, output format. Path provided to researchers in spawn prompt. (Tool guidance
+  extracted to the standalone `search-tips` skill, which researchers load as their first step.)
 - **`references/templates/`** -- Type-specific synthesis templates. Read the relevant
   template(s) in Phase 5. See Template Selection table above.
 
