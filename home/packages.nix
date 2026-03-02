@@ -196,11 +196,13 @@ in
       inherit (pkgs.nodePackages)
         vscode-json-languageserver # JSON language server
         ;
-      inherit (pkgs.haskellPackages)
+      inherit (builtins.mapAttrs (_: pkgs.haskell.lib.compose.justStaticExecutables) pkgs.haskellPackages)
         cabal-install
-        hoogle
         hpack
         implicit-hie
+        ;
+      inherit (pkgs.haskellPackages)
+        hoogle
         ;
 
       # Useful nix related tools
@@ -208,7 +210,6 @@ in
         cachix # adding/managing alternative binary caches hosted by Cachix
         nix-output-monitor # get additional information while building packages
         nix-tree # interactively browse dependency graphs of Nix derivations
-        node2nix # generate Nix expressions to build NPM packages
         statix # lints and suggestions for the Nix programming language
         ;
 
