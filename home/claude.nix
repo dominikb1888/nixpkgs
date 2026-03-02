@@ -206,6 +206,7 @@ lib.mkMerge [
       config = {
         Label = "com.malo.1mcp";
         ProgramArguments = [ "${start1mcp}" ];
+        RunAtLoad = true;
         KeepAlive = {
           PathState = {
             "${homeDirectory}/.claude/secrets.env" = true;
