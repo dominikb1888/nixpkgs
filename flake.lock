@@ -235,6 +235,22 @@
         "url": "https://flakehub.com/f/cachix/git-hooks.nix/0.1.941"
       }
     },
+    "gws-cli": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1772733375,
+        "narHash": "sha256-kn+QzQomUBG5mBMTX8Wupe1ZCRrzmCFwuVESg3Ksr0I=",
+        "owner": "googleworkspace",
+        "repo": "cli",
+        "rev": "c6095ddb279e4f79bc7ea97ca12d44115733da64",
+        "type": "github"
+      },
+      "original": {
+        "owner": "googleworkspace",
+        "repo": "cli",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -471,6 +487,7 @@
         "determinate-nix": "determinate-nix",
         "flake-compat": "flake-compat_2",
         "flake-utils": "flake-utils",
+        "gws-cli": "gws-cli",
         "home-manager": "home-manager",
         "nix-colorizer": "nix-colorizer",
         "nix-index-database": "nix-index-database",
