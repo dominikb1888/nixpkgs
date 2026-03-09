@@ -27,11 +27,9 @@
     };
 
     # Google Workspace CLI (gws)
-    # TODO: Switch to `flake = true` once upstream fixes darwin.apple_sdk removal (PR #164).
-    # Then replace the from-source build in overlays with their flake package output.
     gws-cli = {
       url = "github:googleworkspace/cli";
-      flake = false;
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
     # Color math
@@ -147,16 +145,7 @@
           {
             # Packages from external flake inputs
             nix-colorizer = inputs.nix-colorizer;
-            gws = prev.rustPlatform.buildRustPackage {
-              pname = "gws";
-              version = (fromTOML (builtins.readFile "${inputs.gws-cli}/Cargo.toml")).package.version;
-              src = inputs.gws-cli;
-              cargoLock.lockFile = "${inputs.gws-cli}/Cargo.lock";
-              nativeBuildInputs = [ prev.pkg-config ];
-              buildInputs = prev.lib.optionals prev.stdenv.isDarwin [ prev.libiconv ];
-              doCheck = false;
-              meta.mainProgram = "gws";
-            };
+            gws = inputs.gws-cli.packages.${prev.stdenv.system}.gws;
 
             # Override packages that use nix to use Determinate Nix
             nix-update = prev.nix-update.override { nix = determinateNix; };
