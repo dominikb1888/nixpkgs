@@ -6,13 +6,6 @@
     "CLAUDE_DEEP_RESEARCH_DIR": "~/Documents/Obsidian Vault/Deep Research"
   },
   "permissions": {
-    "ask": [
-      "Bash(gh api *-X *)",
-      "Bash(gh api *--method *)",
-      "Bash(gh api *-f *)",
-      "Bash(gh api *-F *)",
-      "Bash(gh api *--input *)"
-    ],
     "allow": [
       "Bash(git add *)",
       "Bash(git branch *)",
@@ -101,6 +94,13 @@
       "Write(//tmp/**)",
       "Edit(//tmp/**)"
     ],
+    "ask": [
+      "Bash(gh api *-X *)",
+      "Bash(gh api *--method *)",
+      "Bash(gh api *-f *)",
+      "Bash(gh api *-F *)",
+      "Bash(gh api *--input *)"
+    ],
     "additionalDirectories": [
       "~/.claude",
       "~/Documents/Obsidian Vault"
@@ -151,7 +151,8 @@
     "cc-maintenance@malos-plugins": true,
     "claude-md-management@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
-    "haskell-lsp@malos-plugins": true
+    "haskell-lsp@malos-plugins": true,
+    "skill-creator@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "miri-tools": {
@@ -161,5 +162,6 @@
       }
     }
   },
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "effortLevel": "high"
 }
