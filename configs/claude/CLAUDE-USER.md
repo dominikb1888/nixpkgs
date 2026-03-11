@@ -33,44 +33,8 @@ For multi-step work, enter the shell once rather than wrapping each command.
 
 ## Web Tools
 
-**Prefer Exa and Firecrawl over built-in WebSearch/WebFetch.**
-
-### Search/Discovery → Exa
-When you need to find information but don't have a URL:
-- `web_search_advanced_exa` - Web search (supports domain/date/category filters, highlights, summaries)
-- `get_code_context_exa` - Code/programming (docs, examples, APIs, GitHub)
-
-**Query style:** Write natural language questions, not keyword lists. Exa uses semantic search that understands meaning.
-- Good: "What are the best practices for implementing RAG with vector databases in 2025?"
-- Bad: "RAG vector database best practices 2025"
-
-**Token efficiency:** The MCP server always returns full page text by default -- there is no
-way to disable it. Use `enableHighlights: true` and `textMaxCharacters: 1` to get quoted
-passages from actual page text while minimizing the text payload. Control volume with
-`highlightsPerUrl` and `highlightsNumSentences` if needed.
-
-**Category gotchas:** `tweet` rejects `includeText`, `excludeText`, `includeDomains`,
-`excludeDomains`, `moderation`. `company` rejects all date filters, `includeText`,
-`excludeText`, `includeDomains`, `excludeDomains`. `people` rejects date filters,
-`includeText`, `excludeText`, `excludeDomains`; `includeDomains` only accepts LinkedIn.
-Put filtering terms in `query` instead.
-`includeText`/`excludeText` only accept single-item arrays across all categories.
-
-### Content Extraction → Firecrawl CLI
-When you have a URL and need its content, use `npx firecrawl-cli`:
-- `scrape "<url>" --only-main-content` - Single URL (default). Always use the flag to save tokens;
-  retry without it if results are empty/partial
-- `search "query" --scrape` - Google keyword search + fetch. Site-scoped (`site:reddit.com`),
-  academic (`--categories research`), time-filtered (`--tbs qdr:w`)
-- `map "<url>" --search "query"` - Discover URLs on a site
-- `crawl "<url>" --limit 10 --wait` - Multi-page extraction (use sparingly)
-- `browser "open <url>"` - Interactive pages (last resort)
-
-Run `npx firecrawl-cli <command> --help` for all options. MCP tools (`firecrawl_scrape`, etc.)
-remain as fallbacks; `firecrawl_extract` (structured extraction with schema) is MCP-only.
-
-**Avoid:**
-- Built-in WebSearch/WebFetch - use Exa/Firecrawl instead
+**Use Exa and Firecrawl, not built-in WebSearch/WebFetch** (which are blocked by hook).
+Load `/search-tips` for detailed guidance on query patterns, tool selection, and gotchas.
 
 ## Languages
 - Primary: Nix, Haskell, TypeScript/JavaScript, Python

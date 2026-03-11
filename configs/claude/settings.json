@@ -3,7 +3,7 @@
   "env": {
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "CLAUDE_CODE_ADDITIONAL_DIRECTORIES_CLAUDE_MD": "1",
-    "CLAUDE_DEEP_RESEARCH_DIR": "~/Documents/Obsidian Vault/Deep Research"
+    "CLAUDE_DEEP_RESEARCH_DIR": "~/Documents/MalOS/Deep Research"
   },
   "permissions": {
     "allow": [
@@ -113,11 +113,11 @@
     ],
     "additionalDirectories": [
       "~/.claude",
-      "~/Documents/Obsidian Vault"
+      "~/Documents/MalOS"
     ]
   },
   "hooks": {
-    "PostToolUse": [
+    "PreToolUse": [
       {
         "matcher": "WebSearch|WebFetch",
         "hooks": [
@@ -126,7 +126,9 @@
             "command": "~/.claude/hooks/prefer-mcp-web-tools.sh"
           }
         ]
-      },
+      }
+    ],
+    "PostToolUse": [
       {
         "matcher": "Edit|Write",
         "hooks": [

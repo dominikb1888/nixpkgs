@@ -1,29 +1,18 @@
 #!/usr/bin/env bash
-# Soft nudge: Remind Claude to prefer Exa/Firecrawl after using WebSearch/WebFetch
+# Block WebSearch/WebFetch and redirect to the search-tips skill.
 #
-# This is a PostToolUse hook - it runs AFTER the tool completes and adds
-# context for Claude to consider for future calls.
+# PreToolUse hook — prevents the tool call from executing and tells Claude
+# to load the search-tips skill for guidance on using Exa/Firecrawl instead.
 
 set -euo pipefail
 
 tool_name=$(jq -r '.tool_name')
 
-if [[ "$tool_name" == "WebSearch" ]]; then
+if [[ "$tool_name" == "WebSearch" || "$tool_name" == "WebFetch" ]]; then
   cat << 'EOF'
 {
-  "hookSpecificOutput": {
-    "hookEventName": "PostToolUse",
-    "additionalContext": "Reminder: You used WebSearch, but user prefers mcp__1mcp__exa_1mcp_web_search_exa or mcp__1mcp__exa_1mcp_get_code_context_exa. Please use those for subsequent searches unless there's a specific reason not to."
-  }
-}
-EOF
-elif [[ "$tool_name" == "WebFetch" ]]; then
-  cat << 'EOF'
-{
-  "hookSpecificOutput": {
-    "hookEventName": "PostToolUse",
-    "additionalContext": "Reminder: You used WebFetch, but user prefers mcp__1mcp__firecrawl_1mcp_firecrawl_scrape. Please use that for subsequent URL fetches unless there's a specific reason not to."
-  }
+  "decision": "block",
+  "reason": "WebSearch and WebFetch are disabled. Use the search-tips skill (`/search-tips`) for guidance on using Exa and Firecrawl instead."
 }
 EOF
 fi
