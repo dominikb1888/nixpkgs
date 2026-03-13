@@ -28,7 +28,7 @@
 
     # Google Workspace CLI (gws)
     gws-cli = {
-      url = "github:googleworkspace/cli/v0.11.1";
+      url = "github:googleworkspace/cli/v0.13.2";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
