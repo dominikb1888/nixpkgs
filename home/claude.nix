@@ -138,6 +138,9 @@ lib.mkMerge [
   # Cross-platform configuration -------------------------------------------------------------------
 
   {
+    # Fullscreen rendering: flicker-free alternate screen buffer with mouse support
+    home.sessionVariables.CLAUDE_CODE_NO_FLICKER = "1";
+
     # Shell alias adds --mcp-config flag (Homebrew installs the binary via cask)
     home.shellAliases.claude = "claude --mcp-config ${mcpConfigPath}";
 
