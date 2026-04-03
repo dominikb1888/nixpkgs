@@ -1,7 +1,6 @@
 # Claude Code configuration with hybrid settings and 1MCP aggregator.
 #
 # This module:
-# - Adds shell alias with --mcp-config flag (Homebrew installs the binary)
 # - Runs 1MCP LaunchAgent to aggregate all MCP servers (macOS only)
 # - Symlinks config directories from configs/claude/ for live editing
 #
@@ -12,7 +11,7 @@
 #
 # MCP architecture:
 # - Server definitions: configs/claude/1mcp.json (symlinked to ~/.config/1mcp/mcp.json)
-# - 1MCP runs as a LaunchAgent (macOS); both CLI and Desktop connect to localhost:3050
+# - 1MCP runs as a LaunchAgent (macOS); CLI connects via `claude mcp add`, Desktop via config
 # - Secrets: 1Password Environment at ~/.claude/secrets.env
 {
   config,
@@ -51,14 +50,6 @@ let
   };
 
   # Implementation ---------------------------------------------------------------------------------
-
-  mcpConfigPath = "${homeDirectory}/.claude/mcp.json";
-
-  # CLI MCP config - connects to 1MCP via SSE
-  cliMcpConfig.mcpServers."1mcp" = {
-    type = "sse";
-    url = "http://localhost:${mcpPort}/sse";
-  };
 
   # Helper for human-readable JSON files
   toFormattedJSON =
@@ -141,16 +132,10 @@ lib.mkMerge [
     # Fullscreen rendering: flicker-free alternate screen buffer with mouse support
     home.sessionVariables.CLAUDE_CODE_NO_FLICKER = "1";
 
-    # Shell alias adds --mcp-config flag (Homebrew installs the binary via cask)
-    home.shellAliases.claude = "claude --mcp-config ${mcpConfigPath}";
-
     # 1MCP server config (symlinked for live editing)
     xdg.configFile."1mcp/mcp.json".source = mkOutOfStoreSymlink "${claudeDir}/1mcp.json";
 
     home.file = {
-      # Generated CLI config (points to 1MCP)
-      ".claude/mcp.json".source = toFormattedJSON cliMcpConfig;
-
       # Symlinked for live editing (no rebuild needed)
       ".claude/settings.json".source = mkOutOfStoreSymlink "${claudeDir}/settings.json";
       ".claude/CLAUDE.md".source = mkOutOfStoreSymlink "${claudeDir}/CLAUDE-USER.md";

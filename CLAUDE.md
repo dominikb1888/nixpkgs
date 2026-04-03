@@ -68,9 +68,10 @@ Files in `configs/` are symlinked via `mkOutOfStoreSymlink`, allowing edits with
   All other settings using portable `~` paths. Edit directly without rebuild.
 
 **MCP architecture:** Uses 1MCP to aggregate all MCP servers. Server definitions are in
-`configs/claude/1mcp.json` (symlinked to `~/.config/1mcp/mcp.json`). The Nix-generated
-`~/.claude/mcp.json` just points CLI to 1MCP on localhost:3050. 1MCP runs as a LaunchAgent
-(`com.malo.1mcp`, defined in `home/claude.nix`). After editing `1mcp.json`, restart it:
+`configs/claude/1mcp.json` (symlinked to `~/.config/1mcp/mcp.json`). CLI connects to 1MCP
+via `claude mcp add`; Desktop connects via proxy in its generated config. 1MCP runs as a
+LaunchAgent (`com.malo.1mcp`, defined in `home/claude.nix`). After editing `1mcp.json`,
+restart it:
 ```bash
 launchctl kickstart -k gui/$(id -u)/com.malo.1mcp
 ```
