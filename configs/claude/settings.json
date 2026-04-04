@@ -164,7 +164,8 @@
     "claude-md-management@claude-plugins-official": true,
     "pyright-lsp@claude-plugins-official": true,
     "haskell-lsp@malos-plugins": true,
-    "skill-creator@claude-plugins-official": true
+    "skill-creator@claude-plugins-official": true,
+    "pr-review-toolkit@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "miri-tools": {
