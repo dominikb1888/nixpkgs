@@ -107,6 +107,7 @@ programs.ssh = {
     comma # run software from without installing it
     devenv # Integrated solution for managing dev environments with nix
     ollama
+    opencode
     lorri
     niv # easy dependency management for nix projects
     # linuxkit # build linux binaries on macos
