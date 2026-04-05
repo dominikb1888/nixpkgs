@@ -142,6 +142,11 @@ in
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zoxide.enable
   programs.zoxide.enable = true;
 
+  # Home-manager's fish module sets generateCaches = true for apropos-based man completions, but
+  # on darwin (stateVersion >= 26.05) programs.man.package is null because macOS's built-in man is
+  # preferred over GNU man-db (nix-community/home-manager#8723). Disable to silence the warning.
+  programs.man.generateCaches = lib.mkForce false;
+
   # Zsh
   # https://nix-community.github.io/home-manager/options.xhtml#opt-programs.zsh.enable
   programs.zsh.enable = true;
@@ -193,8 +198,6 @@ in
         stack
         typescript
         uv
-        ;
-      inherit (pkgs.nodePackages)
         vscode-json-languageserver # JSON language server
         ;
       inherit (builtins.mapAttrs (_: pkgs.haskell.lib.compose.justStaticExecutables) pkgs.haskellPackages)
