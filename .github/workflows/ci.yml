@@ -21,13 +21,13 @@ jobs:
     steps:
 
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v20
+      uses: DeterminateSystems/nix-installer-action@v22
 
     - name: Setup Cachix
-      uses: cachix/cachix-action@v16
+      uses: cachix/cachix-action@v17
       with:
         name: malo
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
@@ -64,13 +64,13 @@ jobs:
     steps:
 
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Install Nix
-      uses: DeterminateSystems/nix-installer-action@v20
+      uses: DeterminateSystems/nix-installer-action@v22
 
     - name: Setup Cachix
-      uses: cachix/cachix-action@v16
+      uses: cachix/cachix-action@v17
       with:
         name: malo
         signingKey: ${{ secrets.CACHIX_SIGNING_KEY }}
