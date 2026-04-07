@@ -117,6 +117,16 @@
     ]
   },
   "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "date '+[Current time: %A %Y-%m-%d %H:%M %Z]'"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "WebSearch|WebFetch",
