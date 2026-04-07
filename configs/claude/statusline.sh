@@ -83,12 +83,16 @@ done
 # Strip leading shlvl indicator (e.g., " 3" showing shell depth)
 STARSHIP=$(starship prompt -p "$DIR" 2>/dev/null | sed -n '2p' | sed 's/^\x1b\[[0-9;]*m[^[]*\x1b\[0m //')
 
-# Build output: [Starship] 󰚩 Model · $Cost · Context [· Rate limits]
-OUTPUT=$(printf "%s  󰚩 %s · %s · ${CTX_COLOR}%s %dk/%dk (%d%%)${RESET}" \
-  "$STARSHIP" "$MODEL" "$COST_FMT" "$ICON" "$CURRENT_K" "$SIZE_K" "$PERCENT")
+# Build output: [Starship] 󰚩 Model · Context [· $Cost] [· Rate limits]
+OUTPUT=$(printf "%s  󰚩 %s · ${CTX_COLOR}%s %dk/%dk (%d%%)${RESET}" \
+  "$STARSHIP" "$MODEL" "$ICON" "$CURRENT_K" "$SIZE_K" "$PERCENT")
 
-if [ -n "$RATE_PARTS" ]; then
-  printf "%s · %b" "$OUTPUT" "$RATE_PARTS"
-else
-  printf "%s" "$OUTPUT"
+TAIL=""
+if [ "$(echo "$COST > 0" | bc)" -eq 1 ]; then
+  TAIL=" · ${COST_FMT}"
 fi
+if [ -n "$RATE_PARTS" ]; then
+  TAIL="${TAIL} · $(printf "%b" "$RATE_PARTS")"
+fi
+
+printf "%s%s" "$OUTPUT" "$TAIL"
