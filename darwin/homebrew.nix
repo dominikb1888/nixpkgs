@@ -39,6 +39,7 @@ in
     "Marked 2" = 890031187;
     "Notion Web Clipper" = 1559269364;
     Numbers = 361304891;
+    "Obsidian Web Clipper" = 6720708363;
     Pages = 361309726;
     Parcel = 375589283;
     Patterns = 429449079;
