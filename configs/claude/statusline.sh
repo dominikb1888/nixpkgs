@@ -7,7 +7,7 @@ set -euo pipefail
 input=$(cat)
 DIR=$(echo "$input" | jq -r '.workspace.current_dir')
 MODEL=$(echo "$input" | jq -r '.model.display_name')
-PERCENT=$(echo "$input" | jq -r '.context_window.used_percentage // 0')
+PERCENT=$(printf '%.0f' "$(echo "$input" | jq -r '.context_window.used_percentage // 0')")
 CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size')
 USAGE=$(echo "$input" | jq '.context_window.current_usage')
 COST=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
@@ -54,8 +54,9 @@ NOW=$(date +%s)
 RATE_PARTS=""
 
 for window in five_hour seven_day; do
-  PCT=$(echo "$input" | jq -r ".rate_limits.${window}.used_percentage // empty")
-  [ -z "$PCT" ] && continue
+  PCT_RAW=$(echo "$input" | jq -r ".rate_limits.${window}.used_percentage // empty")
+  [ -z "$PCT_RAW" ] && continue
+  PCT=$(printf '%.0f' "$PCT_RAW")
   [ "$PCT" -lt 50 ] && continue
 
   RESETS_AT=$(echo "$input" | jq -r ".rate_limits.${window}.resets_at")
