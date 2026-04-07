@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Claude Code status line with Starship integration
-# Format: [Starship prompt] │ Model │ $Cost │ Context% │ Rate limits (adaptive)
+# Format: [Starship prompt] │ Model │ Context% │ Rate limits (adaptive)
 
 set -euo pipefail
 
@@ -10,8 +10,6 @@ MODEL=$(echo "$input" | jq -r '.model.display_name')
 PERCENT=$(printf '%.0f' "$(echo "$input" | jq -r '.context_window.used_percentage // 0')")
 CONTEXT_SIZE=$(echo "$input" | jq -r '.context_window.context_window_size')
 USAGE=$(echo "$input" | jq '.context_window.current_usage')
-COST=$(echo "$input" | jq -r '.cost.total_cost_usd // 0')
-
 # Token counts for "Xk/Yk" display
 if [ "$USAGE" != "null" ]; then
   CURRENT_TOKENS=$(echo "$USAGE" | jq '.input_tokens + .cache_creation_input_tokens + .cache_read_input_tokens')
@@ -45,9 +43,6 @@ color_for_percent() {
 
 RESET="\033[0m"
 CTX_COLOR=$(color_for_percent "$PERCENT")
-
-# Format cost as $X.XX
-COST_FMT=$(printf '$%.2f' "$COST")
 
 # Rate limits (adaptive: hidden <50%, shown with color >=50%, reset timer >=90%)
 NOW=$(date +%s)
@@ -84,16 +79,12 @@ done
 # Strip leading shlvl indicator (e.g., " 3" showing shell depth)
 STARSHIP=$(starship prompt -p "$DIR" 2>/dev/null | sed -n '2p' | sed 's/^\x1b\[[0-9;]*m[^[]*\x1b\[0m //')
 
-# Build output: [Starship] 󰚩 Model · Context [· $Cost] [· Rate limits]
+# Build output: [Starship] 󰚩 Model · Context [· Rate limits]
 OUTPUT=$(printf "%s  󰚩 %s · ${CTX_COLOR}%s %dk/%dk (%d%%)${RESET}" \
   "$STARSHIP" "$MODEL" "$ICON" "$CURRENT_K" "$SIZE_K" "$PERCENT")
 
-TAIL=""
-if [ "$(echo "$COST > 0" | bc)" -eq 1 ]; then
-  TAIL=" · ${COST_FMT}"
-fi
 if [ -n "$RATE_PARTS" ]; then
-  TAIL="${TAIL} · $(printf "%b" "$RATE_PARTS")"
+  printf "%s · %b" "$OUTPUT" "$RATE_PARTS"
+else
+  printf "%s" "$OUTPUT"
 fi
-
-printf "%s%s" "$OUTPUT" "$TAIL"
