@@ -26,9 +26,9 @@
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 
-    # Google Workspace CLI (gws)
+    # Google Workspace CLI (gws) — pinned to our fixes branch until PRs land upstream
     gws-cli = {
-      url = "github:googleworkspace/cli/v0.22.3";
+      url = "github:malob/cli/gmail-fixes";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
 

@@ -261,16 +261,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1774550706,
-        "narHash": "sha256-7bkTSDX6Mr/QcHkqCAI6oTAjLWdWzNicnvUu0IG/ejQ=",
-        "owner": "googleworkspace",
+        "lastModified": 1775551587,
+        "narHash": "sha256-kjrq430kUkqFbUDl5PT7WpVsbdyLFCwqXHjq4+2F6ZI=",
+        "owner": "malob",
         "repo": "cli",
-        "rev": "c7c6646d7a3ab1851e535afc8fdbcc311ab4d440",
+        "rev": "f768cc1e1813ee78fa44fc2398339b3a64aa8c62",
         "type": "github"
       },
       "original": {
-        "owner": "googleworkspace",
-        "ref": "v0.22.3",
+        "owner": "malob",
+        "ref": "gmail-fixes",
         "repo": "cli",
         "type": "github"
       }
