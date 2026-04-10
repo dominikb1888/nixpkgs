@@ -58,14 +58,17 @@ for window in five_hour seven_day; do
   if [ "$window" = "five_hour" ]; then LABEL="5h"; else LABEL="7d"; fi
 
   CLR=$(color_for_percent "$PCT")
-  PART="${CLR}${LABEL}:${PCT}%"
-
-  # Show reset timer when >=90%
-  if [ "$PCT" -ge 90 ]; then
-    MINS=$(( (RESETS_AT - NOW) / 60 ))
-    if [ "$MINS" -lt 0 ]; then MINS=0; fi
-    PART="${PART} ↻${MINS}m"
+  SECS=$(( RESETS_AT - NOW ))
+  if [ "$SECS" -lt 0 ]; then SECS=0; fi
+  if [ "$SECS" -ge 86400 ]; then
+    TENTHS=$(( SECS * 10 / 86400 ))
+    TIMER="$(( TENTHS / 10 )).$(( TENTHS % 10 ))d"
+  else
+    H=$(( SECS / 3600 ))
+    M=$(( (SECS % 3600) / 60 ))
+    TIMER="${H}h$(printf '%02d' "$M")m"
   fi
+  PART="${CLR}${LABEL}:${PCT}% ↻${TIMER}"
 
   PART="${PART}${RESET}"
   if [ -n "$RATE_PARTS" ]; then
