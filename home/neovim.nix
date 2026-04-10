@@ -256,13 +256,14 @@ let
 
     # Bash
     # commented until https://github.com/NixOS/nixpkgs/pull/319882 is merged
+    # nodePackages.node2nix
     # nodePackages.bash-language-server
 
     # Lus Snip Dependency for Lua Regex
     luajitPackages.jsregexp
 
     # Javascript/Typescript
-    nodePackages.typescript-language-server
+    # nodePackages.typescript-language-server
 
     # Markdown
     marksman
@@ -280,7 +281,7 @@ let
     # Generic
 
     # Vim
-    nodePackages.vim-language-server
+    # nodePackages.vim-language-server
 
     #Other
     # nodePackages.vscode-langservers-extracted

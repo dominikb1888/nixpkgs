@@ -91,7 +91,7 @@ programs.ssh = {
     nmap
     unrar # extract RAR archives
     wget
-    goose-cli
+    # goose-cli
     # Dev stuff
     gemini-cli
 
@@ -114,7 +114,6 @@ programs.ssh = {
     nix-tree # interactively browse dependency graphs of Nix derivations
     nix-update # swiss-knife for updating nix packages
     nixpkgs-review # review pull-requests on nixpkgs
-    nodePackages.node2nix
     statix # lints and suggestions for the Nix programming language
     # research tools
     # zotero
