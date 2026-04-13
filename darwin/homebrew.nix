@@ -65,6 +65,7 @@ in
   homebrew.casks = [
     "1password"
     "anki"
+    "aqua-voice"
     "arq"
     "autodesk-fusion"
     "balenaetcher"
