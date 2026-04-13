@@ -47,6 +47,10 @@ let
   desktopPreferences = {
     chromeExtensionEnabled = true;
     quickEntryDictationShortcut = "capslock";
+    coworkWebSearchEnabled = true;
+    coworkScheduledTasksEnabled = true;
+    ccdScheduledTasksEnabled = true;
+    sidebarMode = "code";
   };
 
   # Implementation ---------------------------------------------------------------------------------
