@@ -54,7 +54,8 @@ Load `/search-tips` for detailed guidance on query patterns, tool selection, and
 - Small, focused functions
 - Avoid over-engineering
 - Markdown tables: align columns with spaces so they render correctly in the user's editor. For items with long descriptions, use blockquotes or lists instead—tables with very long rows are hard to read
-- Curly quotes/apostrophes: Claude Code normalizes these to straight quotes (known bug). Use Unicode escapes (`\u2018`, `\u2019`, `\u201C`, `\u201D`) when they must be preserved
+- Non-ASCII characters in files: write the actual character (ã, í, —, é, ñ). NEVER use `\uXXXX` escapes in markdown, plain text, or YAML — they write as six literal ASCII characters (e.g., `S\u00e3o Paulo`), not the intended character. `\u` escapes only work in contexts that parse them (JSON/Python/JS string literals)
+- Curly quotes/apostrophes: Claude Code has a known bug normalizing `'` `'` `"` `"` to straight quotes in tool-call arguments. There is no `\u` escape workaround for plain text files. When curly quotes must be preserved, write the file via `python3 -c` or a Bash heredoc containing the actual character, or use HTML entities (`&rsquo;`, `&ldquo;`, etc.) if the output will be rendered as HTML/markdown
 
 ## Working Style
 
