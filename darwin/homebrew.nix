@@ -101,6 +101,7 @@ in
     "pdf-expert"
     "postman"
     "protonvpn"
+    "qflipper"
     "raycast"
     "riverside-studio"
     "shortwave"
