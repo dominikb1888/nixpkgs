@@ -46,8 +46,6 @@
     prefmanager = {
       url = "github:malob/prefmanager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.flake-compat.follows = "flake-compat";
-      inputs.flake-utils.follows = "flake-utils";
     };
   };
 
@@ -76,7 +74,11 @@
         };
         overlays =
           attrValues self.overlays
-          ++ [ inputs.prefmanager.overlays.prefmanager ]
+          ++ [
+            (_: prev: {
+              prefmanager = inputs.prefmanager.packages.${prev.stdenv.hostPlatform.system}.prefmanager;
+            })
+          ]
           ++ singleton (
             _: prev:
             (optionalAttrs (prev.stdenv.hostPlatform.system == "aarch64-darwin") {
@@ -84,7 +86,12 @@
               # inherit (final.pkgs-x86) [...];
             })
             // {
-              # Add other overlays here if needed.
+              # Workaround for nixpkgs#513543: PR #508474 (apple-sdk → darwin
+              # stdenv migration) breaks zsh's autoconf sigsuspend probe, causing
+              # interactive zsh and `$(...)` reaping to hang. Fix landed in
+              # nixpkgs master (commit 19b2d2ace, 2026-04-27) but the unstable
+              # channel hasn't picked it up yet. Pin to master until it does.
+              inherit (prev.pkgs-master) zsh;
             }
           );
       };
