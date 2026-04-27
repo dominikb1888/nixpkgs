@@ -186,6 +186,9 @@
     }
   },
   "effortLevel": "high",
+  "skipDangerousModePermissionPrompt": true,
   "voiceEnabled": false,
-  "skipDangerousModePermissionPrompt": true
+  "theme": "auto",
+  "editorMode": "vim",
+  "preferredNotifChannel": "ghostty"
 }
