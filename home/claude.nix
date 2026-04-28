@@ -50,7 +50,11 @@ let
     coworkWebSearchEnabled = true;
     coworkScheduledTasksEnabled = true;
     ccdScheduledTasksEnabled = true;
-    sidebarMode = "code";
+    sidebarMode = "epitaxy";
+    bypassPermissionsModeEnabled = true;
+    autoPermissionsModeEnabled = true;
+    dispatchCodeTasksPermissionMode = "default";
+    keepAwakeEnabled = true;
   };
 
   # Implementation ---------------------------------------------------------------------------------
