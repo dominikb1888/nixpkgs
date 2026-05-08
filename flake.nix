@@ -20,8 +20,6 @@
     # Utility for watching macOS `defaults`.
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
-    prefmanager.inputs.flake-compat.follows = "flake-compat";
-    prefmanager.inputs.flake-utils.follows = "flake-utils";
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:
@@ -35,7 +33,9 @@
           allowUnfree = true;
         };
       overlays = attrValues self.overlays ++ [
-          inputs.prefmanager.overlays.prefmanager
+          (final: prev: {
+            prefmanager = inputs.prefmanager.packages.${prev.stdenv.system}.prefmanager;
+          })
         ] ++ singleton (
           final: prev: (optionalAttrs (prev.stdenv.system == "aarch64-darwin") {
             # Sub in x86 version of packages that don't build on Apple Silicon.
