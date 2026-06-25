@@ -20,7 +20,7 @@ in
 
   homebrew.enable = true;
   homebrew.onActivation.autoUpdate = true;
-  homebrew.onActivation.cleanup = "zap";
+  homebrew.onActivation.cleanup = "uninstall";
   homebrew.global.brewfile = true;
 
   # environment.pathsToLink = [ "/opt/homebrew/bin" "/opt/homebrew/sbin" ];
