@@ -101,6 +101,7 @@ programs.ssh = {
 
     #VPN
     gnupg
+    wireguard-tools
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
