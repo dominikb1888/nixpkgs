@@ -93,7 +93,7 @@ programs.ssh = {
     wget
     # goose-cli
     # Dev stuff
-    gemini-cli
+    antigravity-cli
 
     git-filter-repo
     nodejs
@@ -118,7 +118,7 @@ programs.ssh = {
     statix # lints and suggestions for the Nix programming language
     # research tools
     # zotero
-  ] ++ lib.optionals stdenv.isDarwin [
+  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     m-cli # useful macOS CLI commands
     pandoc
