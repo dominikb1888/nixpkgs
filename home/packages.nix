@@ -42,7 +42,7 @@ programs.ssh = {
   enable = true;
   enableDefaultConfig = false;
 
-  matchBlocks."*" = {
+  settings."*" = {
     forwardAgent = false;
     forwardX11 = false;
     serverAliveInterval = 30;
