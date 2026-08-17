@@ -51,12 +51,10 @@ programs.ssh = {
     controlPersist = "10m";
     controlPath = "~/.ssh/control-%r@%h:%p";
     compression = true;
-    extraOptions = {
-        Compression = "yes";
-        HashKnownHosts = "yes";
-        TCPKeepAlive = "yes";
-        ConnectTimeout = "10";
-    };
+    Compression = "yes";
+    HashKnownHosts = "yes";
+    TCPKeepAlive = "yes";
+    ConnectTimeout = "10";
 
       identityFile = [
         "~/.ssh/id_rsa"
