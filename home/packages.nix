@@ -92,6 +92,7 @@ programs.ssh = {
     # goose-cli
     # Dev stuff
     antigravity-cli
+    qwen-code
 
     git-filter-repo
     nodejs
