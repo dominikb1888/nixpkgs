@@ -77,6 +77,7 @@ programs.ssh = {
     coreutils
     curl
     ripgrep
+    ast-grep
     fzf # fuzzy commandline finder
     eza # fancy version of `ls`
     fabric-ai
