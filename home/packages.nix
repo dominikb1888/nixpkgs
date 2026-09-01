@@ -94,6 +94,7 @@ programs.ssh = {
     # Dev stuff
     antigravity-cli
     qwen-code
+    nushell
 
     git-filter-repo
     nodejs
