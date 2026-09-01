@@ -80,22 +80,23 @@ programs.ssh = {
     ast-grep
     fzf # fuzzy commandline finder
     eza # fancy version of `ls`
-    fabric-ai
     fd # fancy version of `find`
-    ffmpeg
-    git-lfs
+    procs # fancy version of ps
+    duf # fancy version of df
+    unrar # extract RAR archives
     btop # fancy version of `top`
+    nushell
+
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
     nmap
-    unrar # extract RAR archives
     wget
-    # goose-cli
     # Dev stuff
     antigravity-cli
     qwen-code
-    nushell
+    git-lfs
 
+    ffmpeg
     git-filter-repo
     nodejs
     uv
