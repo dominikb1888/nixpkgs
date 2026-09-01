@@ -85,7 +85,9 @@ programs.ssh = {
     duf # fancy version of df
     unrar # extract RAR archives
     btop # fancy version of `top`
+
     nushell
+    (pkgs.python3.withPackages (ps: [ ps.toon-format ]))
 
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
