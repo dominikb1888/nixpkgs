@@ -29,6 +29,8 @@
   # Dock and Mission Control
   system.defaults.dock = {
     autohide = true;
+    autohide-delay = 0.0;
+    autohide-time-modifier = 0.15;
     expose-group-apps = false;
     mru-spaces = false;
     tilesize = 64;
@@ -37,6 +39,14 @@
     wvous-br-corner = 1;
     wvous-tl-corner = 1;
     wvous-tr-corner = 1;
+  };
+
+  # Prevent .DS_Store files on network and USB volumes
+  system.defaults.CustomUserPreferences = {
+    "com.apple.desktopservices" = {
+      DSDontWriteNetworkStores = true;
+      DSDontWriteUSBStores = true;
+    };
   };
 
   # Login and lock screen
@@ -56,6 +66,7 @@
 
   # Finder
   system.defaults.finder = {
+    AppleShowAllExtensions = true;
     FXEnableExtensionChangeWarning = true;
     NewWindowTarget = "Home";
     ShowPathbar = true;

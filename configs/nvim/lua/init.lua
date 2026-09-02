@@ -1,3 +1,7 @@
+if vim.loader then
+  vim.loader.enable()
+end
+
 local utils = require 'malo.utils'
 local augroup = utils.augroup
 local keymaps = utils.keymaps
