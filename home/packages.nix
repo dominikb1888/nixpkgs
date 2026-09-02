@@ -87,7 +87,9 @@ programs.ssh = {
     btop # fancy version of `top`
 
     nushell
-    (pkgs.python3.withPackages (ps: [ ps.toon-format ]))
+
+    (pkgs.callPackage ../pkgs/toon-cli.nix { })
+
 
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew

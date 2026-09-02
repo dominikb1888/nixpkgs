@@ -172,19 +172,7 @@
               "USB 10/100/1000 LAN"
             ];
             nix.registry.my.flake = inputs.self;
-            system.activationScripts = {
-              pathLogger = {
-                text = ''
-                  echo $PATH > /tmp/path.log
-                '';
-              };
-              testScript = {
-                text = ''
-                  echo "hello" > /tmp/test.log
-                '';
-              };
-            };
-          }) ;
+          });
           inherit homeStateVersion;
           homeModules = attrValues self.homeManagerModules;
         });
@@ -219,6 +207,9 @@
       # This is handy in combination with setting `nix.registry.my.flake = inputs.self`.
       # Allows doing things like `nix run my#prefmanager -- watch --all`
       legacyPackages = import inputs.nixpkgs-unstable (nixpkgsDefaults // { inherit system; });
+
+      # Code formatter for `nix fmt`
+      formatter = self.legacyPackages.${system}.nixpkgs-fmt;
 
       # Development shells ----------------------------------------------------------------------{{{
       # Shell environments for development

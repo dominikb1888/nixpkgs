@@ -111,10 +111,14 @@ let
     ${colorSetToVimscript config.colors.malo-ok-solar-light.namedColors}
     lua require('init')
     lua <<EOF
-            require'nvim-treesitter.config'.setup {      highlight = { enable = true },
-      incremental_selection = { enable = true },
-      indent = { enable = true },
-    }
+    pcall(function()
+      vim.cmd 'packadd nvim-treesitter'
+      require'nvim-treesitter.configs'.setup {
+        highlight = { enable = true },
+        incremental_selection = { enable = true },
+        indent = { enable = true },
+      }
+    end)
     EOF
   '';
 
@@ -198,10 +202,10 @@ let
     # Language support/utilities
     # { use = agda-vim; ft = [ "agda" ]; }
     # { use = vim-haskell-module-name; vscode = true; ft = [ "haskell" ]; }
-    { use = vim-polyglot; config = requireConf vim-polyglot; }
+    { use = vim-polyglot; config = requireConf vim-polyglot; event = [ "BufReadPre" "BufNewFile" ]; }
 
     # Editor behavior
-    { use = comment-nvim; config = "require'comment'.setup()"; }
+    { use = comment-nvim; config = "require'Comment'.setup()"; }
     { use = editorconfig-vim; setup = "vim.g.EditorConfig_exclude_patterns = { 'fugitive://.*' }"; }
     #{ use = tabular; vscode = true; }
     { use = vim-surround; vscode = true; }
@@ -255,9 +259,7 @@ let
     ccls
 
     # Bash
-    # commented until https://github.com/NixOS/nixpkgs/pull/319882 is merged
-    # nodePackages.node2nix
-    # nodePackages.bash-language-server
+    bash-language-server
 
     # Lus Snip Dependency for Lua Regex
     luajitPackages.jsregexp
@@ -279,13 +281,14 @@ let
     pyright
 
     # Generic
+    tree-sitter
 
     # Vim
     # nodePackages.vim-language-server
 
-    #Other
-    # nodePackages.vscode-langservers-extracted
-    # nodePackages.yaml-language-server
+    # Other
+    vscode-langservers-extracted
+    yaml-language-server
     lua-language-server
   ];
   # }}}
