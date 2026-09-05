@@ -97,7 +97,7 @@ programs.ssh = {
     wget
     # Dev stuff
     antigravity-cli
-    qwen-code
+    ollama
     git-lfs
 
     ffmpeg
