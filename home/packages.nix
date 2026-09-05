@@ -98,6 +98,7 @@ programs.ssh = {
     # Dev stuff
     antigravity-cli
     ollama
+    aider-chat
     git-lfs
 
     ffmpeg
