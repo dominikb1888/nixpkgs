@@ -115,9 +115,9 @@ programs.ssh = {
     devenv # Integrated solution for managing dev environments with nix
 
     # AI Agent Infrastructure
-    ollama # Run local models
+    #ollama # Run local models
     opencode # File system Access
-    exo # Orchestrating multiple devices
+    # exo # Orchestrating multiple devices
 
     lorri
     niv # easy dependency management for nix projects
