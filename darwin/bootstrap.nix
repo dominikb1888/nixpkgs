@@ -36,7 +36,15 @@
     # keep-derivations = true;
     keep-outputs = true;
   };
-  nix.linux-builder.enable = true;
+  nix.linux-builder = {
+    enable = true;
+    ephemeral = true;
+    maxJobs = 4;
+    config = {
+      # Prevent host-side virtiofsd evaluation on aarch64-darwin
+      virtualisation.sharedDirectories = lib.mkForce {};
+    };
+  };
   #nix.configureBuildUsers = true;
   ids.gids.nixbld = 350;
 
