@@ -43,6 +43,12 @@
     config = {
       # Prevent host-side virtiofsd evaluation on aarch64-darwin
       virtualisation.sharedDirectories = lib.mkForce {};
+      virtualisation = {
+        darwin-builder = {
+          diskSize = 40 * 1024;
+          memorySize = 8 * 1024;
+        };
+      };
     };
   };
   #nix.configureBuildUsers = true;
