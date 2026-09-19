@@ -37,18 +37,6 @@
     keep-outputs = true;
   };
 
-  nix.linux-builder = {
-  enable = true;
-  ephemeral = true;
-  maxJobs = 4;
-
-  # Override guest virtualisation options to disable virtiofs
-  config = {
-    virtualisation.fileSystems = {};
-    virtualisation.useVirtiofs = false;
-  };
-};
-  #nix.configureBuildUsers = true;
   ids.gids.nixbld = 350;
 
   nix.channel.enable = true;
