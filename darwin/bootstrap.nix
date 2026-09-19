@@ -39,17 +39,7 @@
   nix.linux-builder = {
     enable = true;
     ephemeral = true;
-    maxJobs = 4;
-    config = {
-      # Prevent host-side virtiofsd evaluation on aarch64-darwin
-      virtualisation.sharedDirectories = lib.mkForce {};
-      virtualisation = {
-        darwin-builder = {
-          diskSize = 40 * 1024;
-          memorySize = 8 * 1024;
-        };
-      };
-    };
+    virtiofsd.enable = false;
   };
   #nix.configureBuildUsers = true;
   ids.gids.nixbld = 350;
