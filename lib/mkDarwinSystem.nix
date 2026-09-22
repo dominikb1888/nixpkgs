@@ -7,10 +7,10 @@ inputs:
 , system ? "x86_64-darwin"
 
 # `nix-darwin` modules to include
-, modules ? [ inputs.omp.homeManagerModules.default ]
+, modules ? [ ]
 # Additional `nix-darwin` modules to include, useful when reusing a configuration with
 # `lib.makeOverridable`.
-, extraModules ? [ ]
+, extraModules ? [ inputs.omp.homeManagerModules.default ]
 
 # Value for `home-manager`'s `home.stateVersion` option.
 , homeStateVersion
