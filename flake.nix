@@ -20,6 +20,9 @@
     # Utility for watching macOS `defaults`.
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
+
+    omp.url = "github:can1357/oh-my-pi";
+    omp.inputs.nixpkgs.follows = "nixpkgs-unstable";
   };
 
   outputs = { self, darwin, home-manager, flake-utils, ... }@inputs:

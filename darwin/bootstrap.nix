@@ -2,6 +2,7 @@
 
 {
   # Nix configuration ------------------------------------------------------------------------------
+  imports = [ inputs.omp.homeManagerModules.default ];
 
   nix.settings = {
     substituters = [
@@ -61,6 +62,12 @@
 
   # Install and setup ZSH to work with nix(-darwin) as well
   programs.zsh.enable = true;
+
+
+  programs.omp = {
+    enable = true;
+    settings.startup.quiet = true;
+  };
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
