@@ -10,7 +10,7 @@ inputs:
 , modules ? [ ]
 # Additional `nix-darwin` modules to include, useful when reusing a configuration with
 # `lib.makeOverridable`.
-, extraModules ? [ inputs.omp.homeManagerModules.default ]
+, extraModules ? [ ]
 
 # Value for `home-manager`'s `home.stateVersion` option.
 , homeStateVersion
@@ -25,6 +25,7 @@ inputs.darwin.lib.darwinSystem {
   inherit system;
   modules = modules ++ extraModules ++ [
     inputs.home-manager.darwinModules.home-manager
+    inputs.omp.homeManagerModules.default
     ({ config, ... }: {
       users.primaryUser = { inherit username fullName email nixConfigDirectory; };
 
