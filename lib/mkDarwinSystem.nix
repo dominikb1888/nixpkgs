@@ -7,7 +7,7 @@ inputs:
 , system ? "x86_64-darwin"
 
 # `nix-darwin` modules to include
-, modules ? [ ]
+, modules ? [ inputs.omp.homeManagerModules.default ]
 # Additional `nix-darwin` modules to include, useful when reusing a configuration with
 # `lib.makeOverridable`.
 , extraModules ? [ ]

@@ -2,8 +2,6 @@
 
 {
   # Nix configuration ------------------------------------------------------------------------------
-  imports = [ inputs.omp.homeManagerModules.default ];
-
   nix.settings = {
     substituters = [
       "https://cache.nixos.org/"
