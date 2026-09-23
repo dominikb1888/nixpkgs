@@ -62,11 +62,6 @@
   programs.zsh.enable = true;
 
 
-  programs.omp = {
-    enable = true;
-    settings.startup.quiet = true;
-  };
-
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 4;
