@@ -118,7 +118,7 @@ programs.ssh = {
     #ollama # Run local models
     opencode # File system Access
     # exo # Orchestrating multiple devices
-
+    omp
     lorri
     niv # easy dependency management for nix projects
     # linuxkit # build linux binaries on macos
