@@ -119,6 +119,8 @@ programs.ssh = {
     opencode # File system Access
     # exo # Orchestrating multiple devices
     omp
+    herdr
+
     lorri
     niv # easy dependency management for nix projects
     # linuxkit # build linux binaries on macos
