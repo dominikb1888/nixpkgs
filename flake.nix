@@ -22,7 +22,7 @@
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     omp.url = "github:can1357/oh-my-pi";
-    omp.inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # omp.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     devenv.url = "github:cachix/devenv";
     devenv.inputs.nixpkgs.follows = "nixpkgs-unstable";

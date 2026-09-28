@@ -259,6 +259,10 @@ in
     set -x FZF_DEFAULT_COMMAND 'rg --files --no-ignore --hidden --follow --glob "!.git/" --glob "!node_modules/" --glob "!vendor/" --glob "!undo/" --glob "!plugged/"'
     # set -x BAT_THEME 'gruvbox-dark'
 
+    set -Ux FM_BACKEND herdr
+    set -Ux FM_HOME "$HOME/firstmate"
+    set -Ux HERDR_SKILL_PATH "$HOME/.config/herdr/agent-instructions.md"
+
     export EXA_ICON_SPACING=2
     direnv hook fish | source
   '';
