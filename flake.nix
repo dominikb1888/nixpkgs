@@ -21,7 +21,7 @@
     prefmanager.url = "github:malob/prefmanager";
     prefmanager.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
-    omp.url = "github:can1357/oh-my-pi";
+    omp.url = "github:can1357/oh-my-pi/main";
     # omp.inputs.nixpkgs.follows = "nixpkgs-unstable";
 
     devenv.url = "github:cachix/devenv";
