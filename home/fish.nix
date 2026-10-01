@@ -262,6 +262,7 @@ in
     set -Ux FM_BACKEND herdr
     set -Ux FM_HOME "$HOME/firstmate"
     set -Ux HERDR_SKILL_PATH "$HOME/.config/herdr/agent-instructions.md"
+    set -gx FM_HARNESS omp
 
     export EXA_ICON_SPACING=2
     direnv hook fish | source
