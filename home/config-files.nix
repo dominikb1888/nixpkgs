@@ -14,10 +14,6 @@ in
   xdg.enable = true;
   home.preferXdgDirectories = true;
 
-  # Default editor
-  home.sessionVariables.EDITOR = "zed --wait";
-  home.sessionVariables.VISUAL = "zed --wait";
-
   # Bundler (Ruby)
   # https://bundler.io/v2.5/man/bundle-config.1.html
   home.sessionVariables.BUNDLE_USER_CONFIG = "${configHome}/bundle/config";
