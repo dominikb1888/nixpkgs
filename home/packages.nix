@@ -117,6 +117,7 @@ programs.ssh = {
     # AI Agent Infrastructure
     #ollama # Run local models
     opencode # File system Access
+    github-copilot-cli
     # exo # Orchestrating multiple devices
     omp
     herdr
