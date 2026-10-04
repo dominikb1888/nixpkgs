@@ -1,7 +1,17 @@
+# Local build artifacts
+result
+result-*
+.DS_Store
+**/.DS_Store
+.direnv
+.devenv
+.nix-shell
+
+# Local-only configuration / secrets
+private.nix
+private-*.nix
+
+# Project-specific generated files
 pkgs/ruby-gems/vendor
 pkgs/ruby-gems/.bundle
 pkgs/python-packages/requirements_frozen.txt
-
-
-private.nix
-private.nix
