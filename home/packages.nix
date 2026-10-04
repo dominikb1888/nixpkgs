@@ -122,6 +122,7 @@ programs.ssh = {
     omp
     herdr
     litellm
+    (pkgs.callPackage ../pkgs/herdev.nix { })
 
     lorri
     niv # easy dependency management for nix projects
