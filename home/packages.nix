@@ -121,6 +121,7 @@ programs.ssh = {
     # exo # Orchestrating multiple devices
     omp
     herdr
+    litellm
 
     lorri
     niv # easy dependency management for nix projects
