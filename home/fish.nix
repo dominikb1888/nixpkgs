@@ -260,10 +260,10 @@ in
     # set -x BAT_THEME 'gruvbox-dark'
 
     set -Ux FM_BACKEND herdr
-    set -Ux FM_HOME "$HOME/firstmate"
+    set -Ux FM_HOME "$HOME/Firstmate"
     set -Ux HERDR_SKILL_PATH "$HOME/.config/herdr/agent-instructions.md"
     set -gx FM_HARNESS omp
-    set -gx FM_OMP_HARNESS ollama launch omp
+    set -gx FM_OMP_HARNESS "omp --model openai/local --add-dir \"$HOME/Firstmate\""
 
 
     export EXA_ICON_SPACING=2

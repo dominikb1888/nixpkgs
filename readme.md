@@ -39,3 +39,39 @@ In no particular order:
   * using a self-made WIP Solarized based [colorscheme](./configs/nvim/lua/malo/theme.lua) with Neovim; and
   * a [Fish shell config](./home/fish.nix), which provides a `toggle-background` function (and an alias `tb`) which toggles a universal environment variable (`$term_background`) between the values `"light"` and `"dark"`, along with `set-shell-colors` function which trigger automatically when `$term_background` changes.
 * A nice [shell prompt config](./home/starship.nix) for Fish using Starship.
+
+## Herdev
+
+`herdev` starts or reuses the local Ollama and LiteLLM services, then opens a
+project-named Herdr session with OMP's `openai/local` model pointed at LiteLLM.
+The default Ollama model is `qwen3-coder:30b-a3b-q8_0`; select another installed
+model with `HERDEV_OLLAMA_MODEL`. LiteLLM binds to loopback and uses a local-only
+development key. Other OMP providers (including Copilot and Antigravity) remain
+available as direct alternatives. Firstmate is an instruction/context directory,
+not a process: the launcher adds `~/Firstmate` to OMP with `--add-dir` and sets
+`FM_HOME` to that directory.
+
+Run `herdev` from a project directory to start or attach to its Herdr session.
+Use `herdev stop` from the same directory to stop the named session and its
+project-local LiteLLM proxy. Ollama stays available while any other named
+Herdr session is running.
+To launch it automatically from a project using devenv and direnv, add this to
+the project's `devenv.nix`:
+
+```nix
+{
+  enterShell = ''
+    if [ -t 0 ] && [ -t 1 ]; then
+      herdev
+    fi
+  '';
+}
+```
+
+Then add `use devenv` to `.envrc` and run `direnv allow`. This launches the
+interactive Herdr session when entering the project's devenv shell. LiteLLM
+uses a project-specific loopback port by default; set
+`HERDEV_LITELLM_PORT` to override it. Services started by `herdev` stay up after
+detaching so the persistent Herdr session continues to work, and are stopped by
+`herdev stop` (services that were already running are left untouched). Set
+`HERDEV_SESSION_NAME` to override the generated Herdr session name.

@@ -218,6 +218,8 @@
       # Code formatter for `nix fmt`
       formatter = self.legacyPackages.${system}.nixpkgs-fmt;
 
+      packages.herdev = self.legacyPackages.${system}.callPackage ./pkgs/herdev.nix { };
+
       # Development shells ----------------------------------------------------------------------{{{
       # Shell environments for development
       # With `nix.registry.my.flake = inputs.self`, development shells can be created by running,
