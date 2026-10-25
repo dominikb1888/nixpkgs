@@ -130,6 +130,7 @@ programs.ssh = {
     nix-tree # interactively browse dependency graphs of Nix derivations
     nix-update # swiss-knife for updating nix packages
     nixpkgs-review # review pull-requests on nixpkgs
+    vulnix
     statix # lints and suggestions for the Nix programming language
     # research tools
     # zotero
