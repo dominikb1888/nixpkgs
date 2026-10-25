@@ -22,10 +22,10 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  security.pki.caCertificateBlacklist = [
-    "Comodo AAA Services root"
-    "emSign ECC Root CA - G3"
-  ];
+  # security.pki.caCertificateBlacklist = [
+  #   "Comodo AAA Services root"
+  #   "emSign ECC Root CA - G3"
+  # ];
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
