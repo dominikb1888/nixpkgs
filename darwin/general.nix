@@ -22,10 +22,13 @@
   # Add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
 
-  # security.pki.caCertificateBlacklist = [
-  #   "Comodo AAA Services root"
-  #   "emSign ECC Root CA - G3"
-  # ];
+  security.pki.caCertificateBlacklist = [
+    # nss-cacert errors if a blacklisted root is absent from the store, so list
+    # only roots it currently ships. "emSign ECC Root CA - G3" was dropped: it's
+    # no longer in nss-cacert 3.131.1, so blacklisting it is both a no-op and a
+    # build-breaker. Re-add a root only after confirming nss-cacert still ships it.
+    "Comodo AAA Services root"
+  ];
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

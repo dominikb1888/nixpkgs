@@ -88,9 +88,6 @@ programs.ssh = {
 
     nushell
 
-    (pkgs.callPackage ../pkgs/toon-cli.nix { })
-
-
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
     nmap
@@ -102,7 +99,8 @@ programs.ssh = {
 
     ffmpeg
     git-filter-repo
-    nodejs
+    pre-commit # git pre-commit hook framework
+    trufflehog # secret scanner, wired in via the pre-commit hook
     uv
 
     #VPN
@@ -117,14 +115,12 @@ programs.ssh = {
     # AI Agent Infrastructure
     #ollama # Run local models
     opencode # File system Access
-    github-copilot-cli
     # exo # Orchestrating multiple devices
     omp
     herdr
     litellm
     (pkgs.callPackage ../pkgs/herdev.nix { })
 
-    lorri
     niv # easy dependency management for nix projects
     # linuxkit # build linux binaries on macos
     nix-tree # interactively browse dependency graphs of Nix derivations
@@ -137,7 +133,6 @@ programs.ssh = {
   ] ++ lib.optionals stdenv.hostPlatform.isDarwin [
     hugo # static page builder for blog --current issue with maocs SDK, seems to be fixed by PR github/nixos/nixpakgs#176661
     m-cli # useful macOS CLI commands
-    pandoc
     # prefmanager # tool for working with macOS defaults
     slides
     # texliveSmall

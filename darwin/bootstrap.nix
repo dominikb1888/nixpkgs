@@ -14,7 +14,7 @@
       "malo.cachix.org-1:fJL4+lpyMs/1cdZ23nPQXArGj8AS7x9U67O8rMkkMIo="
     ];
 
-    trusted-users = [ "@admin" ];
+    trusted-users = [ "dominikb1888" ];
 
     extra-trusted-users = [ "dominikb1888" ];
 
@@ -42,7 +42,8 @@
 
   # Auto upgrade nix package and the daemon service.
   # services.nix-daemon.enable = true;
-  services.lorri.enable = true;
+  # lorri removed: the project is unmaintained and runs a per-user daemon.
+  # Use direnv (already installed) + nix profile / nix-daemon instead.
 
   # Shells -----------------------------------------------------------------------------------------
 

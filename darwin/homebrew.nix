@@ -33,7 +33,7 @@ in
     "homebrew/services"
     "nrlquaker/createzap"
     "muesli/homebrew-tap"
-    "linuxkit/linuxkit"
+  # linuxkit/linuxkit removed: project abandoned 2022, provides nothing used here.
   ];
 
   # Prefer installing application from the Mac App Store

@@ -15,3 +15,12 @@ private-*.nix
 pkgs/ruby-gems/vendor
 pkgs/ruby-gems/.bundle
 pkgs/python-packages/requirements_frozen.txt
+# User state / dotfiles — kept on disk, managed outside this repo.
+# Some of these may contain secrets (e.g. OAuth client secrets in Alfred
+# workflows), so they must never be committed to a public repo.
+home/Alfred Preferences/
+home/.jupyter/
+home/.ipython/
+home/.pandoc/
+home/.nvim/
+home/RectangleConfig.json
