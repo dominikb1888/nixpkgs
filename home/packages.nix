@@ -86,7 +86,7 @@ programs.ssh = {
     unrar # extract RAR archives
     btop # fancy version of `top`
 
-    ghostty
+    ghostty-bin
 
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
