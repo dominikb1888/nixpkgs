@@ -86,7 +86,7 @@ programs.ssh = {
     unrar # extract RAR archives
     btop # fancy version of `top`
 
-    nushell
+    # nushell
 
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
@@ -94,7 +94,7 @@ programs.ssh = {
     wget
     # Dev stuff
     antigravity-cli
-    ollama
+    # ollama
     git-lfs
 
     ffmpeg
@@ -109,17 +109,17 @@ programs.ssh = {
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix
-    comma # run software from without installing it
+    # comma # run software from without installing it
     devenv # Integrated solution for managing dev environments with nix
 
     # AI Agent Infrastructure
     #ollama # Run local models
-    opencode # File system Access
+    # opencode # File system Access
     # exo # Orchestrating multiple devices
-    omp
-    herdr
-    litellm
-    (pkgs.callPackage ../pkgs/herdev.nix { })
+    # omp
+    # herdr
+    # litellm
+    # (pkgs.callPackage ../pkgs/herdev.nix { })
 
     niv # easy dependency management for nix projects
     # linuxkit # build linux binaries on macos
