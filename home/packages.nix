@@ -86,7 +86,7 @@ programs.ssh = {
     unrar # extract RAR archives
     btop # fancy version of `top`
 
-    # nushell
+    ghostty
 
     hyperfine # benchmarking tool
     #marp # cli presentation tool -- currently insecure installed via brew
@@ -102,10 +102,6 @@ programs.ssh = {
     pre-commit # git pre-commit hook framework
     trufflehog # secret scanner, wired in via the pre-commit hook
     uv
-
-    #VPN
-    gnupg
-    wireguard-tools
 
     # Useful nix related tools
     cachix # adding/managing alternative binary caches hosted by Cachix

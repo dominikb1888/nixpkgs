@@ -50,24 +50,12 @@ in
   # limitiations, e.g., Transmit, install the Homebrew Cask.
   homebrew.casks = [
     "alfred"
-    "burp-suite"
-    "gpg-suite"
     "google-chrome"
     "onedrive"
     "notunes"
-    "protege"
-    "ghostty"
-    "r-app"
-    "rstudio"
     "microsoft-teams"
-    "visual-studio-code"
     "vlc"
-    "zap"
   ];
-
-  # Hack: https://github.com/ghostty-org/ghostty/discussions/2832
-  environment.variables.XDG_DATA_DIRS =
-    mkIf (caskPresent "ghostty") ["$GHOSTTY_SHELL_INTEGRATION_XDG_DIR"];
 
   # For cli packages that aren't currently available for macOS in `nixpkgs`.Packages should be
   # installed in `../home/default.nix` whenever possible.
