@@ -28,12 +28,8 @@ in
   environment.shellInit = "export PATH=\"/opt/homebrew/bin:$PATH\"";
 
   homebrew.taps = [
-  #  "homebrew/cask-fonts"
-  #  "homebrew/cask-versions"
     "homebrew/services"
-    "nrlquaker/createzap"
     "muesli/homebrew-tap"
-  # linuxkit/linuxkit removed: project abandoned 2022, provides nothing used here.
   ];
 
   # Prefer installing application from the Mac App Store
